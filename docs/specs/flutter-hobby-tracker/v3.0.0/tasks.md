@@ -26,6 +26,7 @@ Social sharing, AI suggestions, home screen widgets, and multi-language support.
     - _Requirements: 20.4_
 
 - [x] 2. Checkpoint — i18n
+  - [x] 2.1 Replace app icon with custom hobby tracker icon (all platforms)
 
 - [x] 3. Social sharing
   - [x] 3.1 Create ShareProgressCard data model
