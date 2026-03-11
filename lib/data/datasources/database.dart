@@ -15,6 +15,7 @@ class HobbyTable extends Table {
   TextColumn get iconName => text()();
   IntColumn get color => integer()();
   DateTimeColumn get createdAt => dateTime()();
+  DateTimeColumn get updatedAt => dateTime().nullable()();
   BoolColumn get isArchived =>
       boolean().withDefault(const Constant(false))();
 
@@ -29,7 +30,9 @@ class SessionTable extends Table {
   IntColumn get durationMinutes => integer()();
   TextColumn get notes => text().nullable()();
   IntColumn get rating => integer().nullable()();
+  TextColumn get photoPaths => text().nullable()();
   DateTimeColumn get createdAt => dateTime()();
+  DateTimeColumn get updatedAt => dateTime().nullable()();
 
   @override
   Set<Column> get primaryKey => {id};
@@ -44,18 +47,59 @@ class GoalTable extends Table {
   DateTimeColumn get endDate => dateTime()();
   BoolColumn get isActive =>
       boolean().withDefault(const Constant(true))();
+  DateTimeColumn get updatedAt => dateTime().nullable()();
 
   @override
   Set<Column> get primaryKey => {id};
 }
 
-@DriftDatabase(tables: [HobbyTable, SessionTable, GoalTable])
+class UserBadgeTable extends Table {
+  TextColumn get id => text()();
+  TextColumn get badgeType => text()();
+  TextColumn get hobbyId => text().nullable().references(HobbyTable, #id)();
+  DateTimeColumn get unlockedAt => dateTime()();
+
+  @override
+  Set<Column> get primaryKey => {id};
+}
+
+class ReminderTable extends Table {
+  TextColumn get id => text()();
+  TextColumn get hobbyId => text().references(HobbyTable, #id)();
+  TextColumn get time => text()();
+  TextColumn get weekDays => text()();
+  BoolColumn get isActive =>
+      boolean().withDefault(const Constant(true))();
+
+  @override
+  Set<Column> get primaryKey => {id};
+}
+
+@DriftDatabase(
+    tables: [HobbyTable, SessionTable, GoalTable, UserBadgeTable, ReminderTable])
 class AppDatabase extends _$AppDatabase {
   AppDatabase() : super(_openConnection());
   AppDatabase.forTesting(super.e);
 
   @override
-  int get schemaVersion => 1;
+  int get schemaVersion => 2;
+
+  @override
+  MigrationStrategy get migration => MigrationStrategy(
+        onCreate: (m) => m.createAll(),
+        onUpgrade: (m, from, to) async {
+          if (from < 2) {
+            // Add new columns to existing tables
+            await m.addColumn(hobbyTable, hobbyTable.updatedAt);
+            await m.addColumn(sessionTable, sessionTable.photoPaths);
+            await m.addColumn(sessionTable, sessionTable.updatedAt);
+            await m.addColumn(goalTable, goalTable.updatedAt);
+            // Create new tables
+            await m.createTable(userBadgeTable);
+            await m.createTable(reminderTable);
+          }
+        },
+      );
 
   // -- Hobby queries --
 
@@ -78,7 +122,10 @@ class AppDatabase extends _$AppDatabase {
 
   Future<void> archiveHobby(String id) =>
       (update(hobbyTable)..where((t) => t.id.equals(id)))
-          .write(const HobbyTableCompanion(isArchived: Value(true)));
+          .write(HobbyTableCompanion(
+            isArchived: const Value(true),
+            updatedAt: Value(DateTime.now()),
+          ));
 
   // -- Session queries --
 
@@ -134,7 +181,39 @@ class AppDatabase extends _$AppDatabase {
 
   Future<void> deactivateGoal(String id) =>
       (update(goalTable)..where((t) => t.id.equals(id)))
-          .write(const GoalTableCompanion(isActive: Value(false)));
+          .write(GoalTableCompanion(
+            isActive: const Value(false),
+            updatedAt: Value(DateTime.now()),
+          ));
+
+  // -- Badge queries --
+
+  Future<List<UserBadgeTableData>> getAllBadges() =>
+      select(userBadgeTable).get();
+
+  Future<void> insertBadge(UserBadgeTableCompanion badge) =>
+      into(userBadgeTable).insert(badge);
+
+  // -- Reminder queries --
+
+  Future<List<ReminderTableData>> getRemindersByHobby(String hobbyId) =>
+      (select(reminderTable)..where((t) => t.hobbyId.equals(hobbyId)))
+          .get();
+
+  Future<List<ReminderTableData>> getActiveReminders() =>
+      (select(reminderTable)..where((t) => t.isActive.equals(true)))
+          .get();
+
+  Future<void> insertReminder(ReminderTableCompanion reminder) =>
+      into(reminderTable).insert(reminder);
+
+  Future<void> updateReminder(ReminderTableCompanion reminder) =>
+      (update(reminderTable)
+            ..where((t) => t.id.equals(reminder.id.value)))
+          .write(reminder);
+
+  Future<void> deleteReminder(String id) =>
+      (delete(reminderTable)..where((t) => t.id.equals(id))).go();
 }
 
 LazyDatabase _openConnection() {

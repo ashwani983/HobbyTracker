@@ -15,16 +15,20 @@ import 'presentation/blocs/dashboard/dashboard_bloc.dart';
 import 'presentation/blocs/goal/goal_bloc.dart';
 import 'presentation/blocs/hobby_list/hobby_list_bloc.dart';
 import 'presentation/blocs/stats/stats_bloc.dart';
+import 'presentation/blocs/theme/theme_cubit.dart';
 import 'presentation/blocs/timer/timer_cubit.dart';
 import 'presentation/router/app_router.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
 
+  static const _seed = Colors.deepPurple;
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider(create: (_) => sl<ThemeCubit>()),
         BlocProvider(
           create: (_) => HobbyListBloc(
             getActiveHobbies: sl<GetActiveHobbies>(),
@@ -51,13 +55,25 @@ class App extends StatelessWidget {
         ),
         BlocProvider(create: (_) => TimerCubit()),
       ],
-      child: MaterialApp.router(
-        title: 'Hobby Tracker',
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          useMaterial3: true,
-        ),
-        routerConfig: appRouter,
+      child: BlocBuilder<ThemeCubit, ThemeMode>(
+        builder: (context, themeMode) {
+          return MaterialApp.router(
+            title: 'Hobby Tracker',
+            themeMode: themeMode,
+            theme: ThemeData(
+              colorScheme: ColorScheme.fromSeed(seedColor: _seed),
+              useMaterial3: true,
+            ),
+            darkTheme: ThemeData(
+              colorScheme: ColorScheme.fromSeed(
+                seedColor: _seed,
+                brightness: Brightness.dark,
+              ),
+              useMaterial3: true,
+            ),
+            routerConfig: appRouter,
+          );
+        },
       ),
     );
   }

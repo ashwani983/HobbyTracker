@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../data/datasources/database.dart';
 import '../../data/repositories/goal_repository_impl.dart';
@@ -19,10 +20,15 @@ import '../../domain/usecases/get_sessions_by_hobby.dart';
 import '../../domain/usecases/get_stats.dart';
 import '../../domain/usecases/log_session.dart';
 import '../../domain/usecases/update_hobby.dart';
+import '../../presentation/blocs/theme/theme_cubit.dart';
 
 final sl = GetIt.instance;
 
 Future<void> configureDependencies() async {
+  // Shared Preferences
+  final prefs = await SharedPreferences.getInstance();
+  sl.registerLazySingleton<SharedPreferences>(() => prefs);
+
   // Database
   sl.registerLazySingleton<AppDatabase>(() => AppDatabase());
 
@@ -50,4 +56,7 @@ Future<void> configureDependencies() async {
   sl.registerFactory(() => DeactivateGoal(sl()));
   sl.registerFactory(() => GetGoalProgress(sl()));
   sl.registerFactory(() => GetStats(sl<SessionRepository>(), sl<HobbyRepository>()));
+
+  // Cubits
+  sl.registerFactory(() => ThemeCubit(sl<SharedPreferences>()));
 }

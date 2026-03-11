@@ -6,31 +6,31 @@ Builds on v1.0.0 (Clean Architecture + BLoC). Adds gamification, notifications, 
 
 ## Tasks
 
-- [ ] 1. Foundation — schema migration, new dependencies, shared preferences
-  - [ ] 1.1 Add new dependencies to pubspec.yaml
+- [x] 1. Foundation — schema migration, new dependencies, shared preferences
+  - [x] 1.1 Add new dependencies to pubspec.yaml
     - flutter_local_notifications, firebase_core, firebase_auth, cloud_firestore, image_picker, csv, pdf, share_plus, shared_preferences
     - _Requirements: 10.1, 11.1, 12.1, 13.2, 14.1_
-  - [ ] 1.2 Database migration — add new tables and columns
+  - [x] 1.2 Database migration — add new tables and columns
     - Add `user_badges` table, `reminders` table
     - Add `photo_paths` column to sessions table
     - Add `updated_at` column to hobbies, sessions, goals tables
     - Run `build_runner` to regenerate
     - _Requirements: 9.7, 11.2, 14.3_
-  - [ ] 1.3 Add shared preferences initialization to DI
+  - [x] 1.3 Add shared preferences initialization to DI
     - _Requirements: 13.2, 15.3_
 
-- [ ] 2. Dark mode and theme system
-  - [ ] 2.1 Implement ThemeCubit with light/dark/system modes
+- [x] 2. Dark mode and theme system
+  - [x] 2.1 Implement ThemeCubit with light/dark/system modes
     - Persist preference in SharedPreferences
     - _Requirements: 13.1, 13.2, 13.3_
-  - [ ] 2.2 Update App widget to use ThemeCubit
+  - [x] 2.2 Update App widget to use ThemeCubit
     - Provide both light and dark ThemeData
     - _Requirements: 13.4_
-  - [ ] 2.3 Verify all screens render correctly in dark mode
+  - [x] 2.3 Verify all screens render correctly in dark mode
     - Charts, cards, forms, navigation
     - _Requirements: 13.4_
 
-- [ ] 3. Checkpoint — Theme
+- [x] 3. Checkpoint — Theme
 
 - [ ] 4. Streaks and badges
   - [ ] 4.1 Create Badge entity, BadgeType enum, and BadgeRepository

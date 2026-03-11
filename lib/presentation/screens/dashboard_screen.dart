@@ -6,6 +6,7 @@ import '../../core/constants/app_constants.dart';
 import '../../domain/entities/hobby.dart';
 import '../blocs/dashboard/dashboard_bloc.dart';
 import '../blocs/hobby_list/hobby_list_bloc.dart';
+import '../blocs/theme/theme_cubit.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -34,6 +35,22 @@ class _DashboardScreenState extends State<DashboardScreen> {
       appBar: AppBar(
         title: const Text('Dashboard'),
         actions: [
+          BlocBuilder<ThemeCubit, ThemeMode>(
+            builder: (context, mode) {
+              return IconButton(
+                icon: Icon(mode == ThemeMode.dark
+                    ? Icons.light_mode
+                    : Icons.dark_mode),
+                tooltip: 'Toggle theme',
+                onPressed: () {
+                  final cubit = context.read<ThemeCubit>();
+                  cubit.setTheme(
+                    mode == ThemeMode.dark ? ThemeMode.light : ThemeMode.dark,
+                  );
+                },
+              );
+            },
+          ),
           IconButton(
             icon: const Icon(Icons.description_outlined),
             tooltip: 'Terms & Conditions',
