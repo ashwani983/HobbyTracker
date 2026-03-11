@@ -93,17 +93,17 @@ Builds on v1.0.0 (Clean Architecture + BLoC). Adds gamification, notifications, 
 
 - [x] 9. Checkpoint — Media
 
-- [ ] 10. Export data
-  - [ ] 10.1 Implement ExportCsv use case
+- [x] 10. Export data
+  - [x] 10.1 Implement ExportCsv use case
     - Generate CSV for hobbies, sessions, goals with date range filter
     - _Requirements: 12.1, 12.4_
-  - [ ] 10.2 Implement ExportPdf use case
+  - [x] 10.2 Implement ExportPdf use case
     - Generate PDF report with summary stats
     - _Requirements: 12.2_
-  - [ ] 10.3 Add export options to settings screen with share sheet
+  - [x] 10.3 Add export options to settings screen with share sheet
     - _Requirements: 12.3_
 
-- [ ] 11. Checkpoint — Export
+- [x] 11. Checkpoint — Export
 
 - [ ] 12. Cloud sync (Firebase)
   - [ ] 12.1 Configure Firebase project and add config files

@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import '../screens/add_edit_hobby_screen.dart';
 import '../screens/add_goal_screen.dart';
 import '../screens/dashboard_screen.dart';
+import '../screens/export_screen.dart';
 import '../screens/goals_screen.dart';
 import '../screens/hobbies_list_screen.dart';
 import '../screens/hobby_detail_screen.dart';
@@ -91,6 +92,10 @@ final appRouter = GoRouter(
         GoRoute(
           path: '/badges',
           builder: (context, state) => const BadgesScreen(),
+        ),
+        GoRoute(
+          path: '/export',
+          builder: (context, state) => const ExportScreen(),
         ),
       ],
     ),

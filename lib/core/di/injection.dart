@@ -30,6 +30,8 @@ import '../../domain/usecases/cancel_reminder.dart';
 import '../../domain/usecases/update_reminder.dart';
 import '../../domain/usecases/update_hobby.dart';
 import '../../domain/usecases/attach_photos.dart';
+import '../../domain/usecases/export_csv.dart';
+import '../../domain/usecases/export_pdf.dart';
 import '../../presentation/blocs/theme/theme_cubit.dart';
 
 final sl = GetIt.instance;
@@ -68,6 +70,8 @@ Future<void> configureDependencies() async {
   sl.registerFactory(() => CancelReminder(sl()));
   sl.registerFactory(() => UpdateReminder(sl()));
   sl.registerFactory(() => AttachPhotos());
+  sl.registerFactory(() => ExportCsv(sl(), sl()));
+  sl.registerFactory(() => ExportPdf(sl(), sl()));
 
   // Cubits
   sl.registerFactory(() => ThemeCubit(sl<SharedPreferences>()));
