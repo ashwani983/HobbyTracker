@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../core/di/injection.dart';
 import '../screens/add_edit_hobby_screen.dart';
 import '../screens/add_goal_screen.dart';
 import '../screens/dashboard_screen.dart';
@@ -9,6 +11,8 @@ import '../screens/goals_screen.dart';
 import '../screens/hobbies_list_screen.dart';
 import '../screens/hobby_detail_screen.dart';
 import '../screens/log_session_screen.dart';
+import '../screens/onboarding_screen.dart';
+import '../screens/settings_screen.dart';
 import '../screens/stats_screen.dart';
 import '../screens/sync_settings_screen.dart';
 import '../screens/terms_screen.dart';
@@ -22,7 +26,18 @@ final _shellNavigatorKey = GlobalKey<NavigatorState>();
 final appRouter = GoRouter(
   navigatorKey: _rootNavigatorKey,
   initialLocation: '/',
+  redirect: (context, state) {
+    final done = sl<SharedPreferences>().getBool('onboarding_done') ?? false;
+    final onboarding = state.matchedLocation == '/onboarding';
+    if (!done && !onboarding) return '/onboarding';
+    if (done && onboarding) return '/';
+    return null;
+  },
   routes: [
+    GoRoute(
+      path: '/onboarding',
+      builder: (context, state) => const OnboardingScreen(),
+    ),
     ShellRoute(
       navigatorKey: _shellNavigatorKey,
       builder: (context, state, child) => AppShell(child: child),
@@ -101,6 +116,10 @@ final appRouter = GoRouter(
         GoRoute(
           path: '/sync',
           builder: (context, state) => const SyncSettingsScreen(),
+        ),
+        GoRoute(
+          path: '/settings',
+          builder: (context, state) => const SettingsScreen(),
         ),
       ],
     ),

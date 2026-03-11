@@ -52,24 +52,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
             },
           ),
           IconButton(
-            icon: const Icon(Icons.emoji_events),
-            tooltip: 'Badges',
-            onPressed: () => context.go('/badges'),
-          ),
-          IconButton(
-            icon: const Icon(Icons.file_download_outlined),
-            tooltip: 'Export',
-            onPressed: () => context.go('/export'),
-          ),
-          IconButton(
-            icon: const Icon(Icons.cloud_sync),
-            tooltip: 'Cloud Sync',
-            onPressed: () => context.go('/sync'),
-          ),
-          IconButton(
-            icon: const Icon(Icons.description_outlined),
-            tooltip: 'Terms & Conditions',
-            onPressed: () => context.go('/terms'),
+            icon: const Icon(Icons.settings),
+            tooltip: 'Settings',
+            onPressed: () => context.go('/settings'),
           ),
         ],
       ),

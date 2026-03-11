@@ -123,18 +123,18 @@ Builds on v1.0.0 (Clean Architecture + BLoC). Adds gamification, notifications, 
 
 - [x] 13. Checkpoint — Cloud Sync
 
-- [ ] 14. Onboarding and settings
-  - [ ] 14.1 Create OnboardingScreen with 3-page PageView
+- [x] 14. Onboarding and settings
+  - [x] 14.1 Create OnboardingScreen with 3-page PageView
     - _Requirements: 15.1, 15.2_
-  - [ ] 14.2 Guard onboarding with SharedPreferences flag
+  - [x] 14.2 Guard onboarding with SharedPreferences flag
     - _Requirements: 15.2, 15.3_
-  - [ ] 14.3 Create SettingsScreen
+  - [x] 14.3 Create SettingsScreen
     - Theme toggle, notification prefs, sync toggle, export, about/version
     - _Requirements: 16.1, 16.2, 16.3_
-  - [ ] 14.4 Update navigation — add settings route
+  - [x] 14.4 Update navigation — add settings route
     - _Requirements: 16.1_
 
-- [ ] 15. Checkpoint — Onboarding & Settings
+- [x] 15. Checkpoint — Onboarding & Settings
 
 - [ ] 16. Polish and integration
   - [ ] 16.1 Update dashboard to show current streak and recent badge
