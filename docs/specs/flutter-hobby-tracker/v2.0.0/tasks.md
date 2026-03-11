@@ -154,12 +154,12 @@ Builds on v1.0.0 (Clean Architecture + BLoC). Adds gamification, notifications, 
   - [x] 16.6 Open browser to GitHub release page on "Update" tap
     - _Requirements: 17.3_
 
-- [ ] 17. Polish and integration
-  - [ ] 17.1 Update dashboard to show current streak and recent badge
-  - [ ] 17.2 Add streak indicator to hobby detail screen
-  - [ ] 17.3 Update README and CHANGELOG for v2.0.0
+- [x] 17. Polish and integration
+  - [x] 17.1 Update dashboard to show current streak and recent badge
+  - [x] 17.2 Add streak indicator to hobby detail screen
+  - [x] 17.3 Update README and CHANGELOG for v2.0.0
 
-- [ ] 18. Final checkpoint
+- [x] 18. Final checkpoint
   - Ensure all tests pass, all analysis clean, ask user if questions arise.
 
 ## Notes

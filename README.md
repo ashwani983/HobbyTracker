@@ -1,6 +1,6 @@
 # 🎯 Hobby Tracker
 
-A Flutter app to track, manage, and visualize your hobbies. Built with Clean Architecture and BLoC pattern, with local SQLite persistence.
+A Flutter app to track, manage, and visualize your hobbies. Built with Clean Architecture and BLoC pattern, with local SQLite persistence and optional Firebase cloud sync.
 
 ![Flutter](https://img.shields.io/badge/Flutter-3.11+-blue?logo=flutter)
 ![Dart](https://img.shields.io/badge/Dart-3.11+-blue?logo=dart)
@@ -8,13 +8,24 @@ A Flutter app to track, manage, and visualize your hobbies. Built with Clean Arc
 
 ## Features
 
+### Core
 - 🏷️ **Hobby Management** — Create, edit, and archive hobbies with categories and emoji icons
-- ⏱️ **Session Logging** — Log sessions with duration, notes, and star ratings
+- ⏱️ **Session Logging** — Log sessions with duration, notes, star ratings, and photos
 - ⏲️ **Built-in Timer** — Stopwatch that persists across tab switches
 - 🎯 **Goal Tracking** — Weekly/monthly goals with progress visualization
 - 📊 **Statistics** — Bar, pie, and line charts with week/month/year views
-- 📱 **Dashboard** — At-a-glance summary with recent activity
-- 💾 **Offline-first** — Local SQLite storage via Drift
+- 📱 **Dashboard** — Streak count, recent badge, weekly summary, recent activity
+
+### v2.0.0
+- 🌙 **Dark Mode** — Light, dark, and system theme with persistent preference
+- 🔥 **Streaks & Badges** — 14 badge types, consecutive-day streaks, unlock popups
+- 🔔 **Reminders** — Per-hobby reminders with weekday selection, notification tap → timer
+- 📷 **Photo Attachments** — Camera/gallery photos on sessions, full-screen viewer
+- 📤 **Export** — CSV and PDF reports with date range filter and share sheet
+- ☁️ **Cloud Sync** — Firebase Auth (Google sign-in) + Firestore sync
+- 🚀 **Onboarding** — 3-page intro for new users
+- ⚙️ **Settings** — Theme, sync, export, badges, updates, about
+- 🔄 **In-App Updates** — Checks GitHub releases, shows banner, opens download page
 
 ## Screenshots
 
@@ -31,10 +42,18 @@ _Coming soon_
 
 ```bash
 git clone https://github.com/ashwani983/HobbyTracker.git
-cd HobbyTracker
+cd HobbyTracker/hobby_tracker
 flutter pub get
 dart run build_runner build --delete-conflicting-outputs
 ```
+
+### Firebase (optional)
+
+Cloud sync requires Firebase. Run:
+```bash
+flutterfire configure --project=YOUR_PROJECT_ID
+```
+Then enable Google Sign-In in Firebase Console → Authentication → Sign-in method, and add your SHA-1 fingerprint.
 
 ### Run
 
@@ -52,8 +71,8 @@ flutter test
 
 ```
 lib/
-├── core/              # Error types, DI, constants
-├── domain/            # Entities, repository interfaces, use cases
+├── core/              # Error types, DI, constants, services
+├── domain/            # Entities, repository interfaces, use cases, services
 ├── data/              # Drift database, repository implementations
 ├── presentation/      # BLoCs, screens, router, widgets
 ├── app.dart           # App widget with providers and router
@@ -73,8 +92,11 @@ The app follows **Clean Architecture** with three layers:
 - **State Management**: flutter_bloc / Cubit
 - **Navigation**: go_router with ShellRoute
 - **Database**: Drift (SQLite)
+- **Cloud**: Firebase Auth, Cloud Firestore
 - **DI**: get_it
 - **Charts**: fl_chart
+- **Notifications**: flutter_local_notifications
+- **Export**: csv, pdf, share_plus
 - **Testing**: flutter_test, bloc_test, mocktail, glados (property-based)
 
 ## License

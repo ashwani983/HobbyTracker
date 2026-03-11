@@ -6,6 +6,8 @@ import '../../../core/error/failures.dart';
 import '../../../domain/entities/session.dart';
 import '../../../domain/usecases/get_active_hobbies.dart';
 import '../../../domain/usecases/get_recent_sessions.dart';
+import '../../../domain/usecases/get_streak_count.dart';
+import '../../../domain/repositories/badge_repository.dart';
 import '../../../domain/repositories/session_repository.dart';
 
 // Events
@@ -29,15 +31,19 @@ class DashboardLoading extends DashboardState {}
 class DashboardLoaded extends DashboardState {
   final int activeHobbyCount;
   final int weeklyTotalMinutes;
+  final int streakDays;
+  final String? recentBadgeName;
   final List<Session> recentSessions;
   const DashboardLoaded({
     required this.activeHobbyCount,
     required this.weeklyTotalMinutes,
     required this.recentSessions,
+    this.streakDays = 0,
+    this.recentBadgeName,
   });
   @override
   List<Object?> get props =>
-      [activeHobbyCount, weeklyTotalMinutes, recentSessions.length];
+      [activeHobbyCount, weeklyTotalMinutes, streakDays, recentBadgeName, recentSessions.length];
 }
 
 class DashboardEmpty extends DashboardState {}
@@ -54,14 +60,20 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
   final GetActiveHobbies _getActiveHobbies;
   final GetRecentSessions _getRecentSessions;
   final SessionRepository _sessionRepository;
+  final GetStreakCount _getStreakCount;
+  final BadgeRepository _badgeRepository;
 
   DashboardBloc({
     required GetActiveHobbies getActiveHobbies,
     required GetRecentSessions getRecentSessions,
     required SessionRepository sessionRepository,
+    required GetStreakCount getStreakCount,
+    required BadgeRepository badgeRepository,
   })  : _getActiveHobbies = getActiveHobbies,
         _getRecentSessions = getRecentSessions,
         _sessionRepository = sessionRepository,
+        _getStreakCount = getStreakCount,
+        _badgeRepository = badgeRepository,
         super(DashboardLoading()) {
     on<LoadDashboard>(_onLoad);
   }
@@ -103,6 +115,10 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
         activeHobbyCount: hobbies.length,
         weeklyTotalMinutes: weeklyTotal,
         recentSessions: recent,
+        streakDays: await _getStreakCount(),
+        recentBadgeName: (await _badgeRepository.getUnlockedBadges()).isNotEmpty
+            ? (await _badgeRepository.getUnlockedBadges()).last.type.name
+            : null,
       ));
     } on DatabaseFailure catch (e) {
       emit(DashboardError(e.message));

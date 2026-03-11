@@ -5,8 +5,10 @@ import 'package:mocktail/mocktail.dart';
 import 'package:hobby_tracker/domain/entities/hobby.dart';
 import 'package:hobby_tracker/domain/entities/session.dart';
 import 'package:hobby_tracker/domain/repositories/session_repository.dart';
+import 'package:hobby_tracker/domain/repositories/badge_repository.dart';
 import 'package:hobby_tracker/domain/usecases/get_active_hobbies.dart';
 import 'package:hobby_tracker/domain/usecases/get_recent_sessions.dart';
+import 'package:hobby_tracker/domain/usecases/get_streak_count.dart';
 import 'package:hobby_tracker/presentation/blocs/dashboard/dashboard_bloc.dart';
 
 class MockGetActiveHobbies extends Mock implements GetActiveHobbies {}
@@ -15,15 +17,25 @@ class MockGetRecentSessions extends Mock implements GetRecentSessions {}
 
 class MockSessionRepository extends Mock implements SessionRepository {}
 
+class MockGetStreakCount extends Mock implements GetStreakCount {}
+
+class MockBadgeRepository extends Mock implements BadgeRepository {}
+
 void main() {
   late MockGetActiveHobbies getActiveHobbies;
   late MockGetRecentSessions getRecentSessions;
   late MockSessionRepository sessionRepo;
+  late MockGetStreakCount getStreakCount;
+  late MockBadgeRepository badgeRepo;
 
   setUp(() {
     getActiveHobbies = MockGetActiveHobbies();
     getRecentSessions = MockGetRecentSessions();
     sessionRepo = MockSessionRepository();
+    getStreakCount = MockGetStreakCount();
+    badgeRepo = MockBadgeRepository();
+    when(() => getStreakCount()).thenAnswer((_) async => 0);
+    when(() => badgeRepo.getUnlockedBadges()).thenAnswer((_) async => []);
   });
 
   List<Hobby> makeHobbies(int count) => List.generate(
@@ -63,6 +75,8 @@ void main() {
       getActiveHobbies: getActiveHobbies,
       getRecentSessions: getRecentSessions,
       sessionRepository: sessionRepo,
+      getStreakCount: getStreakCount,
+      badgeRepository: badgeRepo,
     ),
     act: (bloc) => bloc.add(LoadDashboard()),
     verify: (bloc) {
@@ -85,6 +99,8 @@ void main() {
       getActiveHobbies: getActiveHobbies,
       getRecentSessions: getRecentSessions,
       sessionRepository: sessionRepo,
+      getStreakCount: getStreakCount,
+      badgeRepository: badgeRepo,
     ),
     act: (bloc) => bloc.add(LoadDashboard()),
     verify: (bloc) {
@@ -107,6 +123,8 @@ void main() {
       getActiveHobbies: getActiveHobbies,
       getRecentSessions: getRecentSessions,
       sessionRepository: sessionRepo,
+      getStreakCount: getStreakCount,
+      badgeRepository: badgeRepo,
     ),
     act: (bloc) => bloc.add(LoadDashboard()),
     verify: (bloc) {

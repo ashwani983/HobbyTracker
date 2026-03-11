@@ -8,6 +8,7 @@ import 'package:uuid/uuid.dart';
 import '../../core/di/injection.dart';
 import '../../core/services/notification_service.dart';
 import '../../domain/entities/reminder.dart';
+import '../../domain/entities/session.dart';
 import '../../domain/repositories/hobby_repository.dart';
 import '../../domain/repositories/reminder_repository.dart';
 import '../../domain/usecases/cancel_reminder.dart';
@@ -85,6 +86,17 @@ class HobbyDetailScreen extends StatelessWidget {
                 ],
                 const SizedBox(height: 8),
                 Chip(label: Text(s.hobby.category)),
+                if (s.sessions.isNotEmpty) ...[
+                  const SizedBox(height: 8),
+                  Row(
+                    children: [
+                      const Text('🔥', style: TextStyle(fontSize: 20)),
+                      const SizedBox(width: 4),
+                      Text('${_streak(s.sessions)} day streak',
+                          style: Theme.of(context).textTheme.bodyLarge),
+                    ],
+                  ),
+                ],
                 const Divider(height: 32),
                 _RemindersSection(hobbyId: hobbyId, hobbyName: s.hobby.name),
                 const Divider(height: 32),
@@ -151,6 +163,28 @@ class HobbyDetailScreen extends StatelessWidget {
       ),
       ),
     );
+  }
+
+  static int _streak(List<Session> sessions) {
+    final now = DateTime.now();
+    final dates = sessions
+        .map((s) => DateTime(s.date.year, s.date.month, s.date.day))
+        .toSet()
+        .toList()
+      ..sort((a, b) => b.compareTo(a));
+    if (dates.isEmpty) return 0;
+    final today = DateTime(now.year, now.month, now.day);
+    final yesterday = today.subtract(const Duration(days: 1));
+    if (dates.first != today && dates.first != yesterday) return 0;
+    int streak = 1;
+    for (var i = 1; i < dates.length; i++) {
+      if (dates[i - 1].difference(dates[i]).inDays == 1) {
+        streak++;
+      } else {
+        break;
+      }
+    }
+    return streak;
   }
 }
 

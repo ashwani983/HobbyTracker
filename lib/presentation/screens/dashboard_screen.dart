@@ -103,6 +103,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   _SummaryCard(
                     hobbyCount: s.activeHobbyCount,
                     weeklyMinutes: s.weeklyTotalMinutes,
+                    streakDays: s.streakDays,
+                    recentBadge: s.recentBadgeName,
                   ),
                   const SizedBox(height: 16),
                   Text(
@@ -151,7 +153,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
 class _SummaryCard extends StatelessWidget {
   final int hobbyCount;
   final int weeklyMinutes;
-  const _SummaryCard({required this.hobbyCount, required this.weeklyMinutes});
+  final int streakDays;
+  final String? recentBadge;
+  const _SummaryCard({
+    required this.hobbyCount,
+    required this.weeklyMinutes,
+    this.streakDays = 0,
+    this.recentBadge,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -160,21 +169,46 @@ class _SummaryCard extends StatelessWidget {
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(16),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+        child: Column(
           children: [
-            Column(
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Text('$hobbyCount',
-                    style: Theme.of(context).textTheme.headlineMedium),
-                const Text('Active Hobbies'),
+                Column(
+                  children: [
+                    Text('$hobbyCount',
+                        style: Theme.of(context).textTheme.headlineMedium),
+                    const Text('Active Hobbies'),
+                  ],
+                ),
+                Column(
+                  children: [
+                    Text('${hours}h ${mins}m',
+                        style: Theme.of(context).textTheme.headlineMedium),
+                    const Text('This Week'),
+                  ],
+                ),
               ],
             ),
-            Column(
+            const SizedBox(height: 12),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Text('${hours}h ${mins}m',
-                    style: Theme.of(context).textTheme.headlineMedium),
-                const Text('This Week'),
+                Column(
+                  children: [
+                    Text('🔥 $streakDays',
+                        style: Theme.of(context).textTheme.headlineMedium),
+                    const Text('Day Streak'),
+                  ],
+                ),
+                if (recentBadge != null)
+                  Column(
+                    children: [
+                      Text('🏆',
+                          style: Theme.of(context).textTheme.headlineMedium),
+                      Text(recentBadge!),
+                    ],
+                  ),
               ],
             ),
           ],

@@ -13,6 +13,7 @@ import 'domain/usecases/get_active_goals.dart';
 import 'domain/usecases/get_active_hobbies.dart';
 import 'domain/usecases/get_recent_sessions.dart';
 import 'domain/usecases/get_stats.dart';
+import 'domain/usecases/get_streak_count.dart';
 import 'presentation/blocs/auth/auth_bloc.dart';
 import 'presentation/blocs/badge/badge_bloc.dart';
 import 'presentation/blocs/dashboard/dashboard_bloc.dart';
@@ -47,6 +48,8 @@ class App extends StatelessWidget {
             getActiveHobbies: sl<GetActiveHobbies>(),
             getRecentSessions: sl<GetRecentSessions>(),
             sessionRepository: sl<SessionRepository>(),
+            getStreakCount: sl<GetStreakCount>(),
+            badgeRepository: sl<BadgeRepository>(),
           )..add(LoadDashboard()),
         ),
         BlocProvider(
