@@ -4,6 +4,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../core/constants/app_constants.dart';
+import '../../core/l10n_helpers.dart';
 import '../../l10n/app_localizations.dart';
 import '../blocs/hobby_list/hobby_list_bloc.dart';
 
@@ -58,7 +59,7 @@ class HobbiesListScreen extends StatelessWidget {
                     ),
                   ),
                   title: Text(hobby.name),
-                  subtitle: Text(hobby.category),
+                  subtitle: Text(localizedCategories(l)[hobby.category] ?? hobby.category),
                   onTap: () => context.go('/hobbies/${hobby.id}'),
                 ),
               );

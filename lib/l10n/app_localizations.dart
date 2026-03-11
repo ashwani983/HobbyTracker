@@ -855,6 +855,198 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Year'**
   String get year;
+
+  /// No description provided for @catSports.
+  ///
+  /// In en, this message translates to:
+  /// **'Sports'**
+  String get catSports;
+
+  /// No description provided for @catMusic.
+  ///
+  /// In en, this message translates to:
+  /// **'Music'**
+  String get catMusic;
+
+  /// No description provided for @catArt.
+  ///
+  /// In en, this message translates to:
+  /// **'Art'**
+  String get catArt;
+
+  /// No description provided for @catReading.
+  ///
+  /// In en, this message translates to:
+  /// **'Reading'**
+  String get catReading;
+
+  /// No description provided for @catGaming.
+  ///
+  /// In en, this message translates to:
+  /// **'Gaming'**
+  String get catGaming;
+
+  /// No description provided for @catCooking.
+  ///
+  /// In en, this message translates to:
+  /// **'Cooking'**
+  String get catCooking;
+
+  /// No description provided for @catFitness.
+  ///
+  /// In en, this message translates to:
+  /// **'Fitness'**
+  String get catFitness;
+
+  /// No description provided for @catPhotography.
+  ///
+  /// In en, this message translates to:
+  /// **'Photography'**
+  String get catPhotography;
+
+  /// No description provided for @catWriting.
+  ///
+  /// In en, this message translates to:
+  /// **'Writing'**
+  String get catWriting;
+
+  /// No description provided for @catOther.
+  ///
+  /// In en, this message translates to:
+  /// **'Other'**
+  String get catOther;
+
+  /// No description provided for @dayMon.
+  ///
+  /// In en, this message translates to:
+  /// **'Mon'**
+  String get dayMon;
+
+  /// No description provided for @dayTue.
+  ///
+  /// In en, this message translates to:
+  /// **'Tue'**
+  String get dayTue;
+
+  /// No description provided for @dayWed.
+  ///
+  /// In en, this message translates to:
+  /// **'Wed'**
+  String get dayWed;
+
+  /// No description provided for @dayThu.
+  ///
+  /// In en, this message translates to:
+  /// **'Thu'**
+  String get dayThu;
+
+  /// No description provided for @dayFri.
+  ///
+  /// In en, this message translates to:
+  /// **'Fri'**
+  String get dayFri;
+
+  /// No description provided for @daySat.
+  ///
+  /// In en, this message translates to:
+  /// **'Sat'**
+  String get daySat;
+
+  /// No description provided for @daySun.
+  ///
+  /// In en, this message translates to:
+  /// **'Sun'**
+  String get daySun;
+
+  /// No description provided for @everyDay.
+  ///
+  /// In en, this message translates to:
+  /// **'Every day'**
+  String get everyDay;
+
+  /// No description provided for @badge3DayStreak.
+  ///
+  /// In en, this message translates to:
+  /// **'3-Day Streak'**
+  String get badge3DayStreak;
+
+  /// No description provided for @badgeWeekWarrior.
+  ///
+  /// In en, this message translates to:
+  /// **'Week Warrior'**
+  String get badgeWeekWarrior;
+
+  /// No description provided for @badgeMonthlyMaster.
+  ///
+  /// In en, this message translates to:
+  /// **'Monthly Master'**
+  String get badgeMonthlyMaster;
+
+  /// No description provided for @badgeCenturyClub.
+  ///
+  /// In en, this message translates to:
+  /// **'Century Club'**
+  String get badgeCenturyClub;
+
+  /// No description provided for @badgeFirstStep.
+  ///
+  /// In en, this message translates to:
+  /// **'First Step'**
+  String get badgeFirstStep;
+
+  /// No description provided for @badgeGettingSerious.
+  ///
+  /// In en, this message translates to:
+  /// **'Getting Serious'**
+  String get badgeGettingSerious;
+
+  /// No description provided for @badgeDedicated.
+  ///
+  /// In en, this message translates to:
+  /// **'Dedicated'**
+  String get badgeDedicated;
+
+  /// No description provided for @badgeCenturion.
+  ///
+  /// In en, this message translates to:
+  /// **'Centurion'**
+  String get badgeCenturion;
+
+  /// No description provided for @badgeFirstHour.
+  ///
+  /// In en, this message translates to:
+  /// **'First Hour'**
+  String get badgeFirstHour;
+
+  /// No description provided for @badgeTimeInvestor.
+  ///
+  /// In en, this message translates to:
+  /// **'Time Investor'**
+  String get badgeTimeInvestor;
+
+  /// No description provided for @badgeMasterOfTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Master of Time'**
+  String get badgeMasterOfTime;
+
+  /// No description provided for @badgeExplorer.
+  ///
+  /// In en, this message translates to:
+  /// **'Explorer'**
+  String get badgeExplorer;
+
+  /// No description provided for @badgeAdventurer.
+  ///
+  /// In en, this message translates to:
+  /// **'Adventurer'**
+  String get badgeAdventurer;
+
+  /// No description provided for @badgeRenaissance.
+  ///
+  /// In en, this message translates to:
+  /// **'Renaissance'**
+  String get badgeRenaissance;
 }
 
 class _AppLocalizationsDelegate

@@ -420,4 +420,100 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get year => 'वर्ष';
+
+  @override
+  String get catSports => 'खेल';
+
+  @override
+  String get catMusic => 'संगीत';
+
+  @override
+  String get catArt => 'कला';
+
+  @override
+  String get catReading => 'पठन';
+
+  @override
+  String get catGaming => 'गेमिंग';
+
+  @override
+  String get catCooking => 'खाना बनाना';
+
+  @override
+  String get catFitness => 'फिटनेस';
+
+  @override
+  String get catPhotography => 'फोटोग्राफी';
+
+  @override
+  String get catWriting => 'लेखन';
+
+  @override
+  String get catOther => 'अन्य';
+
+  @override
+  String get dayMon => 'सोम';
+
+  @override
+  String get dayTue => 'मंगल';
+
+  @override
+  String get dayWed => 'बुध';
+
+  @override
+  String get dayThu => 'गुरु';
+
+  @override
+  String get dayFri => 'शुक्र';
+
+  @override
+  String get daySat => 'शनि';
+
+  @override
+  String get daySun => 'रवि';
+
+  @override
+  String get everyDay => 'हर दिन';
+
+  @override
+  String get badge3DayStreak => '3 दिन की लय';
+
+  @override
+  String get badgeWeekWarrior => 'सप्ताह योद्धा';
+
+  @override
+  String get badgeMonthlyMaster => 'मासिक मास्टर';
+
+  @override
+  String get badgeCenturyClub => 'शतक क्लब';
+
+  @override
+  String get badgeFirstStep => 'पहला कदम';
+
+  @override
+  String get badgeGettingSerious => 'गंभीर हो रहे हैं';
+
+  @override
+  String get badgeDedicated => 'समर्पित';
+
+  @override
+  String get badgeCenturion => 'शतपति';
+
+  @override
+  String get badgeFirstHour => 'पहला घंटा';
+
+  @override
+  String get badgeTimeInvestor => 'समय निवेशक';
+
+  @override
+  String get badgeMasterOfTime => 'समय का मास्टर';
+
+  @override
+  String get badgeExplorer => 'खोजकर्ता';
+
+  @override
+  String get badgeAdventurer => 'साहसी';
+
+  @override
+  String get badgeRenaissance => 'पुनर्जागरण';
 }

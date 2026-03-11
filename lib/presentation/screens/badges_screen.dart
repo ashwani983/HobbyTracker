@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../domain/entities/badge.dart' as app;
+import '../../core/l10n_helpers.dart';
 import '../../l10n/app_localizations.dart';
 import '../blocs/badge/badge_bloc.dart';
 
@@ -67,6 +68,8 @@ class _BadgeTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final unlocked = badge.isUnlocked;
+    final l = AppLocalizations.of(context)!;
+    final title = localizedBadgeTitles(l)[badge.id] ?? badge.title;
     return Card(
       color: unlocked
           ? Theme.of(context).colorScheme.primaryContainer
@@ -86,7 +89,7 @@ class _BadgeTile extends StatelessWidget {
             ),
             const SizedBox(height: 4),
             Text(
-              badge.title,
+              title,
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.labelSmall?.copyWith(
                     color: unlocked ? null : Colors.grey,
@@ -100,10 +103,11 @@ class _BadgeTile extends StatelessWidget {
 
   void _showDetail(BuildContext context) {
     final l = AppLocalizations.of(context)!;
+    final title = localizedBadgeTitles(l)[badge.id] ?? badge.title;
     showDialog(
       context: context,
       builder: (dialogContext) => AlertDialog(
-        title: Text('${badge.emoji} ${badge.title}'),
+        title: Text('${badge.emoji} $title'),
         content: Text(badge.isUnlocked
             ? l.unlockedOn('${badge.unlockedAt!.month}/${badge.unlockedAt!.day}/${badge.unlockedAt!.year}')
             : l.reachToUnlock(badge.threshold, badge.type.name)),

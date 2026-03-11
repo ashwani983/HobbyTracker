@@ -419,4 +419,100 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get year => 'Year';
+
+  @override
+  String get catSports => 'Sports';
+
+  @override
+  String get catMusic => 'Music';
+
+  @override
+  String get catArt => 'Art';
+
+  @override
+  String get catReading => 'Reading';
+
+  @override
+  String get catGaming => 'Gaming';
+
+  @override
+  String get catCooking => 'Cooking';
+
+  @override
+  String get catFitness => 'Fitness';
+
+  @override
+  String get catPhotography => 'Photography';
+
+  @override
+  String get catWriting => 'Writing';
+
+  @override
+  String get catOther => 'Other';
+
+  @override
+  String get dayMon => 'Mon';
+
+  @override
+  String get dayTue => 'Tue';
+
+  @override
+  String get dayWed => 'Wed';
+
+  @override
+  String get dayThu => 'Thu';
+
+  @override
+  String get dayFri => 'Fri';
+
+  @override
+  String get daySat => 'Sat';
+
+  @override
+  String get daySun => 'Sun';
+
+  @override
+  String get everyDay => 'Every day';
+
+  @override
+  String get badge3DayStreak => '3-Day Streak';
+
+  @override
+  String get badgeWeekWarrior => 'Week Warrior';
+
+  @override
+  String get badgeMonthlyMaster => 'Monthly Master';
+
+  @override
+  String get badgeCenturyClub => 'Century Club';
+
+  @override
+  String get badgeFirstStep => 'First Step';
+
+  @override
+  String get badgeGettingSerious => 'Getting Serious';
+
+  @override
+  String get badgeDedicated => 'Dedicated';
+
+  @override
+  String get badgeCenturion => 'Centurion';
+
+  @override
+  String get badgeFirstHour => 'First Hour';
+
+  @override
+  String get badgeTimeInvestor => 'Time Investor';
+
+  @override
+  String get badgeMasterOfTime => 'Master of Time';
+
+  @override
+  String get badgeExplorer => 'Explorer';
+
+  @override
+  String get badgeAdventurer => 'Adventurer';
+
+  @override
+  String get badgeRenaissance => 'Renaissance';
 }

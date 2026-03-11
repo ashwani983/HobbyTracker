@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../core/l10n_helpers.dart';
 import '../../l10n/app_localizations.dart';
 import '../../core/services/notification_service.dart';
 import '../blocs/badge/badge_bloc.dart';
@@ -63,7 +64,7 @@ class _AppShellState extends State<AppShell> {
               context: context,
               builder: (dialogCtx) => AlertDialog(
                 title: Text(l.badgeUnlocked(badge.emoji)),
-                content: Text(l.youEarnedBadge(badge.title)),
+                content: Text(l.youEarnedBadge(localizedBadgeTitles(l)[badge.id] ?? badge.title)),
                 actions: [
                   TextButton(
                     onPressed: () => Navigator.pop(dialogCtx),

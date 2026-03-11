@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../core/di/injection.dart';
+import '../../core/l10n_helpers.dart';
 import '../../core/services/notification_service.dart';
 import '../../domain/entities/reminder.dart';
 import '../../domain/entities/session.dart';
@@ -87,7 +88,7 @@ class HobbyDetailScreen extends StatelessWidget {
                   Text(s.hobby.description!),
                 ],
                 const SizedBox(height: 8),
-                Chip(label: Text(s.hobby.category)),
+                Chip(label: Text(localizedCategories(l)[s.hobby.category] ?? s.hobby.category)),
                 if (s.sessions.isNotEmpty) ...[
                   const SizedBox(height: 8),
                   Row(
@@ -243,7 +244,9 @@ class _RemindersSection extends StatelessWidget {
                                   children: [
                                     Text(r.timeString,
                                         style: Theme.of(context).textTheme.bodyLarge),
-                                    Text(r.weekDaysSummary,
+                                    Text(r.weekDays.length == 7
+                                        ? l.everyDay
+                                        : r.weekDays.map((d) => localizedDayNames(l)[d - 1]).join(', '),
                                         style: Theme.of(context).textTheme.bodySmall),
                                   ],
                                 ),
@@ -355,7 +358,7 @@ class _WeekDayPickerState extends State<_WeekDayPicker> {
         children: List.generate(7, (i) {
           final day = i + 1;
           return FilterChip(
-            label: Text(Reminder.dayNames[i]),
+            label: Text(localizedDayNames(l)[i]),
             selected: _selected.contains(day),
             onSelected: (v) => setState(() {
               v ? _selected.add(day) : _selected.remove(day);

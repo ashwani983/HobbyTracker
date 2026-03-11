@@ -416,4 +416,100 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get year => '年';
+
+  @override
+  String get catSports => 'スポーツ';
+
+  @override
+  String get catMusic => '音楽';
+
+  @override
+  String get catArt => 'アート';
+
+  @override
+  String get catReading => '読書';
+
+  @override
+  String get catGaming => 'ゲーム';
+
+  @override
+  String get catCooking => '料理';
+
+  @override
+  String get catFitness => 'フィットネス';
+
+  @override
+  String get catPhotography => '写真';
+
+  @override
+  String get catWriting => '執筆';
+
+  @override
+  String get catOther => 'その他';
+
+  @override
+  String get dayMon => '月';
+
+  @override
+  String get dayTue => '火';
+
+  @override
+  String get dayWed => '水';
+
+  @override
+  String get dayThu => '木';
+
+  @override
+  String get dayFri => '金';
+
+  @override
+  String get daySat => '土';
+
+  @override
+  String get daySun => '日';
+
+  @override
+  String get everyDay => '毎日';
+
+  @override
+  String get badge3DayStreak => '3日連続';
+
+  @override
+  String get badgeWeekWarrior => '週間戦士';
+
+  @override
+  String get badgeMonthlyMaster => '月間マスター';
+
+  @override
+  String get badgeCenturyClub => 'センチュリークラブ';
+
+  @override
+  String get badgeFirstStep => '最初の一歩';
+
+  @override
+  String get badgeGettingSerious => '本気モード';
+
+  @override
+  String get badgeDedicated => '献身的';
+
+  @override
+  String get badgeCenturion => '百人隊長';
+
+  @override
+  String get badgeFirstHour => '最初の1時間';
+
+  @override
+  String get badgeTimeInvestor => '時間投資家';
+
+  @override
+  String get badgeMasterOfTime => '時の達人';
+
+  @override
+  String get badgeExplorer => '探検家';
+
+  @override
+  String get badgeAdventurer => '冒険家';
+
+  @override
+  String get badgeRenaissance => 'ルネサンス';
 }

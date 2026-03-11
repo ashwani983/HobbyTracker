@@ -423,4 +423,100 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get year => 'Jahr';
+
+  @override
+  String get catSports => 'Sport';
+
+  @override
+  String get catMusic => 'Musik';
+
+  @override
+  String get catArt => 'Kunst';
+
+  @override
+  String get catReading => 'Lesen';
+
+  @override
+  String get catGaming => 'Spiele';
+
+  @override
+  String get catCooking => 'Kochen';
+
+  @override
+  String get catFitness => 'Fitness';
+
+  @override
+  String get catPhotography => 'Fotografie';
+
+  @override
+  String get catWriting => 'Schreiben';
+
+  @override
+  String get catOther => 'Sonstiges';
+
+  @override
+  String get dayMon => 'Mo';
+
+  @override
+  String get dayTue => 'Di';
+
+  @override
+  String get dayWed => 'Mi';
+
+  @override
+  String get dayThu => 'Do';
+
+  @override
+  String get dayFri => 'Fr';
+
+  @override
+  String get daySat => 'Sa';
+
+  @override
+  String get daySun => 'So';
+
+  @override
+  String get everyDay => 'Jeden Tag';
+
+  @override
+  String get badge3DayStreak => '3-Tage-Serie';
+
+  @override
+  String get badgeWeekWarrior => 'Wochenkrieger';
+
+  @override
+  String get badgeMonthlyMaster => 'Monatsmeister';
+
+  @override
+  String get badgeCenturyClub => 'Jahrhundert-Club';
+
+  @override
+  String get badgeFirstStep => 'Erster Schritt';
+
+  @override
+  String get badgeGettingSerious => 'Ernst Gemeint';
+
+  @override
+  String get badgeDedicated => 'Engagiert';
+
+  @override
+  String get badgeCenturion => 'Zenturio';
+
+  @override
+  String get badgeFirstHour => 'Erste Stunde';
+
+  @override
+  String get badgeTimeInvestor => 'Zeitinvestor';
+
+  @override
+  String get badgeMasterOfTime => 'Meister der Zeit';
+
+  @override
+  String get badgeExplorer => 'Entdecker';
+
+  @override
+  String get badgeAdventurer => 'Abenteurer';
+
+  @override
+  String get badgeRenaissance => 'Renaissance';
 }

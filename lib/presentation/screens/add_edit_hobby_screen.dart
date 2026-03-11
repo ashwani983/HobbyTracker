@@ -5,6 +5,7 @@ import 'package:uuid/uuid.dart';
 
 import '../../core/constants/app_constants.dart';
 import '../../core/di/injection.dart';
+import '../../core/l10n_helpers.dart';
 import '../../domain/entities/hobby.dart';
 import '../../domain/repositories/hobby_repository.dart';
 import '../../domain/usecases/update_hobby.dart';
@@ -120,7 +121,7 @@ class _AddEditHobbyScreenState extends State<AddEditHobbyScreen> {
                 initialValue: _category,
                 decoration: InputDecoration(labelText: l.category),
                 items: AppConstants.categories
-                    .map((c) => DropdownMenuItem(value: c, child: Text(c)))
+                    .map((c) => DropdownMenuItem(value: c, child: Text(localizedCategories(l)[c] ?? c)))
                     .toList(),
                 onChanged: (v) => setState(() => _category = v!),
               ),
