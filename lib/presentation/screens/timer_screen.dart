@@ -10,7 +10,8 @@ import '../../domain/usecases/log_session.dart';
 import '../blocs/timer/timer_cubit.dart';
 
 class TimerScreen extends StatefulWidget {
-  const TimerScreen({super.key});
+  final String? initialHobbyId;
+  const TimerScreen({super.key, this.initialHobbyId});
 
   @override
   State<TimerScreen> createState() => _TimerScreenState();
@@ -32,7 +33,7 @@ class _TimerScreenState extends State<TimerScreen> {
       setState(() {
         _hobbies = hobbies;
         if (hobbies.isNotEmpty && _selectedHobbyId == null) {
-          _selectedHobbyId = hobbies.first.id;
+          _selectedHobbyId = widget.initialHobbyId ?? hobbies.first.id;
         }
       });
     }

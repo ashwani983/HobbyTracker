@@ -64,7 +64,10 @@ final appRouter = GoRouter(
         ),
         GoRoute(
           path: '/timer',
-          builder: (context, state) => const TimerScreen(),
+          builder: (context, state) {
+            final hobbyId = state.uri.queryParameters['hobbyId'];
+            return TimerScreen(initialHobbyId: hobbyId);
+          },
         ),
         GoRoute(
           path: '/goals',

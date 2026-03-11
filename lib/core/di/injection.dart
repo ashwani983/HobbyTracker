@@ -5,10 +5,12 @@ import '../../data/datasources/database.dart';
 import '../../data/repositories/badge_repository_impl.dart';
 import '../../data/repositories/goal_repository_impl.dart';
 import '../../data/repositories/hobby_repository_impl.dart';
+import '../../data/repositories/reminder_repository_impl.dart';
 import '../../data/repositories/session_repository_impl.dart';
 import '../../domain/repositories/badge_repository.dart';
 import '../../domain/repositories/goal_repository.dart';
 import '../../domain/repositories/hobby_repository.dart';
+import '../../domain/repositories/reminder_repository.dart';
 import '../../domain/repositories/session_repository.dart';
 import '../../domain/usecases/archive_hobby.dart';
 import '../../domain/usecases/check_badges.dart';
@@ -23,6 +25,9 @@ import '../../domain/usecases/get_sessions_by_hobby.dart';
 import '../../domain/usecases/get_stats.dart';
 import '../../domain/usecases/get_streak_count.dart';
 import '../../domain/usecases/log_session.dart';
+import '../../domain/usecases/schedule_reminder.dart';
+import '../../domain/usecases/cancel_reminder.dart';
+import '../../domain/usecases/update_reminder.dart';
 import '../../domain/usecases/update_hobby.dart';
 import '../../presentation/blocs/theme/theme_cubit.dart';
 
@@ -41,6 +46,7 @@ Future<void> configureDependencies() async {
   sl.registerLazySingleton<SessionRepository>(() => SessionRepositoryImpl(sl()));
   sl.registerLazySingleton<GoalRepository>(() => GoalRepositoryImpl(sl()));
   sl.registerLazySingleton<BadgeRepository>(() => BadgeRepositoryImpl(sl()));
+  sl.registerLazySingleton<ReminderRepository>(() => ReminderRepositoryImpl(sl()));
 
   // Use cases
   sl.registerFactory(() => CreateHobby(sl()));
@@ -57,6 +63,9 @@ Future<void> configureDependencies() async {
   sl.registerFactory(() => GetStats(sl<SessionRepository>(), sl<HobbyRepository>()));
   sl.registerFactory(() => GetStreakCount(sl()));
   sl.registerFactory(() => CheckBadges(sl(), sl(), sl(), sl()));
+  sl.registerFactory(() => ScheduleReminder(sl()));
+  sl.registerFactory(() => CancelReminder(sl()));
+  sl.registerFactory(() => UpdateReminder(sl()));
 
   // Cubits
   sl.registerFactory(() => ThemeCubit(sl<SharedPreferences>()));

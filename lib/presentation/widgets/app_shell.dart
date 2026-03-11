@@ -2,14 +2,32 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../core/services/notification_service.dart';
 import '../blocs/badge/badge_bloc.dart';
 import '../blocs/dashboard/dashboard_bloc.dart';
 import '../blocs/hobby_list/hobby_list_bloc.dart';
 import '../blocs/stats/stats_bloc.dart';
 
-class AppShell extends StatelessWidget {
+class AppShell extends StatefulWidget {
   final Widget child;
   const AppShell({super.key, required this.child});
+
+  @override
+  State<AppShell> createState() => _AppShellState();
+}
+
+class _AppShellState extends State<AppShell> {
+  @override
+  void initState() {
+    super.initState();
+    // Check if app was opened via notification tap
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final hobbyId = NotificationService.consumePendingHobbyId();
+      if (hobbyId != null && mounted) {
+        context.go('/timer?hobbyId=$hobbyId');
+      }
+    });
+  }
 
   static const _tabs = [
     ('/', Icons.dashboard, 'Dashboard'),
@@ -54,7 +72,7 @@ class AppShell extends StatelessWidget {
         }
       },
       child: Scaffold(
-        body: child,
+        body: widget.child,
         bottomNavigationBar: NavigationBar(
           selectedIndex: index,
           onDestinationSelected: (i) {

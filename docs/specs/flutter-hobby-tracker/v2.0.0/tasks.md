@@ -55,26 +55,26 @@ Builds on v1.0.0 (Clean Architecture + BLoC). Adds gamification, notifications, 
 
 - [x] 5. Checkpoint — Badges
 
-- [ ] 6. Reminders and notifications
-  - [ ] 6.1 Create Reminder entity and ReminderRepository
+- [x] 6. Reminders and notifications
+  - [x] 6.1 Create Reminder entity and ReminderRepository
     - _Requirements: 10.1_
-  - [ ] 6.2 Implement NotificationService wrapper
+  - [x] 6.2 Implement NotificationService wrapper
     - Initialize flutter_local_notifications
     - Schedule/cancel by ID
     - _Requirements: 10.2_
-  - [ ] 6.3 Implement ScheduleReminder and CancelReminder use cases
+  - [x] 6.3 Implement ScheduleReminder and CancelReminder use cases
     - _Requirements: 10.1, 10.4_
-  - [ ] 6.4 Implement ReminderBloc
+  - [x] 6.4 Implement ReminderBloc
     - _Requirements: 10.1, 10.4_
-  - [ ] 6.5 Add reminder UI to hobby detail screen
+  - [x] 6.5 Add reminder UI to hobby detail screen
     - Time picker, weekday selector, toggle
     - _Requirements: 10.1_
-  - [ ] 6.6 Handle notification tap — navigate to timer with hobby pre-selected
+  - [x] 6.6 Handle notification tap — navigate to timer with hobby pre-selected
     - _Requirements: 10.3_
-  - [ ] 6.7 Request notification permissions on first setup
+  - [x] 6.7 Request notification permissions on first setup
     - _Requirements: 10.5_
 
-- [ ] 7. Checkpoint — Reminders
+- [x] 7. Checkpoint — Reminders
 
 - [ ] 8. Photo/media log
   - [ ] 8.1 Implement AttachPhotos use case

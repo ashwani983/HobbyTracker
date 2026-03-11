@@ -37,7 +37,9 @@ dependencies:
   path: ^1.9.1
 
   # Notifications
-  flutter_local_notifications: ^17.0.0
+  flutter_local_notifications: ^20.0.0
+  timezone: ^0.10.1
+  flutter_timezone: ^3.0.1
 
   # Images
   image_picker: ^1.0.5
