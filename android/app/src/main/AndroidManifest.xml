@@ -37,6 +37,7 @@
             android:value="2" />
 
         <receiver android:name=".SmallWidgetProvider"
+            android:label="Today's Progress"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -47,6 +48,7 @@
         </receiver>
 
         <receiver android:name=".MediumWidgetProvider"
+            android:label="Top Hobbies"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -54,6 +56,17 @@
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/widget_medium_info" />
+        </receiver>
+
+        <receiver android:name=".HobbyWidgetProvider"
+            android:label="Single Hobby"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_hobby_info" />
         </receiver>
 
         <receiver android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationReceiver"

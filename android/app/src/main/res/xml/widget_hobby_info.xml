@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
-    android:initialLayout="@layout/widget_medium"
-    android:label="Top Hobbies"
-    android:description="@string/widget_medium_desc"
-    android:minWidth="250dp"
-    android:minHeight="180dp"
+    android:initialLayout="@layout/widget_hobby"
+    android:label="Single Hobby"
+    android:description="@string/widget_hobby_desc"
+    android:minWidth="110dp"
+    android:minHeight="40dp"
     android:resizeMode="horizontal|vertical"
     android:updatePeriodMillis="1800000"
     android:widgetCategory="home_screen" />

@@ -60,6 +60,11 @@ class HobbiesListScreen extends StatelessWidget {
                   ),
                   title: Text(hobby.name),
                   subtitle: Text(localizedCategories(l)[hobby.category] ?? hobby.category),
+                  trailing: IconButton(
+                    icon: const Icon(Icons.history),
+                    tooltip: l.sessions,
+                    onPressed: () => context.go('/hobbies/${hobby.id}'),
+                  ),
                   onTap: () => context.go('/hobbies/${hobby.id}'),
                 ),
               );

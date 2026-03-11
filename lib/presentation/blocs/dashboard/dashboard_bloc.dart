@@ -20,6 +20,21 @@ abstract class DashboardEvent extends Equatable {
 
 class LoadDashboard extends DashboardEvent {}
 
+// Per-hobby stat for dashboard cards
+class HobbyStats {
+  final String hobbyId;
+  final String name;
+  final String category;
+  final int weeklyMinutes;
+
+  const HobbyStats({
+    required this.hobbyId,
+    required this.name,
+    required this.category,
+    required this.weeklyMinutes,
+  });
+}
+
 // States
 abstract class DashboardState extends Equatable {
   const DashboardState();
@@ -35,16 +50,18 @@ class DashboardLoaded extends DashboardState {
   final int streakDays;
   final String? recentBadgeName;
   final List<Session> recentSessions;
+  final List<HobbyStats> hobbyStats;
   const DashboardLoaded({
     required this.activeHobbyCount,
     required this.weeklyTotalMinutes,
     required this.recentSessions,
     this.streakDays = 0,
     this.recentBadgeName,
+    this.hobbyStats = const [],
   });
   @override
   List<Object?> get props =>
-      [activeHobbyCount, weeklyTotalMinutes, streakDays, recentBadgeName, recentSessions.length];
+      [activeHobbyCount, weeklyTotalMinutes, streakDays, recentBadgeName, recentSessions.length, hobbyStats.length];
 }
 
 class DashboardEmpty extends DashboardState {}
@@ -96,7 +113,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
       }
 
       final now = DateTime.now();
-      final weekday = now.weekday; // Monday = 1
+      final weekday = now.weekday;
       final startOfWeek = DateTime(now.year, now.month, now.day)
           .subtract(Duration(days: weekday - 1));
       final endOfWeek = startOfWeek
@@ -112,28 +129,42 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
         (sum, s) => sum + s.durationMinutes,
       );
 
+      // Per-hobby weekly minutes
+      final minutesByHobby = <String, int>{};
+      for (final s in weekSessions) {
+        minutesByHobby[s.hobbyId] =
+            (minutesByHobby[s.hobbyId] ?? 0) + s.durationMinutes;
+      }
+      final hobbyStatsL = hobbies
+          .map((h) => HobbyStats(
+                hobbyId: h.id,
+                name: h.name,
+                category: h.category,
+                weeklyMinutes: minutesByHobby[h.id] ?? 0,
+              ))
+          .toList()
+        ..sort((a, b) => b.weeklyMinutes.compareTo(a.weeklyMinutes));
+
+      final streak = await _getStreakCount();
+
       emit(DashboardLoaded(
         activeHobbyCount: hobbies.length,
         weeklyTotalMinutes: weeklyTotal,
         recentSessions: recent,
-        streakDays: await _getStreakCount(),
+        streakDays: streak,
         recentBadgeName: (await _badgeRepository.getUnlockedBadges()).isNotEmpty
             ? (await _badgeRepository.getUnlockedBadges()).last.type.name
             : null,
+        hobbyStats: hobbyStatsL,
       ));
 
       // Update home screen widgets
-      final streak = await _getStreakCount();
       final today = DateTime.now();
       final todaySessions = weekSessions.where((s) =>
           s.date.year == today.year &&
           s.date.month == today.month &&
           s.date.day == today.day).toList();
       final todayMin = todaySessions.fold<int>(0, (sum, s) => sum + s.durationMinutes);
-      final minutesByHobby = <String, int>{};
-      for (final s in weekSessions) {
-        minutesByHobby[s.hobbyId] = (minutesByHobby[s.hobbyId] ?? 0) + s.durationMinutes;
-      }
       final hobbyNames = {for (final h in hobbies) h.id: h.name};
       final sorted = minutesByHobby.entries.toList()
         ..sort((a, b) => b.value.compareTo(a.value));
@@ -144,9 +175,13 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
           streakDays: streak,
           topHobbies: top,
         );
-      } catch (_) {
-        // Widget update is best-effort; ignore platform errors
-      }
+        if (hobbyStatsL.isNotEmpty) {
+          await WidgetService.updateHobbyWidget(
+            hobbyName: hobbyStatsL.first.name,
+            weeklyMinutes: hobbyStatsL.first.weeklyMinutes,
+          );
+        }
+      } catch (_) {}
     } on DatabaseFailure catch (e) {
       emit(DashboardError(e.message));
     }

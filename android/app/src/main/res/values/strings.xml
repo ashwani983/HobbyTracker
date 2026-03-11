@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="widget_small_desc">Shows today\'s time and streak</string>
+    <string name="widget_medium_desc">Shows top 3 hobbies this week</string>
+    <string name="widget_hobby_desc">Shows stats for your top hobby</string>
+</resources>

@@ -167,11 +167,12 @@ void main() {
       expect(find.text('This Week'), findsOneWidget);
     });
 
-    testWidgets('shows recent sessions with hobby name', (tester) async {
+    testWidgets('shows per-hobby stat cards', (tester) async {
       when(() => dashBloc.state).thenReturn(DashboardLoaded(
         activeHobbyCount: 1,
         weeklyTotalMinutes: 45,
         recentSessions: [testSession],
+        hobbyStats: [HobbyStats(hobbyId: 'h1', name: 'Guitar', category: 'Music', weeklyMinutes: 45)],
       ));
       when(() => hobbyBloc.state).thenReturn(HobbyListLoaded([testHobby]));
       await tester.pumpWidget(buildSubject());
@@ -179,7 +180,6 @@ void main() {
 
       expect(find.text('Guitar'), findsOneWidget);
       expect(find.text('🎵'), findsOneWidget);
-      expect(find.text('⭐ 4'), findsOneWidget);
     });
 
     testWidgets('shows error message', (tester) async {

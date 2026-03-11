@@ -40,6 +40,19 @@ class WidgetService {
     );
   }
 
+  static Future<void> updateHobbyWidget({
+    required String hobbyName,
+    required int weeklyMinutes,
+  }) async {
+    await HomeWidget.saveWidgetData('hobby_widget_name', hobbyName);
+    await HomeWidget.saveWidgetData('hobby_widget_weekly', '${weeklyMinutes}m');
+    await HomeWidget.updateWidget(
+      name: 'HobbyWidgetProvider',
+      androidName: 'HobbyWidgetProvider',
+      qualifiedAndroidName: 'com.hobbytracker.app.HobbyWidgetProvider',
+    );
+  }
+
   static Future<void> onSessionLogged({
     required List<Session> todaySessions,
     required int streakDays,

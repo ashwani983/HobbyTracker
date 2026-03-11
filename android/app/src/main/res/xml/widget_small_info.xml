@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
     android:initialLayout="@layout/widget_small"
+    android:label="Today's Progress"
+    android:description="@string/widget_small_desc"
     android:minWidth="180dp"
     android:minHeight="110dp"
     android:resizeMode="horizontal|vertical"

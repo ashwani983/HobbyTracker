@@ -28,13 +28,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
     context.read<DashboardBloc>().add(LoadDashboard());
   }
 
-  Map<String, Hobby> _hobbyMap(HobbyListState state) {
-    if (state is HobbyListLoaded) {
-      return {for (final h in state.hobbies) h.id: h};
-    }
-    return {};
-  }
-
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context)!;
@@ -89,7 +82,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
           ),
           Expanded(child: BlocBuilder<HobbyListBloc, HobbyListState>(
         builder: (context, hobbyState) {
-          final hobbyMap = _hobbyMap(hobbyState);
           return BlocBuilder<DashboardBloc, DashboardState>(
             builder: (context, state) {
               if (state is DashboardLoading) {
@@ -102,7 +94,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 return Center(child: Text(state.message));
               }
               final s = state as DashboardLoaded;
-              // Refresh suggestions
               final hobbyList = hobbyState is HobbyListLoaded
                   ? hobbyState.hobbies
                   : <Hobby>[];
@@ -138,33 +129,30 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       );
                     },
                   ),
-                  const SizedBox(height: 16),
-                  Text(
-                    l.recentSessions,
-                    style: Theme.of(context).textTheme.titleMedium,
-                  ),
-                  const SizedBox(height: 8),
-                  if (s.recentSessions.isEmpty)
-                    Text(l.noSessionsLogged)
-                  else
-                    ...s.recentSessions.map((session) {
-                      final hobby = hobbyMap[session.hobbyId];
-                      final hobbyName = hobby?.name ?? 'Unknown';
-                      final emoji = hobby != null
-                          ? AppConstants.emojiForCategory(hobby.category)
-                          : '🌟';
-                      return ListTile(
-                        leading: Text(emoji, style: const TextStyle(fontSize: 24)),
-                        title: Text(hobbyName),
-                        subtitle: Text(
-                          '${l.durationMinutes(session.durationMinutes)} · '
-                          '${session.date.month}/${session.date.day}/${session.date.year}',
+                  if (s.hobbyStats.isNotEmpty) ...[
+                    const SizedBox(height: 16),
+                    Text(
+                      l.hobbies,
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                    const SizedBox(height: 8),
+                    ...s.hobbyStats.map((hs) {
+                      final emoji = AppConstants.emojiForCategory(hs.category);
+                      final h = hs.weeklyMinutes ~/ 60;
+                      final m = hs.weeklyMinutes % 60;
+                      return Card(
+                        child: ListTile(
+                          leading: Text(emoji,
+                              style: const TextStyle(fontSize: 24)),
+                          title: Text(hs.name),
+                          subtitle: Text('${l.durationHoursMinutes(h, m)} ${l.thisWeek}'),
+                          trailing: const Icon(Icons.chevron_right),
+                          onTap: () =>
+                              context.go('/hobbies/${hs.hobbyId}'),
                         ),
-                        trailing: session.rating != null
-                            ? Text(l.ratingStars(session.rating!))
-                            : null,
                       );
                     }),
+                  ],
                 ],
               );
             },

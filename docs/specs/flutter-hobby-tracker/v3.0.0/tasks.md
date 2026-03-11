@@ -88,15 +88,15 @@ Social sharing, AI suggestions, home screen widgets, and multi-language support.
 
 - [x] 10. Checkpoint — Notes & Goal fixes
 
-- [ ] 11. Dashboard redesign + Per-hobby widget
-  - [ ] 11.1 Replace recent sessions with per-hobby stat cards on dashboard
+- [x] 11. Dashboard redesign + Per-hobby widget
+  - [x] 11.1 Replace recent sessions with per-hobby stat cards on dashboard
     - _Requirements: 23.1, 23.2_
-  - [ ] 11.2 Add history icon to Hobbies tab with session history view
+  - [x] 11.2 Add history icon to Hobbies tab with session history view
     - _Requirements: 23.3_
-  - [ ] 11.3 Create per-hobby configurable home screen widget (Android)
+  - [x] 11.3 Create per-hobby configurable home screen widget (Android)
     - _Requirements: 22.1, 22.2, 22.3, 22.4_
 
-- [ ] 12. Checkpoint — Dashboard & Widget
+- [x] 12. Checkpoint — Dashboard & Widget
 
 - [ ] 13. Interactive charts and insights
   - [ ] 13.1 Add touch interaction to pie chart with hobby name labels
