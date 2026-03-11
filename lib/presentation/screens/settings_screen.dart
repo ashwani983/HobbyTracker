@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../blocs/theme/theme_cubit.dart';
+import '../blocs/update/update_cubit.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -81,6 +83,31 @@ class SettingsScreen extends StatelessWidget {
                 applicationIcon: const Icon(Icons.sports_esports, size: 48),
               );
             },
+          ),
+
+          // Check for updates
+          BlocBuilder<UpdateCubit, UpdateState>(
+            builder: (ctx, state) => ListTile(
+              leading: const Icon(Icons.system_update),
+              title: const Text('Check for Updates'),
+              subtitle: state is UpdateAvailable
+                  ? Text('${state.release.tagName} available')
+                  : state is UpdateChecking
+                      ? const Text('Checking...')
+                      : const Text('You\'re up to date'),
+              trailing: state is UpdateAvailable
+                  ? TextButton(
+                      onPressed: () async {
+                        final uri = Uri.parse(state.release.htmlUrl);
+                        if (await canLaunchUrl(uri)) {
+                          await launchUrl(uri, mode: LaunchMode.externalApplication);
+                        }
+                      },
+                      child: const Text('Update'),
+                    )
+                  : null,
+              onTap: () => ctx.read<UpdateCubit>().check(force: true),
+            ),
           ),
         ],
       ),

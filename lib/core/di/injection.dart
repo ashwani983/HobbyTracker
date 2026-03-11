@@ -37,6 +37,7 @@ import '../../domain/usecases/sync_from_cloud.dart';
 import '../../presentation/blocs/theme/theme_cubit.dart';
 import '../../presentation/blocs/auth/auth_bloc.dart';
 import '../../presentation/blocs/sync/sync_bloc.dart';
+import '../../presentation/blocs/update/update_cubit.dart';
 
 final sl = GetIt.instance;
 
@@ -87,4 +88,5 @@ Future<void> configureDependencies() async {
         fromCloud: sl(),
         prefs: sl(),
       ));
+  sl.registerFactory(() => UpdateCubit(sl()));
 }

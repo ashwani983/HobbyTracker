@@ -136,22 +136,22 @@ Builds on v1.0.0 (Clean Architecture + BLoC). Adds gamification, notifications, 
 
 - [x] 15. Checkpoint — Onboarding & Settings
 
-- [ ] 16. In-App Update Checker
-  - [ ] 16.1 Add `http` and `package_info_plus` dependencies
+- [x] 16. In-App Update Checker
+  - [x] 16.1 Add `http` and `package_info_plus` dependencies
     - _Requirements: 17.1, 17.5_
-  - [ ] 16.2 Create GitHubRelease model and AppUpdateService
+  - [x] 16.2 Create GitHubRelease model and AppUpdateService
     - Fetch latest release from GitHub API, parse tag, compare semver
     - _Requirements: 17.1, 17.5, 17.6_
-  - [ ] 16.3 Implement UpdateCubit
+  - [x] 16.3 Implement UpdateCubit
     - States: Initial, Checking, Available, NotAvailable, Error
     - 24h dismiss logic via SharedPreferences
     - _Requirements: 17.2, 17.4_
-  - [ ] 16.4 Add update banner/dialog to app shell or dashboard
+  - [x] 16.4 Add update banner/dialog to app shell or dashboard
     - Show release title + notes summary, "Update" and "Later" buttons
     - _Requirements: 17.2, 17.3, 17.4_
-  - [ ] 16.5 Add "Check for updates" button and version display to Settings
+  - [x] 16.5 Add "Check for updates" button and version display to Settings
     - _Requirements: 17.7_
-  - [ ] 16.6 Open browser to GitHub release page on "Update" tap
+  - [x] 16.6 Open browser to GitHub release page on "Update" tap
     - _Requirements: 17.3_
 
 - [ ] 17. Polish and integration

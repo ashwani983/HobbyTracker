@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../core/constants/app_constants.dart';
 import '../../domain/entities/hobby.dart';
 import '../blocs/dashboard/dashboard_bloc.dart';
 import '../blocs/hobby_list/hobby_list_bloc.dart';
 import '../blocs/theme/theme_cubit.dart';
+import '../blocs/update/update_cubit.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -58,7 +60,27 @@ class _DashboardScreenState extends State<DashboardScreen> {
           ),
         ],
       ),
-      body: BlocBuilder<HobbyListBloc, HobbyListState>(
+      body: Column(
+        children: [
+          BlocBuilder<UpdateCubit, UpdateState>(
+            builder: (ctx, uState) {
+              if (uState is! UpdateAvailable) return const SizedBox.shrink();
+              return MaterialBanner(
+                content: Text('Update ${uState.release.tagName} available'),
+                actions: [
+                  TextButton(
+                    onPressed: () => ctx.read<UpdateCubit>().dismiss(),
+                    child: const Text('Later'),
+                  ),
+                  TextButton(
+                    onPressed: () => _openRelease(uState.release.htmlUrl),
+                    child: const Text('Update'),
+                  ),
+                ],
+              );
+            },
+          ),
+          Expanded(child: BlocBuilder<HobbyListBloc, HobbyListState>(
         builder: (context, hobbyState) {
           final hobbyMap = _hobbyMap(hobbyState);
           return BlocBuilder<DashboardBloc, DashboardState>(
@@ -114,8 +136,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
             },
           );
         },
+      )),
+        ],
       ),
     );
+  }
+
+  static Future<void> _openRelease(String url) async {
+    final uri = Uri.parse(url);
+    if (await canLaunchUrl(uri)) await launchUrl(uri, mode: LaunchMode.externalApplication);
   }
 }
 
