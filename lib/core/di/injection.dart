@@ -29,6 +29,7 @@ import '../../domain/usecases/schedule_reminder.dart';
 import '../../domain/usecases/cancel_reminder.dart';
 import '../../domain/usecases/update_reminder.dart';
 import '../../domain/usecases/update_hobby.dart';
+import '../../domain/usecases/attach_photos.dart';
 import '../../presentation/blocs/theme/theme_cubit.dart';
 
 final sl = GetIt.instance;
@@ -66,6 +67,7 @@ Future<void> configureDependencies() async {
   sl.registerFactory(() => ScheduleReminder(sl()));
   sl.registerFactory(() => CancelReminder(sl()));
   sl.registerFactory(() => UpdateReminder(sl()));
+  sl.registerFactory(() => AttachPhotos());
 
   // Cubits
   sl.registerFactory(() => ThemeCubit(sl<SharedPreferences>()));

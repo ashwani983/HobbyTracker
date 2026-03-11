@@ -53,21 +53,26 @@ class StatsScreen extends StatelessWidget {
                       bottomTitles: AxisTitles(
                         sideTitles: SideTitles(
                           showTitles: true,
-                          getTitlesWidget: (val, _) {
+                          reservedSize: 40,
+                          getTitlesWidget: (val, meta) {
                             final entries =
                                 s.data.perHobbyDurations.keys.toList();
                             final idx = val.toInt();
                             if (idx < 0 || idx >= entries.length) {
                               return const SizedBox.shrink();
                             }
-                            return Text(
-                              entries[idx].substring(
-                                0,
-                                entries[idx].length > 4
-                                    ? 4
-                                    : entries[idx].length,
+                            return SideTitleWidget(
+                              axisSide: meta.axisSide,
+                              child: SizedBox(
+                                width: 60,
+                                child: Text(
+                                  entries[idx],
+                                  style: const TextStyle(fontSize: 9),
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                  textAlign: TextAlign.center,
+                                ),
                               ),
-                              style: const TextStyle(fontSize: 10),
                             );
                           },
                         ),

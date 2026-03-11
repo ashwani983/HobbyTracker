@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -38,18 +40,29 @@ class HobbyDetailScreen extends StatelessWidget {
           )..add(LoadReminders(hobbyId)),
         ),
       ],
-      child: Scaffold(
+      child: Builder(
+        builder: (innerCtx) => Scaffold(
         appBar: AppBar(
           title: const Text('Hobby Detail'),
           actions: [
             IconButton(
               icon: const Icon(Icons.edit),
-              onPressed: () => context.go('/hobbies/$hobbyId/edit'),
+              onPressed: () async {
+                await innerCtx.push('/hobbies/$hobbyId/edit');
+                if (innerCtx.mounted) {
+                  innerCtx.read<HobbyDetailBloc>().add(LoadHobbyDetail(hobbyId));
+                }
+              },
             ),
           ],
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () => context.go('/hobbies/$hobbyId/log'),
+          onPressed: () async {
+            await innerCtx.push('/hobbies/$hobbyId/log');
+            if (innerCtx.mounted) {
+              innerCtx.read<HobbyDetailBloc>().add(LoadHobbyDetail(hobbyId));
+            }
+          },
           child: const Icon(Icons.add),
         ),
         body: BlocBuilder<HobbyDetailBloc, HobbyDetailState>(
@@ -82,20 +95,60 @@ class HobbyDetailScreen extends StatelessWidget {
                   const Text('No sessions yet.')
                 else
                   ...s.sessions.map(
-                    (session) => ListTile(
-                      title: Text('${session.durationMinutes} min'),
-                      subtitle: Text(
-                        '${session.date.month}/${session.date.day}/${session.date.year}',
-                      ),
-                      trailing: session.rating != null
-                          ? Text('⭐ ${session.rating}')
-                          : null,
+                    (session) => Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        ListTile(
+                          title: Text('${session.durationMinutes} min'),
+                          subtitle: Text(
+                            '${session.date.month}/${session.date.day}/${session.date.year}',
+                          ),
+                          trailing: session.rating != null
+                              ? Text('⭐ ${session.rating}')
+                              : null,
+                        ),
+                        if (session.photoPaths.isNotEmpty)
+                          SizedBox(
+                            height: 60,
+                            child: ListView.separated(
+                              padding: const EdgeInsets.symmetric(horizontal: 16),
+                              scrollDirection: Axis.horizontal,
+                              itemCount: session.photoPaths.length,
+                              separatorBuilder: (_, i2) => const SizedBox(width: 6),
+                              itemBuilder: (_, i) => GestureDetector(
+                                onTap: () => Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (_) => _FullScreenImage(
+                                      paths: session.photoPaths,
+                                      initial: i,
+                                    ),
+                                  ),
+                                ),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(6),
+                                  child: Image.file(
+                                    File(session.photoPaths[i]),
+                                    width: 60,
+                                    height: 60,
+                                    fit: BoxFit.cover,
+                                    errorBuilder: (_, e, s) => const SizedBox(
+                                      width: 60,
+                                      height: 60,
+                                      child: Icon(Icons.broken_image, size: 24),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                      ],
                     ),
                   ),
               ],
             );
           },
         ),
+      ),
       ),
     );
   }
@@ -283,6 +336,37 @@ class _WeekDayPickerState extends State<_WeekDayPicker> {
           child: const Text('OK'),
         ),
       ],
+    );
+  }
+}
+
+class _FullScreenImage extends StatelessWidget {
+  final List<String> paths;
+  final int initial;
+  const _FullScreenImage({required this.paths, required this.initial});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.black,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        iconTheme: const IconThemeData(color: Colors.white),
+      ),
+      body: PageView.builder(
+        controller: PageController(initialPage: initial),
+        itemCount: paths.length,
+        itemBuilder: (_, i) => InteractiveViewer(
+          child: Center(
+            child: Image.file(
+              File(paths[i]),
+              fit: BoxFit.contain,
+              errorBuilder: (_, e, s) =>
+                  const Icon(Icons.broken_image, color: Colors.white, size: 48),
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

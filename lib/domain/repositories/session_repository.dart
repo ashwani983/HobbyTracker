@@ -10,4 +10,5 @@ abstract class SessionRepository {
     DateTime end,
   );
   Future<void> createSession(Session session);
+  Future<void> deleteSession(String id);
 }

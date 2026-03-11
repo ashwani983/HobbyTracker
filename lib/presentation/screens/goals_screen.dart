@@ -14,7 +14,12 @@ class GoalsScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('Goals')),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => context.go('/goals/add'),
+        onPressed: () async {
+          await context.push('/goals/add');
+          if (context.mounted) {
+            context.read<GoalBloc>().add(LoadGoals());
+          }
+        },
         child: const Icon(Icons.add),
       ),
       body: BlocBuilder<GoalBloc, GoalState>(

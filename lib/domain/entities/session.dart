@@ -5,6 +5,7 @@ class Session {
   final int durationMinutes;
   final String? notes;
   final int? rating;
+  final List<String> photoPaths;
   final DateTime createdAt;
 
   const Session({
@@ -14,6 +15,7 @@ class Session {
     required this.durationMinutes,
     this.notes,
     this.rating,
+    this.photoPaths = const [],
     required this.createdAt,
   });
 }

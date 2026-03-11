@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -5,6 +7,7 @@ import 'package:uuid/uuid.dart';
 
 import '../../core/di/injection.dart';
 import '../../domain/entities/session.dart';
+import '../../domain/usecases/attach_photos.dart';
 import '../../domain/usecases/log_session.dart';
 import '../blocs/badge/badge_bloc.dart';
 import '../blocs/session/session_bloc.dart';
@@ -21,6 +24,8 @@ class _LogSessionScreenState extends State<LogSessionScreen> {
   final _formKey = GlobalKey<FormState>();
   final _durationController = TextEditingController();
   final _notesController = TextEditingController();
+  final _attachPhotos = AttachPhotos();
+  final _photoPaths = <String>[];
   int? _rating;
   DateTime _date = DateTime.now();
 
@@ -31,6 +36,20 @@ class _LogSessionScreenState extends State<LogSessionScreen> {
     super.dispose();
   }
 
+  Future<void> _pickFromGallery() async {
+    if (_photoPaths.length >= 5) return;
+    final paths = await _attachPhotos.fromGallery(
+      maxImages: 5 - _photoPaths.length,
+    );
+    if (paths.isNotEmpty) setState(() => _photoPaths.addAll(paths));
+  }
+
+  Future<void> _pickFromCamera() async {
+    if (_photoPaths.length >= 5) return;
+    final path = await _attachPhotos.fromCamera();
+    if (path != null) setState(() => _photoPaths.add(path));
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -38,7 +57,6 @@ class _LogSessionScreenState extends State<LogSessionScreen> {
       child: BlocConsumer<SessionBloc, SessionState>(
         listener: (context, state) {
           if (state is SessionSaved) {
-            // Trigger badge check after session saved
             context.read<BadgeBloc>().add(CheckNewBadges());
             context.pop();
           }
@@ -114,6 +132,62 @@ class _LogSessionScreenState extends State<LogSessionScreen> {
                         );
                       }),
                     ),
+                    const SizedBox(height: 16),
+                    // Photos section
+                    Text('Photos (${_photoPaths.length}/5)',
+                        style: Theme.of(context).textTheme.titleSmall),
+                    const SizedBox(height: 8),
+                    Row(
+                      children: [
+                        OutlinedButton.icon(
+                          onPressed: _photoPaths.length >= 5 ? null : _pickFromGallery,
+                          icon: const Icon(Icons.photo_library),
+                          label: const Text('Gallery'),
+                        ),
+                        const SizedBox(width: 12),
+                        OutlinedButton.icon(
+                          onPressed: _photoPaths.length >= 5 ? null : _pickFromCamera,
+                          icon: const Icon(Icons.camera_alt),
+                          label: const Text('Camera'),
+                        ),
+                      ],
+                    ),
+                    if (_photoPaths.isNotEmpty)
+                      SizedBox(
+                        height: 80,
+                        child: ListView.separated(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: _photoPaths.length,
+                          separatorBuilder: (_, i2) => const SizedBox(width: 8),
+                          itemBuilder: (_, i) => Stack(
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(8),
+                                child: Image.file(
+                                  File(_photoPaths[i]),
+                                  width: 80,
+                                  height: 80,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                              Positioned(
+                                top: 0,
+                                right: 0,
+                                child: GestureDetector(
+                                  onTap: () => setState(() => _photoPaths.removeAt(i)),
+                                  child: Container(
+                                    decoration: const BoxDecoration(
+                                      color: Colors.black54,
+                                      shape: BoxShape.circle,
+                                    ),
+                                    child: const Icon(Icons.close, size: 18, color: Colors.white),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
                     const SizedBox(height: 24),
                     FilledButton(
                       onPressed: state is SessionSaving
@@ -130,6 +204,7 @@ class _LogSessionScreenState extends State<LogSessionScreen> {
                                     ? null
                                     : _notesController.text.trim(),
                                 rating: _rating,
+                                photoPaths: _photoPaths,
                                 createdAt: DateTime.now(),
                               );
                               context
@@ -140,8 +215,7 @@ class _LogSessionScreenState extends State<LogSessionScreen> {
                           ? const SizedBox(
                               height: 20,
                               width: 20,
-                              child:
-                                  CircularProgressIndicator(strokeWidth: 2),
+                              child: CircularProgressIndicator(strokeWidth: 2),
                             )
                           : const Text('Save Session'),
                     ),

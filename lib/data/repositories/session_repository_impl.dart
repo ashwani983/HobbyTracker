@@ -65,6 +65,15 @@ class SessionRepositoryImpl implements SessionRepository {
     }
   }
 
+  @override
+  Future<void> deleteSession(String id) async {
+    try {
+      await _db.deleteSession(id);
+    } catch (e) {
+      throw DatabaseFailure(e.toString());
+    }
+  }
+
   Session _toEntity(SessionTableData row) => Session(
         id: row.id,
         hobbyId: row.hobbyId,
@@ -72,6 +81,7 @@ class SessionRepositoryImpl implements SessionRepository {
         durationMinutes: row.durationMinutes,
         notes: row.notes,
         rating: row.rating,
+        photoPaths: row.photoPaths?.split(',').where((s) => s.isNotEmpty).toList() ?? [],
         createdAt: row.createdAt,
       );
 
@@ -82,6 +92,7 @@ class SessionRepositoryImpl implements SessionRepository {
         durationMinutes: Value(s.durationMinutes),
         notes: Value(s.notes),
         rating: Value(s.rating),
+        photoPaths: Value(s.photoPaths.isEmpty ? null : s.photoPaths.join(',')),
         createdAt: Value(s.createdAt),
       );
 }

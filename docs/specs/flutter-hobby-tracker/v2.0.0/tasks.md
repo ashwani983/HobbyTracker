@@ -76,22 +76,22 @@ Builds on v1.0.0 (Clean Architecture + BLoC). Adds gamification, notifications, 
 
 - [x] 7. Checkpoint — Reminders
 
-- [ ] 8. Photo/media log
-  - [ ] 8.1 Implement AttachPhotos use case
+- [x] 8. Photo/media log
+  - [x] 8.1 Implement AttachPhotos use case
     - Use image_picker, save to app documents directory
     - Update session with photo paths
     - _Requirements: 11.1, 11.2_
-  - [ ] 8.2 Update LogSessionScreen with image picker
+  - [x] 8.2 Update LogSessionScreen with image picker
     - Camera and gallery options, up to 5 images
     - _Requirements: 11.1_
-  - [ ] 8.3 Display photo thumbnails on session detail
+  - [x] 8.3 Display photo thumbnails on session detail
     - _Requirements: 11.2_
-  - [ ] 8.4 Full-screen image viewer on tap
+  - [x] 8.4 Full-screen image viewer on tap
     - _Requirements: 11.3_
-  - [ ] 8.5 Delete photos when session is deleted
+  - [x] 8.5 Delete photos when session is deleted
     - _Requirements: 11.4_
 
-- [ ] 9. Checkpoint — Media
+- [x] 9. Checkpoint — Media
 
 - [ ] 10. Export data
   - [ ] 10.1 Implement ExportCsv use case

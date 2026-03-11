@@ -168,6 +168,9 @@ class AppDatabase extends _$AppDatabase {
   Future<void> insertSession(SessionTableCompanion session) =>
       into(sessionTable).insert(session);
 
+  Future<void> deleteSession(String id) =>
+      (delete(sessionTable)..where((t) => t.id.equals(id))).go();
+
   // -- Goal queries --
 
   Future<List<GoalTableData>> getActiveGoals() =>

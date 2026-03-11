@@ -33,9 +33,11 @@ class HobbyDetailLoading extends HobbyDetailState {}
 class HobbyDetailLoaded extends HobbyDetailState {
   final Hobby hobby;
   final List<Session> sessions;
-  const HobbyDetailLoaded({required this.hobby, required this.sessions});
+  final int _stamp;
+  HobbyDetailLoaded({required this.hobby, required this.sessions})
+      : _stamp = DateTime.now().microsecondsSinceEpoch;
   @override
-  List<Object?> get props => [hobby.id, sessions.length];
+  List<Object?> get props => [_stamp, hobby.id, sessions.length];
 }
 
 class HobbyDetailError extends HobbyDetailState {

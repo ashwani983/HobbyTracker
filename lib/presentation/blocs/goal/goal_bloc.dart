@@ -41,9 +41,10 @@ class GoalLoading extends GoalState {}
 
 class GoalLoaded extends GoalState {
   final List<Goal> goals;
-  const GoalLoaded(this.goals);
+  final int _stamp;
+  GoalLoaded(this.goals) : _stamp = DateTime.now().microsecondsSinceEpoch;
   @override
-  List<Object?> get props => [goals];
+  List<Object?> get props => [_stamp, goals];
 }
 
 class GoalEmpty extends GoalState {}
