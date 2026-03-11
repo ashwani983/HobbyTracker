@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../core/di/injection.dart';
+import '../../domain/entities/goal.dart';
 import '../screens/add_edit_hobby_screen.dart';
 import '../screens/add_goal_screen.dart';
 import '../screens/dashboard_screen.dart';
@@ -94,6 +95,13 @@ final appRouter = GoRouter(
               path: 'add',
               parentNavigatorKey: _rootNavigatorKey,
               builder: (context, state) => const AddGoalScreen(),
+            ),
+            GoRoute(
+              path: 'edit',
+              parentNavigatorKey: _rootNavigatorKey,
+              builder: (context, state) => AddGoalScreen(
+                existingGoal: state.extra as Goal?,
+              ),
             ),
           ],
         ),

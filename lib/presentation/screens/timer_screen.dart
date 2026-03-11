@@ -58,11 +58,26 @@ class _TimerScreenState extends State<TimerScreen> {
     }
     if (_selectedHobbyId == null) return;
 
+    final notesController = TextEditingController();
     final save = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
         title: Text(l.saveSessionQuestion),
-        content: Text(l.saveMinutesSession(minutes)),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(l.saveMinutesSession(minutes)),
+            const SizedBox(height: 12),
+            TextField(
+              controller: notesController,
+              decoration: InputDecoration(
+                labelText: l.notes,
+                hintText: l.notesHint,
+              ),
+              maxLines: 2,
+            ),
+          ],
+        ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx, false),
@@ -77,11 +92,13 @@ class _TimerScreenState extends State<TimerScreen> {
     );
 
     if (save == true && context.mounted) {
+      final notes = notesController.text.trim();
       final session = Session(
         id: const Uuid().v4(),
         hobbyId: _selectedHobbyId!,
         date: DateTime.now(),
         durationMinutes: minutes,
+        notes: notes.isEmpty ? null : notes,
         createdAt: DateTime.now(),
       );
       try {

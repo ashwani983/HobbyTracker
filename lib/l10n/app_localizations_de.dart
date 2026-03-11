@@ -293,6 +293,15 @@ class AppLocalizationsDe extends AppLocalizations {
   String get sessionTooShort => 'Sitzung zu kurz zum Speichern.';
 
   @override
+  String get notesHint => 'Woran hast du gearbeitet?';
+
+  @override
+  String get editGoal => 'Ziel bearbeiten';
+
+  @override
+  String get updateGoal => 'Ziel aktualisieren';
+
+  @override
   String get notificationPermissionDenied =>
       'Benachrichtigungsberechtigung verweigert';
 

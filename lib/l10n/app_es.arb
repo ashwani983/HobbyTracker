@@ -94,6 +94,10 @@
 
   "sessionSaved": "¡Sesión guardada!",
   "sessionTooShort": "Sesión demasiado corta para guardar.",
+  "notes": "Notas",
+  "notesHint": "¿En qué trabajaste?",
+  "editGoal": "Editar meta",
+  "updateGoal": "Actualizar meta",
   "notificationPermissionDenied": "Permiso de notificación denegado",
   "exportFailed": "Error al exportar: {error}",
 

@@ -11,6 +11,7 @@ import 'domain/usecases/create_goal.dart';
 import 'domain/usecases/create_hobby.dart';
 import 'domain/usecases/deactivate_goal.dart';
 import 'domain/usecases/get_active_goals.dart';
+import 'domain/usecases/update_goal.dart';
 import 'domain/usecases/get_active_hobbies.dart';
 import 'domain/usecases/get_recent_sessions.dart';
 import 'domain/usecases/get_stats.dart';
@@ -59,6 +60,7 @@ class App extends StatelessWidget {
           create: (_) => GoalBloc(
             getActiveGoals: sl<GetActiveGoals>(),
             createGoal: sl<CreateGoal>(),
+            updateGoal: sl<UpdateGoal>(),
             deactivateGoal: sl<DeactivateGoal>(),
           )..add(LoadGoals()),
         ),

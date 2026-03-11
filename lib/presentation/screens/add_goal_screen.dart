@@ -12,7 +12,8 @@ import '../../l10n/app_localizations.dart';
 import '../blocs/goal/goal_bloc.dart';
 
 class AddGoalScreen extends StatefulWidget {
-  const AddGoalScreen({super.key});
+  final Goal? existingGoal;
+  const AddGoalScreen({super.key, this.existingGoal});
 
   @override
   State<AddGoalScreen> createState() => _AddGoalScreenState();
@@ -27,9 +28,19 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
   DateTime _startDate = DateTime.now();
   DateTime _endDate = DateTime.now().add(const Duration(days: 7));
 
+  bool get _isEditing => widget.existingGoal != null;
+
   @override
   void initState() {
     super.initState();
+    if (_isEditing) {
+      final g = widget.existingGoal!;
+      _targetController.text = g.targetDurationMinutes.toString();
+      _selectedHobbyId = g.hobbyId;
+      _type = g.type;
+      _startDate = g.startDate;
+      _endDate = g.endDate;
+    }
     _loadHobbies();
   }
 
@@ -38,7 +49,9 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
     if (mounted) {
       setState(() {
         _hobbies = hobbies;
-        if (hobbies.isNotEmpty) _selectedHobbyId = hobbies.first.id;
+        if (!_isEditing && hobbies.isNotEmpty && _selectedHobbyId == null) {
+          _selectedHobbyId = hobbies.first.id;
+        }
       });
     }
   }
@@ -53,7 +66,7 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context)!;
     return Scaffold(
-      appBar: AppBar(title: Text(l.addGoal)),
+      appBar: AppBar(title: Text(_isEditing ? l.editGoal : l.addGoal)),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Form(
@@ -70,7 +83,9 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
                       .map((h) =>
                           DropdownMenuItem(value: h.id, child: Text(h.name)))
                       .toList(),
-                  onChanged: (v) => setState(() => _selectedHobbyId = v),
+                  onChanged: _isEditing
+                      ? null
+                      : (v) => setState(() => _selectedHobbyId = v),
                 ),
               const SizedBox(height: 12),
               DropdownButtonFormField<GoalType>(
@@ -138,7 +153,9 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
                           return;
                         }
                         final goal = Goal(
-                          id: const Uuid().v4(),
+                          id: _isEditing
+                              ? widget.existingGoal!.id
+                              : const Uuid().v4(),
                           hobbyId: _selectedHobbyId!,
                           type: _type,
                           targetDurationMinutes:
@@ -146,10 +163,18 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
                           startDate: _startDate,
                           endDate: _endDate,
                         );
-                        context.read<GoalBloc>().add(CreateGoalEvent(goal));
+                        if (_isEditing) {
+                          context
+                              .read<GoalBloc>()
+                              .add(UpdateGoalEvent(goal));
+                        } else {
+                          context
+                              .read<GoalBloc>()
+                              .add(CreateGoalEvent(goal));
+                        }
                         context.pop();
                       },
-                child: Text(l.createGoal),
+                child: Text(_isEditing ? l.updateGoal : l.createGoal),
               ),
             ],
           ),

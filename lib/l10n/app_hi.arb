@@ -94,6 +94,10 @@
 
   "sessionSaved": "सत्र सहेजा गया!",
   "sessionTooShort": "सत्र सहेजने के लिए बहुत छोटा।",
+  "notes": "नोट्स",
+  "notesHint": "आपने किस पर काम किया?",
+  "editGoal": "लक्ष्य संपादित करें",
+  "updateGoal": "लक्ष्य अपडेट करें",
   "notificationPermissionDenied": "सूचना अनुमति अस्वीकृत",
   "exportFailed": "निर्यात विफल: {error}",
 

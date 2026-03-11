@@ -293,6 +293,15 @@ class AppLocalizationsEs extends AppLocalizations {
   String get sessionTooShort => 'Sesión demasiado corta para guardar.';
 
   @override
+  String get notesHint => '¿En qué trabajaste?';
+
+  @override
+  String get editGoal => 'Editar meta';
+
+  @override
+  String get updateGoal => 'Actualizar meta';
+
+  @override
   String get notificationPermissionDenied => 'Permiso de notificación denegado';
 
   @override

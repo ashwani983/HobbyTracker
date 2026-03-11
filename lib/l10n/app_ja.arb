@@ -94,6 +94,10 @@
 
   "sessionSaved": "セッションを保存しました！",
   "sessionTooShort": "セッションが短すぎて保存できません。",
+  "notes": "メモ",
+  "notesHint": "何に取り組みましたか？",
+  "editGoal": "目標を編集",
+  "updateGoal": "目標を更新",
   "notificationPermissionDenied": "通知の許可が拒否されました",
   "exportFailed": "エクスポート失敗: {error}",
 

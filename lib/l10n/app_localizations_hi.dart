@@ -292,6 +292,15 @@ class AppLocalizationsHi extends AppLocalizations {
   String get sessionTooShort => 'सत्र सहेजने के लिए बहुत छोटा।';
 
   @override
+  String get notesHint => 'आपने किस पर काम किया?';
+
+  @override
+  String get editGoal => 'लक्ष्य संपादित करें';
+
+  @override
+  String get updateGoal => 'लक्ष्य अपडेट करें';
+
+  @override
   String get notificationPermissionDenied => 'सूचना अनुमति अस्वीकृत';
 
   @override

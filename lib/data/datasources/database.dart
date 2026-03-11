@@ -189,6 +189,9 @@ class AppDatabase extends _$AppDatabase {
             updatedAt: Value(DateTime.now()),
           ));
 
+  Future<void> updateGoal(GoalTableCompanion goal, String id) =>
+      (update(goalTable)..where((t) => t.id.equals(id))).write(goal);
+
   // -- Badge queries --
 
   Future<List<UserBadgeTableData>> getAllBadges() =>

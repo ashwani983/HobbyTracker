@@ -295,6 +295,15 @@ class AppLocalizationsFr extends AppLocalizations {
   String get sessionTooShort => 'Session trop courte pour être sauvegardée.';
 
   @override
+  String get notesHint => 'Sur quoi avez-vous travaillé ?';
+
+  @override
+  String get editGoal => 'Modifier l\'objectif';
+
+  @override
+  String get updateGoal => 'Mettre à jour';
+
+  @override
   String get notificationPermissionDenied =>
       'Permission de notification refusée';
 

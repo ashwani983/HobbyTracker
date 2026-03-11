@@ -94,6 +94,10 @@
 
   "sessionSaved": "Sitzung gespeichert!",
   "sessionTooShort": "Sitzung zu kurz zum Speichern.",
+  "notes": "Notizen",
+  "notesHint": "Woran hast du gearbeitet?",
+  "editGoal": "Ziel bearbeiten",
+  "updateGoal": "Ziel aktualisieren",
   "notificationPermissionDenied": "Benachrichtigungsberechtigung verweigert",
   "exportFailed": "Export fehlgeschlagen: {error}",
 

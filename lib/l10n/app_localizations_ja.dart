@@ -291,6 +291,15 @@ class AppLocalizationsJa extends AppLocalizations {
   String get sessionTooShort => 'セッションが短すぎて保存できません。';
 
   @override
+  String get notesHint => '何に取り組みましたか？';
+
+  @override
+  String get editGoal => '目標を編集';
+
+  @override
+  String get updateGoal => '目標を更新';
+
+  @override
   String get notificationPermissionDenied => '通知の許可が拒否されました';
 
   @override

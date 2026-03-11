@@ -94,6 +94,10 @@
 
   "sessionSaved": "Session sauvegardée !",
   "sessionTooShort": "Session trop courte pour être sauvegardée.",
+  "notes": "Notes",
+  "notesHint": "Sur quoi avez-vous travaillé ?",
+  "editGoal": "Modifier l'objectif",
+  "updateGoal": "Mettre à jour",
   "notificationPermissionDenied": "Permission de notification refusée",
   "exportFailed": "Échec de l'export : {error}",
 

@@ -622,6 +622,24 @@ abstract class AppLocalizations {
   /// **'Session too short to save.'**
   String get sessionTooShort;
 
+  /// No description provided for @notesHint.
+  ///
+  /// In en, this message translates to:
+  /// **'What did you work on?'**
+  String get notesHint;
+
+  /// No description provided for @editGoal.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Goal'**
+  String get editGoal;
+
+  /// No description provided for @updateGoal.
+  ///
+  /// In en, this message translates to:
+  /// **'Update Goal'**
+  String get updateGoal;
+
   /// No description provided for @notificationPermissionDenied.
   ///
   /// In en, this message translates to:

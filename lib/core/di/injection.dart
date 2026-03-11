@@ -18,6 +18,7 @@ import '../../domain/usecases/create_goal.dart';
 import '../../domain/usecases/create_hobby.dart';
 import '../../domain/usecases/deactivate_goal.dart';
 import '../../domain/usecases/get_active_goals.dart';
+import '../../domain/usecases/update_goal.dart';
 import '../../domain/usecases/get_active_hobbies.dart';
 import '../../domain/usecases/get_goal_progress.dart';
 import '../../domain/usecases/get_recent_sessions.dart';
@@ -66,6 +67,7 @@ Future<void> configureDependencies() async {
   sl.registerFactory(() => GetSessionsByHobby(sl()));
   sl.registerFactory(() => GetRecentSessions(sl()));
   sl.registerFactory(() => CreateGoal(sl()));
+  sl.registerFactory(() => UpdateGoal(sl()));
   sl.registerFactory(() => GetActiveGoals(sl()));
   sl.registerFactory(() => DeactivateGoal(sl()));
   sl.registerFactory(() => GetGoalProgress(sl()));

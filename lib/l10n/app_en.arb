@@ -107,6 +107,10 @@
 
   "sessionSaved": "Session saved!",
   "sessionTooShort": "Session too short to save.",
+  "notes": "Notes",
+  "notesHint": "What did you work on?",
+  "editGoal": "Edit Goal",
+  "updateGoal": "Update Goal",
   "notificationPermissionDenied": "Notification permission denied",
   "exportFailed": "Export failed: {error}",
   "@exportFailed": { "placeholders": { "error": { "type": "String" } } },

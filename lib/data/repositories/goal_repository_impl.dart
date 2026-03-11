@@ -41,6 +41,15 @@ class GoalRepositoryImpl implements GoalRepository {
   }
 
   @override
+  Future<void> updateGoal(Goal goal) async {
+    try {
+      await _db.updateGoal(_toCompanion(goal), goal.id);
+    } catch (e) {
+      throw DatabaseFailure(e.toString());
+    }
+  }
+
+  @override
   Future<void> deactivateGoal(String id) async {
     try {
       await _db.deactivateGoal(id);

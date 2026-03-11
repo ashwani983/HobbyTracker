@@ -6,6 +6,7 @@ import '../../../domain/entities/goal.dart';
 import '../../../domain/usecases/create_goal.dart';
 import '../../../domain/usecases/deactivate_goal.dart';
 import '../../../domain/usecases/get_active_goals.dart';
+import '../../../domain/usecases/update_goal.dart';
 
 // Events
 abstract class GoalEvent extends Equatable {
@@ -28,6 +29,13 @@ class DeactivateGoalEvent extends GoalEvent {
   const DeactivateGoalEvent(this.goalId);
   @override
   List<Object?> get props => [goalId];
+}
+
+class UpdateGoalEvent extends GoalEvent {
+  final Goal goal;
+  const UpdateGoalEvent(this.goal);
+  @override
+  List<Object?> get props => [goal.id];
 }
 
 // States
@@ -60,18 +68,22 @@ class GoalError extends GoalState {
 class GoalBloc extends Bloc<GoalEvent, GoalState> {
   final GetActiveGoals _getActiveGoals;
   final CreateGoal _createGoal;
+  final UpdateGoal _updateGoal;
   final DeactivateGoal _deactivateGoal;
 
   GoalBloc({
     required GetActiveGoals getActiveGoals,
     required CreateGoal createGoal,
+    required UpdateGoal updateGoal,
     required DeactivateGoal deactivateGoal,
   })  : _getActiveGoals = getActiveGoals,
         _createGoal = createGoal,
+        _updateGoal = updateGoal,
         _deactivateGoal = deactivateGoal,
         super(GoalLoading()) {
     on<LoadGoals>(_onLoad);
     on<CreateGoalEvent>(_onCreate);
+    on<UpdateGoalEvent>(_onUpdate);
     on<DeactivateGoalEvent>(_onDeactivate);
   }
 
@@ -106,6 +118,20 @@ class GoalBloc extends Bloc<GoalEvent, GoalState> {
     try {
       await _deactivateGoal(event.goalId);
       add(LoadGoals());
+    } on DatabaseFailure catch (e) {
+      emit(GoalError(e.message));
+    }
+  }
+
+  Future<void> _onUpdate(
+    UpdateGoalEvent event,
+    Emitter<GoalState> emit,
+  ) async {
+    try {
+      await _updateGoal(event.goal);
+      add(LoadGoals());
+    } on ValidationFailure catch (e) {
+      emit(GoalError(e.message));
     } on DatabaseFailure catch (e) {
       emit(GoalError(e.message));
     }

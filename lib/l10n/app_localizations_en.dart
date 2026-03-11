@@ -291,6 +291,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get sessionTooShort => 'Session too short to save.';
 
   @override
+  String get notesHint => 'What did you work on?';
+
+  @override
+  String get editGoal => 'Edit Goal';
+
+  @override
+  String get updateGoal => 'Update Goal';
+
+  @override
   String get notificationPermissionDenied => 'Notification permission denied';
 
   @override
