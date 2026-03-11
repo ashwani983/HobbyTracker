@@ -411,4 +411,13 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get language => 'भाषा';
+
+  @override
+  String get week => 'सप्ताह';
+
+  @override
+  String get month => 'महीना';
+
+  @override
+  String get year => 'वर्ष';
 }

@@ -407,4 +407,13 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get language => '言語';
+
+  @override
+  String get week => '週';
+
+  @override
+  String get month => '月';
+
+  @override
+  String get year => '年';
 }

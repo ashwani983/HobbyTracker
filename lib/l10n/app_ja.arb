@@ -134,5 +134,8 @@
   "onboardingTitle3": "同期とエクスポート",
   "onboardingBody3": "クラウドにバックアップし、CSVやPDFでデータをエクスポート。",
 
-  "language": "言語"
+  "language": "言語",
+  "week": "週",
+  "month": "月",
+  "year": "年"
 }

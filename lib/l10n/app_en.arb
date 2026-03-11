@@ -152,5 +152,8 @@
   "onboardingTitle3": "Sync & Export",
   "onboardingBody3": "Back up to the cloud and export your data as CSV or PDF anytime.",
 
-  "language": "Language"
+  "language": "Language",
+  "week": "Week",
+  "month": "Month",
+  "year": "Year"
 }

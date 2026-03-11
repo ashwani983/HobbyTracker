@@ -134,5 +134,8 @@
   "onboardingTitle3": "Sincroniza y Exporta",
   "onboardingBody3": "Respalda en la nube y exporta tus datos como CSV o PDF.",
 
-  "language": "Idioma"
+  "language": "Idioma",
+  "week": "Semana",
+  "month": "Mes",
+  "year": "Año"
 }

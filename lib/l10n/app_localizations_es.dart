@@ -412,4 +412,13 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get language => 'Idioma';
+
+  @override
+  String get week => 'Semana';
+
+  @override
+  String get month => 'Mes';
+
+  @override
+  String get year => 'Año';
 }

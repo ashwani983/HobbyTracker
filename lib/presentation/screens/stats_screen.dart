@@ -170,9 +170,15 @@ class _PeriodSelector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
+    final labels = {
+      TimePeriod.week: l.week,
+      TimePeriod.month: l.month,
+      TimePeriod.year: l.year,
+    };
     return SegmentedButton<TimePeriod>(
       segments: TimePeriod.values
-          .map((p) => ButtonSegment(value: p, label: Text(p.name)))
+          .map((p) => ButtonSegment(value: p, label: Text(labels[p]!)))
           .toList(),
       selected: {current},
       onSelectionChanged: (s) =>

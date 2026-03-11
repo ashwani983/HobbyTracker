@@ -134,5 +134,8 @@
   "onboardingTitle3": "सिंक और निर्यात करें",
   "onboardingBody3": "क्लाउड में बैकअप लें और CSV या PDF में डेटा निर्यात करें।",
 
-  "language": "भाषा"
+  "language": "भाषा",
+  "week": "सप्ताह",
+  "month": "महीना",
+  "year": "वर्ष"
 }
