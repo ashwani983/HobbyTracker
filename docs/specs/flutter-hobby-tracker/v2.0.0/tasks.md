@@ -32,28 +32,28 @@ Builds on v1.0.0 (Clean Architecture + BLoC). Adds gamification, notifications, 
 
 - [x] 3. Checkpoint — Theme
 
-- [ ] 4. Streaks and badges
-  - [ ] 4.1 Create Badge entity, BadgeType enum, and BadgeRepository
+- [x] 4. Streaks and badges
+  - [x] 4.1 Create Badge entity, BadgeType enum, and BadgeRepository
     - _Requirements: 9.1, 9.6_
-  - [ ] 4.2 Implement GetStreakCount use case
+  - [x] 4.2 Implement GetStreakCount use case
     - Query sessions grouped by date, count consecutive days
     - _Requirements: 9.1_
-  - [ ] 4.3 Implement CheckBadges use case
+  - [x] 4.3 Implement CheckBadges use case
     - Evaluate streak, milestone, time, and explorer thresholds
     - Return list of newly unlocked badges
     - _Requirements: 9.2, 9.3, 9.4, 9.5_
-  - [ ] 4.4 Implement BadgeBloc
+  - [x] 4.4 Implement BadgeBloc
     - Events: LoadBadges, CheckNewBadges
     - States: Loading, Loaded, NewBadgeUnlocked
     - _Requirements: 9.6_
-  - [ ] 4.5 Create BadgesScreen with grid of earned/locked badges
+  - [x] 4.5 Create BadgesScreen with grid of earned/locked badges
     - _Requirements: 9.6_
-  - [ ] 4.6 Show badge popup when new badge unlocked after session log
+  - [x] 4.6 Show badge popup when new badge unlocked after session log
     - _Requirements: 9.2, 9.3, 9.4, 9.5_
-  - [ ]* 4.7 Write tests for streak calculation and badge unlocking
+  - [x] 4.7 Write tests for streak calculation and badge unlocking
     - _Requirements: 9.1, 9.2_
 
-- [ ] 5. Checkpoint — Badges
+- [x] 5. Checkpoint — Badges
 
 - [ ] 6. Reminders and notifications
   - [ ] 6.1 Create Reminder entity and ReminderRepository
