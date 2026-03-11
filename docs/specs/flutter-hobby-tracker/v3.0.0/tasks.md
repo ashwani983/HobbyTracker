@@ -70,7 +70,7 @@ Social sharing, AI suggestions, home screen widgets, and multi-language support.
   - [x] 7.5 Handle widget tap — deep link to dashboard
     - _Requirements: 19.3_
 
-- [ ] 8. Checkpoint — Widgets
+- [x] 8. Checkpoint — Widgets
 
 - [ ] 9. Polish and release
   - [ ] 9.1 Update README and CHANGELOG for v3.0.0
