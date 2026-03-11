@@ -57,3 +57,10 @@ build_runner.log
 # Kiro / spec docs (development only)
 .docs/
 .kiro/
+
+# Firebase config files (contain API keys and project IDs)
+android/app/google-services.json
+ios/Runner/GoogleService-Info.plist
+macos/Runner/GoogleService-Info.plist
+lib/firebase_options.dart
+firebase.json
