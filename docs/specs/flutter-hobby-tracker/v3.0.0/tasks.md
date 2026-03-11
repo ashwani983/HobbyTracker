@@ -108,13 +108,13 @@ Social sharing, AI suggestions, home screen widgets, and multi-language support.
 
 - [x] 14. Checkpoint — Charts
 
-- [ ] 15. Polish and release
-  - [ ] 15.1 Update README and CHANGELOG for v3.0.0
-  - [ ] 15.2 Run full test suite and analysis
-  - [ ] 15.3 Test on multiple locales and device sizes
-  - [ ] 15.4 Test on device — all new features
+- [x] 15. Polish and release
+  - [x] 15.1 Update README and CHANGELOG for v3.0.0
+  - [x] 15.2 Run full test suite and analysis
+  - [x] 15.3 Test on multiple locales and device sizes
+  - [x] 15.4 Test on device — all new features
 
-- [ ] 16. Final checkpoint
+- [x] 16. Final checkpoint
   - Ensure all tests pass, all analysis clean, ask user if questions arise.
 
 ## Notes

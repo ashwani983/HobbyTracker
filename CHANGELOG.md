@@ -5,6 +5,34 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.0] - 2026-03-12
+
+### Added
+
+- **Internationalization (i18n)**: 6 languages (English, Spanish, French, German, Japanese, Hindi), device locale detection, manual override in settings
+- **Social Sharing**: Generate styled progress cards with hobby stats and badges, share via system share sheet from hobby detail and badge screens
+- **AI Suggestions**: On-device suggestion engine — neglected hobbies, streak motivation, variety tips — dismissible cards on dashboard
+- **Home Screen Widgets**: 3 Android widgets — Today's Progress (time + streak), Top Hobbies (top 3 weekly), Single Hobby (per-hobby stats) — with distinct names and descriptions
+- **Timer Session Notes**: Optional notes text field in timer save dialog
+- **Goal Editing**: Tap goals to edit target, dates, and type; goals display hobby name
+- **Interactive Charts**: Touch tooltips on bar, pie, and daily activity charts; hobby name labels on pie chart slices
+- **Insight Cards**: Best Day and Most Active Hobby cards above stats charts
+- **Dashboard Redesign**: Per-hobby stat cards with weekly time replace recent sessions list
+- **Session History**: History icon on hobbies list for quick navigation to hobby detail
+
+### Changed
+
+- Daily activity chart changed from line to bar chart with day-of-week labels
+- Dashboard no longer shows recent sessions (moved to hobby detail)
+- GoalRepository now supports updateGoal method
+- Widget update triggers on every session log for real-time data
+
+### Fixed
+
+- Home screen widget data not updating (SharedPreferences mismatch)
+- Widget showing n-1 session data (dashboard reload on session save)
+- Goals not showing hobby name
+
 ## [2.0.0] - 2026-03-11
 
 ### Added

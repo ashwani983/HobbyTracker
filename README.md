@@ -27,6 +27,18 @@ A Flutter app to track, manage, and visualize your hobbies. Built with Clean Arc
 - ⚙️ **Settings** — Theme, sync, export, badges, updates, about
 - 🔄 **In-App Updates** — Checks GitHub releases, shows banner, opens download page
 
+### v3.0.0
+- 🌍 **Internationalization** — 6 languages (EN/ES/FR/DE/JA/HI), manual override in settings
+- 📣 **Social Sharing** — Share progress cards with hobby stats and badges via system share sheet
+- 🤖 **AI Suggestions** — On-device suggestion engine for neglected hobbies, streaks, and variety
+- 📱 **Home Screen Widgets** — 3 Android widgets: Today's Progress, Top Hobbies, Single Hobby
+- 📝 **Timer Notes** — Optional meeting/session notes when saving from timer
+- 🎯 **Goal Editing** — Goals show hobby name, tap to edit target/dates/type
+- 📊 **Interactive Charts** — Touch tooltips on all charts, hobby name labels on pie chart
+- 💡 **Insight Cards** — Best Day and Most Active Hobby cards on stats screen
+- 🏠 **Dashboard Redesign** — Per-hobby stat cards replace recent sessions list
+- 🕐 **Session History** — History icon on hobbies list for quick access
+
 ## Screenshots
 
 _Coming soon_
@@ -97,6 +109,8 @@ The app follows **Clean Architecture** with three layers:
 - **Charts**: fl_chart
 - **Notifications**: flutter_local_notifications
 - **Export**: csv, pdf, share_plus
+- **Widgets**: home_widget (Android home screen widgets)
+- **i18n**: flutter_localizations, intl
 - **Testing**: flutter_test, bloc_test, mocktail, glados (property-based)
 
 ## License
