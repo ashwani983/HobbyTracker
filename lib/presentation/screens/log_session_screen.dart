@@ -11,6 +11,7 @@ import '../../domain/usecases/attach_photos.dart';
 import '../../domain/usecases/log_session.dart';
 import '../../l10n/app_localizations.dart';
 import '../blocs/badge/badge_bloc.dart';
+import '../blocs/dashboard/dashboard_bloc.dart';
 import '../blocs/session/session_bloc.dart';
 
 class LogSessionScreen extends StatefulWidget {
@@ -60,6 +61,7 @@ class _LogSessionScreenState extends State<LogSessionScreen> {
         listener: (context, state) {
           if (state is SessionSaved) {
             context.read<BadgeBloc>().add(CheckNewBadges());
+            context.read<DashboardBloc>().add(LoadDashboard());
             context.pop();
           }
           if (state is SessionError) {

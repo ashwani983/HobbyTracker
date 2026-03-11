@@ -7,6 +7,7 @@ import 'package:timezone/timezone.dart' as tz;
 import 'app.dart';
 import 'core/di/injection.dart';
 import 'core/services/notification_service.dart';
+import 'core/services/widget_service.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
@@ -19,5 +20,6 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   await configureDependencies();
+  await WidgetService.init();
   runApp(const App());
 }

@@ -65,6 +65,9 @@ dependencies:
   package_info_plus: ^8.0.0
   url_launcher: ^6.2.0
 
+  # Home Screen Widget
+  home_widget: ^0.9.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

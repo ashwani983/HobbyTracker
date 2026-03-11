@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/constants/app_constants.dart';
 import '../../../core/error/failures.dart';
+import '../../../core/services/widget_service.dart';
 import '../../../domain/entities/session.dart';
 import '../../../domain/usecases/get_active_hobbies.dart';
 import '../../../domain/usecases/get_recent_sessions.dart';
@@ -120,6 +121,32 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
             ? (await _badgeRepository.getUnlockedBadges()).last.type.name
             : null,
       ));
+
+      // Update home screen widgets
+      final streak = await _getStreakCount();
+      final today = DateTime.now();
+      final todaySessions = weekSessions.where((s) =>
+          s.date.year == today.year &&
+          s.date.month == today.month &&
+          s.date.day == today.day).toList();
+      final todayMin = todaySessions.fold<int>(0, (sum, s) => sum + s.durationMinutes);
+      final minutesByHobby = <String, int>{};
+      for (final s in weekSessions) {
+        minutesByHobby[s.hobbyId] = (minutesByHobby[s.hobbyId] ?? 0) + s.durationMinutes;
+      }
+      final hobbyNames = {for (final h in hobbies) h.id: h.name};
+      final sorted = minutesByHobby.entries.toList()
+        ..sort((a, b) => b.value.compareTo(a.value));
+      final top = sorted.take(3).map((e) => (hobbyNames[e.key] ?? 'Unknown', e.value)).toList();
+      try {
+        await WidgetService.updateWidgetData(
+          todayMinutes: todayMin,
+          streakDays: streak,
+          topHobbies: top,
+        );
+      } catch (_) {
+        // Widget update is best-effort; ignore platform errors
+      }
     } on DatabaseFailure catch (e) {
       emit(DashboardError(e.message));
     }
