@@ -141,7 +141,25 @@ Builds on v1.0.0 (Clean Architecture + BLoC). Adds gamification, notifications, 
   - [ ] 16.2 Add streak indicator to hobby detail screen
   - [ ] 16.3 Update README and CHANGELOG for v2.0.0
 
-- [ ] 17. Final checkpoint
+- [ ] 17. In-App Update Checker
+  - [ ] 17.1 Add `http` and `package_info_plus` dependencies
+    - _Requirements: 17.1, 17.5_
+  - [ ] 17.2 Create GitHubRelease model and AppUpdateService
+    - Fetch latest release from GitHub API, parse tag, compare semver
+    - _Requirements: 17.1, 17.5, 17.6_
+  - [ ] 17.3 Implement UpdateCubit
+    - States: Initial, Checking, Available, NotAvailable, Error
+    - 24h dismiss logic via SharedPreferences
+    - _Requirements: 17.2, 17.4_
+  - [ ] 17.4 Add update banner/dialog to app shell or dashboard
+    - Show release title + notes summary, "Update" and "Later" buttons
+    - _Requirements: 17.2, 17.3, 17.4_
+  - [ ] 17.5 Add "Check for updates" button and version display to Settings
+    - _Requirements: 17.7_
+  - [ ] 17.6 Open browser to GitHub release page on "Update" tap
+    - _Requirements: 17.3_
+
+- [ ] 18. Final checkpoint
   - Ensure all tests pass, all analysis clean, ask user if questions arise.
 
 ## Notes

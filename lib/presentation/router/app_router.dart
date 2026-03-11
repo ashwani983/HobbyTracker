@@ -9,6 +9,7 @@ import '../screens/hobbies_list_screen.dart';
 import '../screens/hobby_detail_screen.dart';
 import '../screens/log_session_screen.dart';
 import '../screens/stats_screen.dart';
+import '../screens/terms_screen.dart';
 import '../screens/timer_screen.dart';
 import '../widgets/app_shell.dart';
 
@@ -78,6 +79,10 @@ final appRouter = GoRouter(
         GoRoute(
           path: '/stats',
           builder: (context, state) => const StatsScreen(),
+        ),
+        GoRoute(
+          path: '/terms',
+          builder: (context, state) => const TermsScreen(),
         ),
       ],
     ),

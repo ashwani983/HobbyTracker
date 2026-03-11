@@ -30,8 +30,8 @@ _Coming soon_
 ### Setup
 
 ```bash
-git clone https://github.com/<your-username>/hobby-tracker.git
-cd hobby-tracker
+git clone https://github.com/ashwani983/HobbyTracker.git
+cd HobbyTracker
 flutter pub get
 dart run build_runner build --delete-conflicting-outputs
 ```

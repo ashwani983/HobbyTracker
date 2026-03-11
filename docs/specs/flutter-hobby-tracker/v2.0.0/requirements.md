@@ -104,3 +104,17 @@ Version 2.0.0 builds on the MVP with gamification, notifications, media attachme
 1. THE App SHALL provide a Settings screen accessible from the bottom navigation or profile
 2. Settings SHALL include: theme toggle, notification preferences, cloud sync toggle, export options, about/version info
 3. WHEN a user changes a setting, THE App SHALL persist it immediately
+
+### Requirement 17: In-App Update Checker
+
+**User Story:** As a user, I want to be notified when a new version of the app is available on GitHub, so that I can update to the latest release.
+
+#### Acceptance Criteria
+
+1. WHEN the app launches (or the user taps "Check for updates" in settings), THE App SHALL query the GitHub Releases API for the latest release of `ashwani983/HobbyTracker`
+2. WHEN a newer version tag exists compared to the running app version, THE App SHALL display a banner or dialog informing the user of the available update with the release title and release notes summary
+3. WHEN the user taps "Update", THE App SHALL open the browser to the GitHub release page where the APK can be downloaded
+4. WHEN the user taps "Later", THE App SHALL dismiss the prompt and not show it again for 24 hours
+5. THE App SHALL compare versions using semantic versioning (major.minor.patch)
+6. THE App SHALL handle network errors gracefully — if the check fails, it SHALL silently skip without disrupting the user experience
+7. THE App SHALL show the current app version and a "Check for updates" button on the Settings screen

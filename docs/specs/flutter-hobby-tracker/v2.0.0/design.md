@@ -172,3 +172,28 @@ class ThemeCubit extends Cubit<ThemeMode> {
 
 - CSV: one file per entity type (hobbies.csv, sessions.csv, goals.csv) zipped together
 - PDF: single document with summary page + per-hobby breakdown with mini charts
+
+### In-App Update Checker
+
+```dart
+class AppUpdateService {
+  static const _repo = 'ashwani983/HobbyTracker';
+  static const _apiUrl = 'https://api.github.com/repos/$_repo/releases/latest';
+
+  /// Returns release info if a newer version exists, null otherwise.
+  Future<GitHubRelease?> checkForUpdate(String currentVersion);
+}
+
+class GitHubRelease {
+  final String tagName;     // e.g. "v2.0.0"
+  final String name;        // release title
+  final String body;        // release notes markdown
+  final String htmlUrl;     // browser link to release page
+}
+```
+
+- **UpdateCubit** — states: `UpdateInitial`, `UpdateChecking`, `UpdateAvailable(release)`, `UpdateNotAvailable`, `UpdateError`
+- Version comparison uses `package_info_plus` to read running version, then compares semver components
+- "Dismiss for 24h" persisted via `SharedPreferences` key `last_update_dismiss`
+- Settings screen shows current version + "Check for updates" button
+- On launch, auto-check runs only if last dismiss was >24h ago

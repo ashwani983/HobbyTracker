@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../core/constants/app_constants.dart';
 import '../../domain/entities/hobby.dart';
@@ -30,7 +31,16 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Dashboard')),
+      appBar: AppBar(
+        title: const Text('Dashboard'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.description_outlined),
+            tooltip: 'Terms & Conditions',
+            onPressed: () => context.go('/terms'),
+          ),
+        ],
+      ),
       body: BlocBuilder<HobbyListBloc, HobbyListState>(
         builder: (context, hobbyState) {
           final hobbyMap = _hobbyMap(hobbyState);
