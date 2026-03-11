@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../domain/entities/badge.dart' as app;
 import '../blocs/badge/badge_bloc.dart';
@@ -10,7 +11,10 @@ class BadgesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Badges')),
+      appBar: AppBar(
+        leading: IconButton(icon: const Icon(Icons.arrow_back), onPressed: () => context.go('/settings')),
+        title: const Text('Badges'),
+      ),
       body: BlocBuilder<BadgeBloc, BadgeState>(
         builder: (context, state) {
           if (state is BadgeLoading) {

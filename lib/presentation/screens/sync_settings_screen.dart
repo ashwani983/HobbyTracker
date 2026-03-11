@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import '../blocs/auth/auth_bloc.dart';
 import '../blocs/sync/sync_bloc.dart';
@@ -10,7 +11,10 @@ class SyncSettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Cloud Sync')),
+      appBar: AppBar(
+        leading: IconButton(icon: const Icon(Icons.arrow_back), onPressed: () => context.go('/settings')),
+        title: const Text('Cloud Sync'),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(

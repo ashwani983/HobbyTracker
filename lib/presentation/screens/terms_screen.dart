@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class TermsScreen extends StatelessWidget {
   const TermsScreen({super.key});
@@ -6,7 +7,10 @@ class TermsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Terms & Conditions')),
+      appBar: AppBar(
+        leading: IconButton(icon: const Icon(Icons.arrow_back), onPressed: () => context.go('/settings')),
+        title: const Text('Terms & Conditions'),
+      ),
       body: const SingleChildScrollView(
         padding: EdgeInsets.all(16),
         child: Column(

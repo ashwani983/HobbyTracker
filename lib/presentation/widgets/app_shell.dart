@@ -20,7 +20,6 @@ class _AppShellState extends State<AppShell> {
   @override
   void initState() {
     super.initState();
-    // Check if app was opened via notification tap
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final hobbyId = NotificationService.consumePendingHobbyId();
       if (hobbyId != null && mounted) {
@@ -71,28 +70,7 @@ class _AppShellState extends State<AppShell> {
           }
         }
       },
-      child: PopScope(
-        canPop: false,
-        onPopInvokedWithResult: (didPop, _) {
-          if (didPop) return;
-          final location = GoRouterState.of(context).uri.toString();
-          // If on a sub-page, go back
-          if (location != '/' &&
-              !_tabs.any((t) => t.$1 == location)) {
-            context.pop();
-            return;
-          }
-          // If on a non-dashboard tab, go to dashboard
-          if (location != '/') {
-            context.go('/');
-            context.read<DashboardBloc>().add(LoadDashboard());
-            context.read<HobbyListBloc>().add(LoadHobbies());
-            return;
-          }
-          // On dashboard — exit app
-          Navigator.of(context, rootNavigator: true).maybePop();
-        },
-        child: Scaffold(
+      child: Scaffold(
         body: widget.child,
         bottomNavigationBar: NavigationBar(
           selectedIndex: index,
@@ -108,10 +86,10 @@ class _AppShellState extends State<AppShell> {
             }
           },
           destinations: _tabs
-              .map((t) => NavigationDestination(icon: Icon(t.$2), label: t.$3))
+              .map((t) =>
+                  NavigationDestination(icon: Icon(t.$2), label: t.$3))
               .toList(),
         ),
-      ),
       ),
     );
   }
