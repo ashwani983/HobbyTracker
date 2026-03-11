@@ -5,6 +5,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../core/constants/app_constants.dart';
 import '../../domain/entities/hobby.dart';
+import '../../l10n/app_localizations.dart';
 import '../blocs/dashboard/dashboard_bloc.dart';
 import '../blocs/hobby_list/hobby_list_bloc.dart';
 import '../blocs/theme/theme_cubit.dart';
@@ -33,9 +34,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Dashboard'),
+        title: Text(l.dashboard),
         actions: [
           BlocBuilder<ThemeCubit, ThemeMode>(
             builder: (context, mode) {
@@ -43,7 +45,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 icon: Icon(mode == ThemeMode.dark
                     ? Icons.light_mode
                     : Icons.dark_mode),
-                tooltip: 'Toggle theme',
+                tooltip: l.toggleTheme,
                 onPressed: () {
                   final cubit = context.read<ThemeCubit>();
                   cubit.setTheme(
@@ -55,7 +57,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           ),
           IconButton(
             icon: const Icon(Icons.settings),
-            tooltip: 'Settings',
+            tooltip: l.settings,
             onPressed: () => context.go('/settings'),
           ),
         ],
@@ -66,15 +68,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
             builder: (ctx, uState) {
               if (uState is! UpdateAvailable) return const SizedBox.shrink();
               return MaterialBanner(
-                content: Text('Update ${uState.release.tagName} available'),
+                content: Text(l.updateAvailable(uState.release.tagName)),
                 actions: [
                   TextButton(
                     onPressed: () => ctx.read<UpdateCubit>().dismiss(),
-                    child: const Text('Later'),
+                    child: Text(l.later),
                   ),
                   TextButton(
                     onPressed: () => _openRelease(uState.release.htmlUrl),
-                    child: const Text('Update'),
+                    child: Text(l.update),
                   ),
                 ],
               );
@@ -89,9 +91,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 return const Center(child: CircularProgressIndicator());
               }
               if (state is DashboardEmpty) {
-                return const Center(
-                  child: Text('No data yet. Add a hobby to get started!'),
-                );
+                return Center(child: Text(l.noDataYet));
               }
               if (state is DashboardError) {
                 return Center(child: Text(state.message));
@@ -108,12 +108,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   ),
                   const SizedBox(height: 16),
                   Text(
-                    'Recent Sessions',
+                    l.recentSessions,
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
                   const SizedBox(height: 8),
                   if (s.recentSessions.isEmpty)
-                    const Text('No sessions logged yet.')
+                    Text(l.noSessionsLogged)
                   else
                     ...s.recentSessions.map((session) {
                       final hobby = hobbyMap[session.hobbyId];
@@ -125,11 +125,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         leading: Text(emoji, style: const TextStyle(fontSize: 24)),
                         title: Text(hobbyName),
                         subtitle: Text(
-                          '${session.durationMinutes} min · '
+                          '${l.durationMinutes(session.durationMinutes)} · '
                           '${session.date.month}/${session.date.day}/${session.date.year}',
                         ),
                         trailing: session.rating != null
-                            ? Text('⭐ ${session.rating}')
+                            ? Text(l.ratingStars(session.rating!))
                             : null,
                       );
                     }),
@@ -164,6 +164,7 @@ class _SummaryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
     final hours = weeklyMinutes ~/ 60;
     final mins = weeklyMinutes % 60;
     return Card(
@@ -178,14 +179,14 @@ class _SummaryCard extends StatelessWidget {
                   children: [
                     Text('$hobbyCount',
                         style: Theme.of(context).textTheme.headlineMedium),
-                    const Text('Active Hobbies'),
+                    Text(l.activeHobbies),
                   ],
                 ),
                 Column(
                   children: [
-                    Text('${hours}h ${mins}m',
+                    Text(l.durationHoursMinutes(hours, mins),
                         style: Theme.of(context).textTheme.headlineMedium),
-                    const Text('This Week'),
+                    Text(l.thisWeek),
                   ],
                 ),
               ],
@@ -196,9 +197,9 @@ class _SummaryCard extends StatelessWidget {
               children: [
                 Column(
                   children: [
-                    Text('🔥 $streakDays',
+                    Text(l.streakDays(streakDays),
                         style: Theme.of(context).textTheme.headlineMedium),
-                    const Text('Day Streak'),
+                    Text(l.dayStreak),
                   ],
                 ),
                 if (recentBadge != null)

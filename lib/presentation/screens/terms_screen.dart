@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../l10n/app_localizations.dart';
+
 class TermsScreen extends StatelessWidget {
   const TermsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(icon: const Icon(Icons.arrow_back), onPressed: () => context.go('/settings')),
-        title: const Text('Terms & Conditions'),
+        title: Text(l.termsAndConditions),
       ),
       body: const SingleChildScrollView(
         padding: EdgeInsets.all(16),

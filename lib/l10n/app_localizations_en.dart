@@ -39,6 +39,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get dayStreak => 'Day Streak';
 
   @override
+  String get recentSessions => 'Recent Sessions';
+
+  @override
   String get noDataYet => 'No data yet. Add a hobby to get started!';
 
   @override
@@ -129,6 +132,21 @@ class AppLocalizationsEn extends AppLocalizations {
   String get about => 'About';
 
   @override
+  String get next => 'Next';
+
+  @override
+  String get getStarted => 'Get Started';
+
+  @override
+  String get name => 'Name';
+
+  @override
+  String get description => 'Description';
+
+  @override
+  String get category => 'Category';
+
+  @override
   String get color => 'Color';
 
   @override
@@ -157,6 +175,48 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get selectDays => 'Select Days';
+
+  @override
+  String get nameRequired => 'Name is required';
+
+  @override
+  String get required => 'Required';
+
+  @override
+  String get mustBePositive => 'Must be a positive number';
+
+  @override
+  String get hobby => 'Hobby';
+
+  @override
+  String get type => 'Type';
+
+  @override
+  String get targetMinutes => 'Target (minutes)';
+
+  @override
+  String get durationMinutesLabel => 'Duration (minutes)';
+
+  @override
+  String get notes => 'Notes';
+
+  @override
+  String get selectHobby => 'Select Hobby';
+
+  @override
+  String get allTime => 'All time';
+
+  @override
+  String get archive => 'Archive';
+
+  @override
+  String get running => '⏱ Running';
+
+  @override
+  String get paused => '⏸ Paused';
+
+  @override
+  String get toggleTheme => 'Toggle theme';
 
   @override
   String get camera => 'Camera';
@@ -202,6 +262,26 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String saveMinutesSession(int minutes) {
     return 'Save $minutes min session?';
+  }
+
+  @override
+  String goalDescription(String type, int minutes) {
+    return '$type goal — $minutes min';
+  }
+
+  @override
+  String unlockedCount(int unlocked, int total) {
+    return '$unlocked / $total unlocked';
+  }
+
+  @override
+  String unlockedOn(String date) {
+    return 'Unlocked on $date';
+  }
+
+  @override
+  String reachToUnlock(int threshold, String type) {
+    return 'Reach $threshold $type to unlock';
   }
 
   @override
@@ -311,10 +391,22 @@ class AppLocalizationsEn extends AppLocalizations {
   String get onboardingTitle1 => 'Track Your Hobbies';
 
   @override
+  String get onboardingBody1 =>
+      'Log sessions, set goals, and watch your progress grow over time.';
+
+  @override
   String get onboardingTitle2 => 'Earn Badges & Streaks';
 
   @override
+  String get onboardingBody2 =>
+      'Stay motivated with achievements, streaks, and milestone badges.';
+
+  @override
   String get onboardingTitle3 => 'Sync & Export';
+
+  @override
+  String get onboardingBody3 =>
+      'Back up to the cloud and export your data as CSV or PDF anytime.';
 
   @override
   String get language => 'Language';

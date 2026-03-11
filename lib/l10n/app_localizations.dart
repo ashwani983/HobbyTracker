@@ -166,6 +166,12 @@ abstract class AppLocalizations {
   /// **'Day Streak'**
   String get dayStreak;
 
+  /// No description provided for @recentSessions.
+  ///
+  /// In en, this message translates to:
+  /// **'Recent Sessions'**
+  String get recentSessions;
+
   /// No description provided for @noDataYet.
   ///
   /// In en, this message translates to:
@@ -346,6 +352,36 @@ abstract class AppLocalizations {
   /// **'About'**
   String get about;
 
+  /// No description provided for @next.
+  ///
+  /// In en, this message translates to:
+  /// **'Next'**
+  String get next;
+
+  /// No description provided for @getStarted.
+  ///
+  /// In en, this message translates to:
+  /// **'Get Started'**
+  String get getStarted;
+
+  /// No description provided for @name.
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get name;
+
+  /// No description provided for @description.
+  ///
+  /// In en, this message translates to:
+  /// **'Description'**
+  String get description;
+
+  /// No description provided for @category.
+  ///
+  /// In en, this message translates to:
+  /// **'Category'**
+  String get category;
+
   /// No description provided for @color.
   ///
   /// In en, this message translates to:
@@ -406,6 +442,90 @@ abstract class AppLocalizations {
   /// **'Select Days'**
   String get selectDays;
 
+  /// No description provided for @nameRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Name is required'**
+  String get nameRequired;
+
+  /// No description provided for @required.
+  ///
+  /// In en, this message translates to:
+  /// **'Required'**
+  String get required;
+
+  /// No description provided for @mustBePositive.
+  ///
+  /// In en, this message translates to:
+  /// **'Must be a positive number'**
+  String get mustBePositive;
+
+  /// No description provided for @hobby.
+  ///
+  /// In en, this message translates to:
+  /// **'Hobby'**
+  String get hobby;
+
+  /// No description provided for @type.
+  ///
+  /// In en, this message translates to:
+  /// **'Type'**
+  String get type;
+
+  /// No description provided for @targetMinutes.
+  ///
+  /// In en, this message translates to:
+  /// **'Target (minutes)'**
+  String get targetMinutes;
+
+  /// No description provided for @durationMinutesLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Duration (minutes)'**
+  String get durationMinutesLabel;
+
+  /// No description provided for @notes.
+  ///
+  /// In en, this message translates to:
+  /// **'Notes'**
+  String get notes;
+
+  /// No description provided for @selectHobby.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Hobby'**
+  String get selectHobby;
+
+  /// No description provided for @allTime.
+  ///
+  /// In en, this message translates to:
+  /// **'All time'**
+  String get allTime;
+
+  /// No description provided for @archive.
+  ///
+  /// In en, this message translates to:
+  /// **'Archive'**
+  String get archive;
+
+  /// No description provided for @running.
+  ///
+  /// In en, this message translates to:
+  /// **'⏱ Running'**
+  String get running;
+
+  /// No description provided for @paused.
+  ///
+  /// In en, this message translates to:
+  /// **'⏸ Paused'**
+  String get paused;
+
+  /// No description provided for @toggleTheme.
+  ///
+  /// In en, this message translates to:
+  /// **'Toggle theme'**
+  String get toggleTheme;
+
   /// No description provided for @camera.
   ///
   /// In en, this message translates to:
@@ -465,6 +585,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Save {minutes} min session?'**
   String saveMinutesSession(int minutes);
+
+  /// No description provided for @goalDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'{type} goal — {minutes} min'**
+  String goalDescription(String type, int minutes);
+
+  /// No description provided for @unlockedCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{unlocked} / {total} unlocked'**
+  String unlockedCount(int unlocked, int total);
+
+  /// No description provided for @unlockedOn.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlocked on {date}'**
+  String unlockedOn(String date);
+
+  /// No description provided for @reachToUnlock.
+  ///
+  /// In en, this message translates to:
+  /// **'Reach {threshold} {type} to unlock'**
+  String reachToUnlock(int threshold, String type);
 
   /// No description provided for @sessionSaved.
   ///
@@ -658,17 +802,35 @@ abstract class AppLocalizations {
   /// **'Track Your Hobbies'**
   String get onboardingTitle1;
 
+  /// No description provided for @onboardingBody1.
+  ///
+  /// In en, this message translates to:
+  /// **'Log sessions, set goals, and watch your progress grow over time.'**
+  String get onboardingBody1;
+
   /// No description provided for @onboardingTitle2.
   ///
   /// In en, this message translates to:
   /// **'Earn Badges & Streaks'**
   String get onboardingTitle2;
 
+  /// No description provided for @onboardingBody2.
+  ///
+  /// In en, this message translates to:
+  /// **'Stay motivated with achievements, streaks, and milestone badges.'**
+  String get onboardingBody2;
+
   /// No description provided for @onboardingTitle3.
   ///
   /// In en, this message translates to:
   /// **'Sync & Export'**
   String get onboardingTitle3;
+
+  /// No description provided for @onboardingBody3.
+  ///
+  /// In en, this message translates to:
+  /// **'Back up to the cloud and export your data as CSV or PDF anytime.'**
+  String get onboardingBody3;
 
   /// No description provided for @language.
   ///

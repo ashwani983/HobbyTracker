@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../domain/entities/badge.dart' as app;
+import '../../l10n/app_localizations.dart';
 import '../blocs/badge/badge_bloc.dart';
 
 class BadgesScreen extends StatelessWidget {
@@ -10,10 +11,11 @@ class BadgesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(icon: const Icon(Icons.arrow_back), onPressed: () => context.go('/settings')),
-        title: const Text('Badges'),
+        title: Text(l.badges),
       ),
       body: BlocBuilder<BadgeBloc, BadgeState>(
         builder: (context, state) {
@@ -34,7 +36,7 @@ class BadgesScreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(16),
                 child: Text(
-                  '$unlocked / ${badges.length} unlocked',
+                  l.unlockedCount(unlocked, badges.length),
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
               ),
@@ -97,17 +99,18 @@ class _BadgeTile extends StatelessWidget {
   }
 
   void _showDetail(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
     showDialog(
       context: context,
       builder: (dialogContext) => AlertDialog(
         title: Text('${badge.emoji} ${badge.title}'),
         content: Text(badge.isUnlocked
-            ? 'Unlocked on ${badge.unlockedAt!.month}/${badge.unlockedAt!.day}/${badge.unlockedAt!.year}'
-            : 'Reach ${badge.threshold} ${badge.type.name} to unlock'),
+            ? l.unlockedOn('${badge.unlockedAt!.month}/${badge.unlockedAt!.day}/${badge.unlockedAt!.year}')
+            : l.reachToUnlock(badge.threshold, badge.type.name)),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(dialogContext),
-            child: const Text('OK'),
+            child: Text(l.ok),
           ),
         ],
       ),

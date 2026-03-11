@@ -2,6 +2,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../l10n/app_localizations.dart';
 import '../blocs/stats/stats_bloc.dart';
 
 class StatsScreen extends StatelessWidget {
@@ -9,15 +10,16 @@ class StatsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
     return Scaffold(
-      appBar: AppBar(title: const Text('Stats')),
+      appBar: AppBar(title: Text(l.stats)),
       body: BlocBuilder<StatsBloc, StatsState>(
         builder: (context, state) {
           if (state is StatsLoading) {
             return const Center(child: CircularProgressIndicator());
           }
           if (state is StatsEmpty) {
-            return const Center(child: Text('No data for this period.'));
+            return Center(child: Text(l.noDataForPeriod));
           }
           if (state is StatsError) {
             return Center(child: Text(state.message));
@@ -28,7 +30,7 @@ class StatsScreen extends StatelessWidget {
             children: [
               _PeriodSelector(current: s.period),
               const SizedBox(height: 24),
-              Text('Time per Hobby',
+              Text(l.timePerHobby,
                   style: Theme.of(context).textTheme.titleMedium),
               const SizedBox(height: 12),
               SizedBox(
@@ -89,7 +91,7 @@ class StatsScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 24),
-              Text('Distribution',
+              Text(l.distribution,
                   style: Theme.of(context).textTheme.titleMedium),
               const SizedBox(height: 12),
               SizedBox(
@@ -117,7 +119,7 @@ class StatsScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 24),
-              Text('Daily Activity',
+              Text(l.dailyActivity,
                   style: Theme.of(context).textTheme.titleMedium),
               const SizedBox(height: 12),
               SizedBox(

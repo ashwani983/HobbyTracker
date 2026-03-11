@@ -12,7 +12,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get appTitle => 'Suivi de Loisirs';
 
   @override
-  String get dashboard => 'Tableau de Bord';
+  String get dashboard => 'Tableau de bord';
 
   @override
   String get hobbies => 'Loisirs';
@@ -37,6 +37,9 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get dayStreak => 'Jours Consécutifs';
+
+  @override
+  String get recentSessions => 'Sessions Récentes';
 
   @override
   String get noDataYet =>
@@ -131,6 +134,21 @@ class AppLocalizationsFr extends AppLocalizations {
   String get about => 'À propos';
 
   @override
+  String get next => 'Suivant';
+
+  @override
+  String get getStarted => 'Commencer';
+
+  @override
+  String get name => 'Nom';
+
+  @override
+  String get description => 'Description';
+
+  @override
+  String get category => 'Catégorie';
+
+  @override
   String get color => 'Couleur';
 
   @override
@@ -156,10 +174,53 @@ class AppLocalizationsFr extends AppLocalizations {
   String get reminders => 'Rappels';
 
   @override
-  String get noRemindersSet => 'Aucun rappel. Appuyez sur + pour en ajouter.';
+  String get noRemindersSet =>
+      'Aucun rappel défini. Appuyez sur + pour en ajouter.';
 
   @override
   String get selectDays => 'Sélectionner les Jours';
+
+  @override
+  String get nameRequired => 'Le nom est obligatoire';
+
+  @override
+  String get required => 'Obligatoire';
+
+  @override
+  String get mustBePositive => 'Doit être un nombre positif';
+
+  @override
+  String get hobby => 'Loisir';
+
+  @override
+  String get type => 'Type';
+
+  @override
+  String get targetMinutes => 'Objectif (minutes)';
+
+  @override
+  String get durationMinutesLabel => 'Durée (minutes)';
+
+  @override
+  String get notes => 'Notes';
+
+  @override
+  String get selectHobby => 'Sélectionner un Loisir';
+
+  @override
+  String get allTime => 'Tout le temps';
+
+  @override
+  String get archive => 'Archiver';
+
+  @override
+  String get running => '⏱ En cours';
+
+  @override
+  String get paused => '⏸ En pause';
+
+  @override
+  String get toggleTheme => 'Changer le thème';
 
   @override
   String get camera => 'Appareil photo';
@@ -205,6 +266,26 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String saveMinutesSession(int minutes) {
     return 'Sauvegarder la session de $minutes min ?';
+  }
+
+  @override
+  String goalDescription(String type, int minutes) {
+    return 'Objectif $type — $minutes min';
+  }
+
+  @override
+  String unlockedCount(int unlocked, int total) {
+    return '$unlocked / $total débloqués';
+  }
+
+  @override
+  String unlockedOn(String date) {
+    return 'Débloqué le $date';
+  }
+
+  @override
+  String reachToUnlock(int threshold, String type) {
+    return 'Atteignez $threshold $type pour débloquer';
   }
 
   @override
@@ -262,13 +343,13 @@ class AppLocalizationsFr extends AppLocalizations {
   String get syncComplete => '✓ Synchronisation terminée';
 
   @override
-  String get autoSync => 'Synchronisation auto';
+  String get autoSync => 'Synchronisation automatique';
 
   @override
   String get signInWithGoogle => 'Se connecter avec Google';
 
   @override
-  String get signInToSync => 'Connectez-vous pour synchroniser';
+  String get signInToSync => 'Connectez-vous pour activer la synchronisation';
 
   @override
   String get signInAndSync => 'Connectez-vous et synchronisez vos données';
@@ -315,10 +396,22 @@ class AppLocalizationsFr extends AppLocalizations {
   String get onboardingTitle1 => 'Suivez Vos Loisirs';
 
   @override
+  String get onboardingBody1 =>
+      'Enregistrez des sessions, fixez des objectifs et suivez vos progrès.';
+
+  @override
   String get onboardingTitle2 => 'Gagnez des Badges et Séries';
 
   @override
+  String get onboardingBody2 =>
+      'Restez motivé avec des réalisations, séries et badges.';
+
+  @override
   String get onboardingTitle3 => 'Synchronisez et Exportez';
+
+  @override
+  String get onboardingBody3 =>
+      'Sauvegardez dans le cloud et exportez vos données en CSV ou PDF.';
 
   @override
   String get language => 'Langue';

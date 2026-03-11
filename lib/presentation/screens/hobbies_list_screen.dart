@@ -4,6 +4,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../core/constants/app_constants.dart';
+import '../../l10n/app_localizations.dart';
 import '../blocs/hobby_list/hobby_list_bloc.dart';
 
 class HobbiesListScreen extends StatelessWidget {
@@ -11,8 +12,9 @@ class HobbiesListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
     return Scaffold(
-      appBar: AppBar(title: const Text('Hobbies')),
+      appBar: AppBar(title: Text(l.hobbies)),
       floatingActionButton: FloatingActionButton(
         onPressed: () => context.go('/hobbies/add'),
         child: const Icon(Icons.add),
@@ -23,7 +25,7 @@ class HobbiesListScreen extends StatelessWidget {
             return const Center(child: CircularProgressIndicator());
           }
           if (state is HobbyListEmpty) {
-            return const Center(child: Text('No hobbies yet. Add one!'));
+            return Center(child: Text(l.noHobbiesYet));
           }
           if (state is HobbyListError) {
             return Center(child: Text(state.message));
@@ -43,7 +45,7 @@ class HobbiesListScreen extends StatelessWidget {
                           .add(ArchiveHobbyEvent(hobby.id)),
                       backgroundColor: Colors.red,
                       icon: Icons.archive,
-                      label: 'Archive',
+                      label: l.archive,
                     ),
                   ],
                 ),

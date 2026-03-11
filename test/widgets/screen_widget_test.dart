@@ -6,6 +6,7 @@ import 'package:mocktail/mocktail.dart';
 
 import 'package:hobby_tracker/domain/entities/hobby.dart';
 import 'package:hobby_tracker/domain/entities/session.dart';
+import 'package:hobby_tracker/l10n/app_localizations.dart';
 import 'package:hobby_tracker/presentation/blocs/hobby_list/hobby_list_bloc.dart';
 import 'package:hobby_tracker/presentation/blocs/dashboard/dashboard_bloc.dart';
 import 'package:hobby_tracker/presentation/blocs/theme/theme_cubit.dart';
@@ -51,6 +52,8 @@ void main() {
     setUp(() => bloc = MockHobbyListBloc());
 
     Widget buildSubject() => MaterialApp(
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
           home: BlocProvider<HobbyListBloc>.value(
             value: bloc,
             child: const HobbiesListScreen(),
@@ -60,24 +63,28 @@ void main() {
     testWidgets('shows loading indicator', (tester) async {
       when(() => bloc.state).thenReturn(HobbyListLoading());
       await tester.pumpWidget(buildSubject());
+      await tester.pump();
       expect(find.byType(CircularProgressIndicator), findsOneWidget);
     });
 
     testWidgets('shows empty message', (tester) async {
       when(() => bloc.state).thenReturn(HobbyListEmpty());
       await tester.pumpWidget(buildSubject());
+      await tester.pumpAndSettle();
       expect(find.text('No hobbies yet. Add one!'), findsOneWidget);
     });
 
     testWidgets('shows error message', (tester) async {
       when(() => bloc.state).thenReturn(const HobbyListError('DB error'));
       await tester.pumpWidget(buildSubject());
+      await tester.pumpAndSettle();
       expect(find.text('DB error'), findsOneWidget);
     });
 
     testWidgets('shows hobby list with name and category', (tester) async {
       when(() => bloc.state).thenReturn(HobbyListLoaded([testHobby]));
       await tester.pumpWidget(buildSubject());
+      await tester.pumpAndSettle();
       expect(find.text('Guitar'), findsOneWidget);
       expect(find.text('Music'), findsOneWidget);
     });
@@ -85,12 +92,14 @@ void main() {
     testWidgets('shows emoji for category', (tester) async {
       when(() => bloc.state).thenReturn(HobbyListLoaded([testHobby]));
       await tester.pumpWidget(buildSubject());
+      await tester.pumpAndSettle();
       expect(find.text('🎵'), findsOneWidget);
     });
 
     testWidgets('has FAB to add hobby', (tester) async {
       when(() => bloc.state).thenReturn(HobbyListEmpty());
       await tester.pumpWidget(buildSubject());
+      await tester.pumpAndSettle();
       expect(find.byType(FloatingActionButton), findsOneWidget);
     });
   });
@@ -113,6 +122,8 @@ void main() {
     });
 
     Widget buildSubject() => MaterialApp(
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
           home: MultiBlocProvider(
             providers: [
               BlocProvider<DashboardBloc>.value(value: dashBloc),
@@ -128,6 +139,7 @@ void main() {
       when(() => dashBloc.state).thenReturn(DashboardLoading());
       when(() => hobbyBloc.state).thenReturn(HobbyListLoading());
       await tester.pumpWidget(buildSubject());
+      await tester.pump();
       expect(find.byType(CircularProgressIndicator), findsOneWidget);
     });
 
@@ -135,6 +147,7 @@ void main() {
       when(() => dashBloc.state).thenReturn(DashboardEmpty());
       when(() => hobbyBloc.state).thenReturn(HobbyListEmpty());
       await tester.pumpWidget(buildSubject());
+      await tester.pumpAndSettle();
       expect(find.text('No data yet. Add a hobby to get started!'), findsOneWidget);
     });
 
@@ -146,6 +159,7 @@ void main() {
       ));
       when(() => hobbyBloc.state).thenReturn(HobbyListLoaded([testHobby]));
       await tester.pumpWidget(buildSubject());
+      await tester.pumpAndSettle();
 
       expect(find.text('3'), findsOneWidget);
       expect(find.text('Active Hobbies'), findsOneWidget);
@@ -161,6 +175,7 @@ void main() {
       ));
       when(() => hobbyBloc.state).thenReturn(HobbyListLoaded([testHobby]));
       await tester.pumpWidget(buildSubject());
+      await tester.pumpAndSettle();
 
       expect(find.text('Guitar'), findsOneWidget);
       expect(find.text('🎵'), findsOneWidget);
@@ -171,6 +186,7 @@ void main() {
       when(() => dashBloc.state).thenReturn(const DashboardError('fail'));
       when(() => hobbyBloc.state).thenReturn(HobbyListEmpty());
       await tester.pumpWidget(buildSubject());
+      await tester.pumpAndSettle();
       expect(find.text('fail'), findsOneWidget);
     });
   });

@@ -8,6 +8,7 @@ import '../../domain/entities/goal.dart';
 import '../../domain/entities/goal_type.dart';
 import '../../domain/entities/hobby.dart';
 import '../../domain/usecases/get_active_hobbies.dart';
+import '../../l10n/app_localizations.dart';
 import '../blocs/goal/goal_bloc.dart';
 
 class AddGoalScreen extends StatefulWidget {
@@ -50,8 +51,9 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
     return Scaffold(
-      appBar: AppBar(title: const Text('Add Goal')),
+      appBar: AppBar(title: Text(l.addGoal)),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Form(
@@ -59,11 +61,11 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
           child: ListView(
             children: [
               if (_hobbies.isEmpty)
-                const Text('Add a hobby first.')
+                Text(l.addHobbyFirst)
               else
                 DropdownButtonFormField<String>(
                   initialValue: _selectedHobbyId,
-                  decoration: const InputDecoration(labelText: 'Hobby'),
+                  decoration: InputDecoration(labelText: l.hobby),
                   items: _hobbies
                       .map((h) =>
                           DropdownMenuItem(value: h.id, child: Text(h.name)))
@@ -73,7 +75,7 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
               const SizedBox(height: 12),
               DropdownButtonFormField<GoalType>(
                 initialValue: _type,
-                decoration: const InputDecoration(labelText: 'Type'),
+                decoration: InputDecoration(labelText: l.type),
                 items: GoalType.values
                     .map((t) =>
                         DropdownMenuItem(value: t, child: Text(t.name)))
@@ -83,20 +85,18 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
               const SizedBox(height: 12),
               TextFormField(
                 controller: _targetController,
-                decoration: const InputDecoration(
-                  labelText: 'Target (minutes)',
-                ),
+                decoration: InputDecoration(labelText: l.targetMinutes),
                 keyboardType: TextInputType.number,
                 validator: (v) {
-                  if (v == null || v.isEmpty) return 'Required';
+                  if (v == null || v.isEmpty) return l.required;
                   final n = int.tryParse(v);
-                  if (n == null || n <= 0) return 'Must be positive';
+                  if (n == null || n <= 0) return l.mustBePositive;
                   return null;
                 },
               ),
               const SizedBox(height: 12),
               ListTile(
-                title: const Text('Start Date'),
+                title: Text(l.startDate),
                 subtitle: Text(
                   '${_startDate.month}/${_startDate.day}/${_startDate.year}',
                 ),
@@ -111,7 +111,7 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
                 },
               ),
               ListTile(
-                title: const Text('End Date'),
+                title: Text(l.endDate),
                 subtitle: Text(
                   '${_endDate.month}/${_endDate.day}/${_endDate.year}',
                 ),
@@ -133,10 +133,7 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
                         if (!_formKey.currentState!.validate()) return;
                         if (!_endDate.isAfter(_startDate)) {
                           ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content:
-                                  Text('End date must be after start date'),
-                            ),
+                            SnackBar(content: Text(l.endDateError)),
                           );
                           return;
                         }
@@ -152,7 +149,7 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
                         context.read<GoalBloc>().add(CreateGoalEvent(goal));
                         context.pop();
                       },
-                child: const Text('Create Goal'),
+                child: Text(l.createGoal),
               ),
             ],
           ),

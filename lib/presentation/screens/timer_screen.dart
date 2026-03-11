@@ -7,6 +7,7 @@ import '../../domain/entities/hobby.dart';
 import '../../domain/entities/session.dart';
 import '../../domain/usecases/get_active_hobbies.dart';
 import '../../domain/usecases/log_session.dart';
+import '../../l10n/app_localizations.dart';
 import '../blocs/timer/timer_cubit.dart';
 
 class TimerScreen extends StatefulWidget {
@@ -47,10 +48,11 @@ class _TimerScreenState extends State<TimerScreen> {
   }
 
   Future<void> _onStop(BuildContext context, Duration elapsed) async {
+    final l = AppLocalizations.of(context)!;
     final minutes = elapsed.inMinutes;
     if (minutes <= 0) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Session too short to save.')),
+        SnackBar(content: Text(l.sessionTooShort)),
       );
       return;
     }
@@ -59,16 +61,16 @@ class _TimerScreenState extends State<TimerScreen> {
     final save = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('Save Session?'),
-        content: Text('Save $minutes min session?'),
+        title: Text(l.saveSessionQuestion),
+        content: Text(l.saveMinutesSession(minutes)),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx, false),
-            child: const Text('Discard'),
+            child: Text(l.discard),
           ),
           FilledButton(
             onPressed: () => Navigator.pop(ctx, true),
-            child: const Text('Save'),
+            child: Text(l.save),
           ),
         ],
       ),
@@ -86,7 +88,7 @@ class _TimerScreenState extends State<TimerScreen> {
         await sl<LogSession>()(session);
         if (context.mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Session saved!')),
+            SnackBar(content: Text(l.sessionSaved)),
           );
         }
       } catch (e) {
@@ -100,8 +102,9 @@ class _TimerScreenState extends State<TimerScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
     return Scaffold(
-      appBar: AppBar(title: const Text('Timer')),
+      appBar: AppBar(title: Text(l.timer)),
       body: BlocBuilder<TimerCubit, TimerState>(
         builder: (context, state) {
           final cubit = context.read<TimerCubit>();
@@ -112,12 +115,11 @@ class _TimerScreenState extends State<TimerScreen> {
             child: Column(
               children: [
                 if (_hobbies.isEmpty)
-                  const Text('Add a hobby first to use the timer.')
+                  Text(l.addHobbyFirstTimer)
                 else
                   DropdownButtonFormField<String>(
                     initialValue: _selectedHobbyId,
-                    decoration:
-                        const InputDecoration(labelText: 'Select Hobby'),
+                    decoration: InputDecoration(labelText: l.selectHobby),
                     items: _hobbies
                         .map((h) => DropdownMenuItem(
                             value: h.id, child: Text(h.name)))
@@ -135,7 +137,7 @@ class _TimerScreenState extends State<TimerScreen> {
                   Padding(
                     padding: const EdgeInsets.only(top: 8),
                     child: Text(
-                      state is TimerRunning ? '⏱ Running' : '⏸ Paused',
+                      state is TimerRunning ? l.running : l.paused,
                       style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                             color: state is TimerRunning
                                 ? Colors.green
@@ -152,13 +154,13 @@ class _TimerScreenState extends State<TimerScreen> {
                         onPressed:
                             _selectedHobbyId == null ? null : cubit.start,
                         icon: const Icon(Icons.play_arrow),
-                        label: const Text('Start'),
+                        label: Text(l.start),
                       ),
                     if (state is TimerRunning) ...[
                       FilledButton.icon(
                         onPressed: cubit.pause,
                         icon: const Icon(Icons.pause),
-                        label: const Text('Pause'),
+                        label: Text(l.pause),
                       ),
                       const SizedBox(width: 12),
                       OutlinedButton.icon(
@@ -167,14 +169,14 @@ class _TimerScreenState extends State<TimerScreen> {
                           _onStop(context, state.elapsed);
                         },
                         icon: const Icon(Icons.stop),
-                        label: const Text('Stop'),
+                        label: Text(l.stop),
                       ),
                     ],
                     if (state is TimerPaused) ...[
                       FilledButton.icon(
                         onPressed: cubit.resume,
                         icon: const Icon(Icons.play_arrow),
-                        label: const Text('Resume'),
+                        label: Text(l.resume),
                       ),
                       const SizedBox(width: 12),
                       OutlinedButton.icon(
@@ -183,20 +185,20 @@ class _TimerScreenState extends State<TimerScreen> {
                           _onStop(context, state.elapsed);
                         },
                         icon: const Icon(Icons.stop),
-                        label: const Text('Stop'),
+                        label: Text(l.stop),
                       ),
                       const SizedBox(width: 12),
                       TextButton.icon(
                         onPressed: cubit.discard,
                         icon: const Icon(Icons.delete_outline),
-                        label: const Text('Discard'),
+                        label: Text(l.discard),
                       ),
                     ],
                     if (state is TimerStopped)
                       FilledButton.icon(
                         onPressed: cubit.discard,
                         icon: const Icon(Icons.refresh),
-                        label: const Text('Reset'),
+                        label: Text(l.reset),
                       ),
                   ],
                 ),

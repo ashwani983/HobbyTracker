@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../core/di/injection.dart';
+import '../../l10n/app_localizations.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -15,24 +16,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   final _controller = PageController();
   int _page = 0;
 
-  static const _pages = [
-    _PageData(
-      icon: Icons.sports_esports,
-      title: 'Track Your Hobbies',
-      body: 'Log sessions, set goals, and watch your progress grow over time.',
-    ),
-    _PageData(
-      icon: Icons.emoji_events,
-      title: 'Earn Badges & Streaks',
-      body: 'Stay motivated with achievements, streaks, and milestone badges.',
-    ),
-    _PageData(
-      icon: Icons.cloud_sync,
-      title: 'Sync & Export',
-      body: 'Back up to the cloud and export your data as CSV or PDF anytime.',
-    ),
-  ];
-
   Future<void> _finish() async {
     await sl<SharedPreferences>().setBool('onboarding_done', true);
     if (mounted) context.go('/');
@@ -40,6 +23,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
+    final pages = [
+      _PageData(icon: Icons.sports_esports, title: l.onboardingTitle1, body: l.onboardingBody1),
+      _PageData(icon: Icons.emoji_events, title: l.onboardingTitle2, body: l.onboardingBody2),
+      _PageData(icon: Icons.cloud_sync, title: l.onboardingTitle3, body: l.onboardingBody3),
+    ];
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -47,10 +36,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             Expanded(
               child: PageView.builder(
                 controller: _controller,
-                itemCount: _pages.length,
+                itemCount: pages.length,
                 onPageChanged: (i) => setState(() => _page = i),
                 itemBuilder: (_, i) {
-                  final p = _pages[i];
+                  final p = pages[i];
                   return Padding(
                     padding: const EdgeInsets.all(32),
                     child: Column(
@@ -75,7 +64,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: List.generate(
-                _pages.length,
+                pages.length,
                 (i) => Container(
                   margin: const EdgeInsets.all(4),
                   width: _page == i ? 12 : 8,
@@ -96,17 +85,17 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 children: [
                   TextButton(
                     onPressed: _finish,
-                    child: const Text('Skip'),
+                    child: Text(l.skip),
                   ),
                   ElevatedButton(
-                    onPressed: _page == _pages.length - 1
+                    onPressed: _page == pages.length - 1
                         ? _finish
                         : () => _controller.nextPage(
                               duration: const Duration(milliseconds: 300),
                               curve: Curves.easeInOut,
                             ),
                     child: Text(
-                        _page == _pages.length - 1 ? 'Get Started' : 'Next'),
+                        _page == pages.length - 1 ? l.getStarted : l.next),
                   ),
                 ],
               ),

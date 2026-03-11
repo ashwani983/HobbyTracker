@@ -15,6 +15,7 @@ import '../../domain/usecases/cancel_reminder.dart';
 import '../../domain/usecases/get_sessions_by_hobby.dart';
 import '../../domain/usecases/schedule_reminder.dart';
 import '../../domain/usecases/update_reminder.dart';
+import '../../l10n/app_localizations.dart';
 import '../blocs/hobby_detail/hobby_detail_bloc.dart';
 import '../blocs/reminder/reminder_bloc.dart';
 
@@ -24,6 +25,7 @@ class HobbyDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
     return MultiBlocProvider(
       providers: [
         BlocProvider(
@@ -44,7 +46,7 @@ class HobbyDetailScreen extends StatelessWidget {
       child: Builder(
         builder: (innerCtx) => Scaffold(
         appBar: AppBar(
-          title: const Text('Hobby Detail'),
+          title: Text(l.hobbyDetail),
           actions: [
             IconButton(
               icon: const Icon(Icons.edit),
@@ -92,7 +94,7 @@ class HobbyDetailScreen extends StatelessWidget {
                     children: [
                       const Text('🔥', style: TextStyle(fontSize: 20)),
                       const SizedBox(width: 4),
-                      Text('${_streak(s.sessions)} day streak',
+                      Text(l.dayStreakCount(_streak(s.sessions)),
                           style: Theme.of(context).textTheme.bodyLarge),
                     ],
                   ),
@@ -100,23 +102,23 @@ class HobbyDetailScreen extends StatelessWidget {
                 const Divider(height: 32),
                 _RemindersSection(hobbyId: hobbyId, hobbyName: s.hobby.name),
                 const Divider(height: 32),
-                Text('Sessions',
+                Text(l.sessions,
                     style: Theme.of(context).textTheme.titleMedium),
                 const SizedBox(height: 8),
                 if (s.sessions.isEmpty)
-                  const Text('No sessions yet.')
+                  Text(l.noSessionsYet)
                 else
                   ...s.sessions.map(
                     (session) => Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         ListTile(
-                          title: Text('${session.durationMinutes} min'),
+                          title: Text(l.durationMinutes(session.durationMinutes)),
                           subtitle: Text(
                             '${session.date.month}/${session.date.day}/${session.date.year}',
                           ),
                           trailing: session.rating != null
-                              ? Text('⭐ ${session.rating}')
+                              ? Text(l.ratingStars(session.rating!))
                               : null,
                         ),
                         if (session.photoPaths.isNotEmpty)
@@ -195,12 +197,13 @@ class _RemindersSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
           children: [
-            Text('Reminders', style: Theme.of(context).textTheme.titleMedium),
+            Text(l.reminders, style: Theme.of(context).textTheme.titleMedium),
             const Spacer(),
             IconButton(
               icon: const Icon(Icons.add_alarm),
@@ -219,9 +222,9 @@ class _RemindersSection extends StatelessWidget {
             if (state is ReminderError) return Text(state.message);
             final reminders = (state as ReminderLoaded).reminders;
             if (reminders.isEmpty) {
-              return const Padding(
-                padding: EdgeInsets.symmetric(vertical: 8),
-                child: Text('No reminders set. Tap + to add one.'),
+              return Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                child: Text(l.noRemindersSet),
               );
             }
             return Column(
@@ -264,10 +267,11 @@ class _RemindersSection extends StatelessWidget {
   }
 
   Future<void> _showAddReminder(BuildContext context) async {
+    final l = AppLocalizations.of(context)!;
     final granted = await NotificationService.requestPermission();
     if (!granted && context.mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Notification permission denied')),
+        SnackBar(content: Text(l.notificationPermissionDenied)),
       );
       return;
     }
@@ -343,8 +347,9 @@ class _WeekDayPickerState extends State<_WeekDayPicker> {
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
     return AlertDialog(
-      title: const Text('Select Days'),
+      title: Text(l.selectDays),
       content: Wrap(
         spacing: 8,
         children: List.generate(7, (i) {
@@ -361,13 +366,13 @@ class _WeekDayPickerState extends State<_WeekDayPicker> {
       actions: [
         TextButton(
           onPressed: () => Navigator.pop(widget.dialogCtx),
-          child: const Text('Cancel'),
+          child: Text(l.cancel),
         ),
         FilledButton(
           onPressed: _selected.isEmpty
               ? null
               : () => Navigator.pop(widget.dialogCtx, _selected.toList()),
-          child: const Text('OK'),
+          child: Text(l.ok),
         ),
       ],
     );

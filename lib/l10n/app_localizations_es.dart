@@ -39,6 +39,9 @@ class AppLocalizationsEs extends AppLocalizations {
   String get dayStreak => 'Racha de Días';
 
   @override
+  String get recentSessions => 'Sesiones Recientes';
+
+  @override
   String get noDataYet => 'Sin datos aún. ¡Añade un hobby para empezar!';
 
   @override
@@ -51,7 +54,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get noSessionsYet => 'Sin sesiones aún.';
 
   @override
-  String get noSessionsLogged => 'No hay sesiones registradas.';
+  String get noSessionsLogged => 'Sin sesiones registradas aún.';
 
   @override
   String get noDataForPeriod => 'Sin datos para este período.';
@@ -130,6 +133,21 @@ class AppLocalizationsEs extends AppLocalizations {
   String get about => 'Acerca de';
 
   @override
+  String get next => 'Siguiente';
+
+  @override
+  String get getStarted => 'Comenzar';
+
+  @override
+  String get name => 'Nombre';
+
+  @override
+  String get description => 'Descripción';
+
+  @override
+  String get category => 'Categoría';
+
+  @override
   String get color => 'Color';
 
   @override
@@ -159,6 +177,48 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get selectDays => 'Seleccionar Días';
+
+  @override
+  String get nameRequired => 'El nombre es obligatorio';
+
+  @override
+  String get required => 'Obligatorio';
+
+  @override
+  String get mustBePositive => 'Debe ser un número positivo';
+
+  @override
+  String get hobby => 'Hobby';
+
+  @override
+  String get type => 'Tipo';
+
+  @override
+  String get targetMinutes => 'Objetivo (minutos)';
+
+  @override
+  String get durationMinutesLabel => 'Duración (minutos)';
+
+  @override
+  String get notes => 'Notas';
+
+  @override
+  String get selectHobby => 'Seleccionar Hobby';
+
+  @override
+  String get allTime => 'Todo el tiempo';
+
+  @override
+  String get archive => 'Archivar';
+
+  @override
+  String get running => '⏱ En marcha';
+
+  @override
+  String get paused => '⏸ Pausado';
+
+  @override
+  String get toggleTheme => 'Cambiar tema';
 
   @override
   String get camera => 'Cámara';
@@ -207,10 +267,30 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
+  String goalDescription(String type, int minutes) {
+    return 'Meta $type — $minutes min';
+  }
+
+  @override
+  String unlockedCount(int unlocked, int total) {
+    return '$unlocked / $total desbloqueados';
+  }
+
+  @override
+  String unlockedOn(String date) {
+    return 'Desbloqueado el $date';
+  }
+
+  @override
+  String reachToUnlock(int threshold, String type) {
+    return 'Alcanza $threshold $type para desbloquear';
+  }
+
+  @override
   String get sessionSaved => '¡Sesión guardada!';
 
   @override
-  String get sessionTooShort => 'Sesión muy corta para guardar.';
+  String get sessionTooShort => 'Sesión demasiado corta para guardar.';
 
   @override
   String get notificationPermissionDenied => 'Permiso de notificación denegado';
@@ -266,7 +346,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get signInWithGoogle => 'Iniciar sesión con Google';
 
   @override
-  String get signInToSync => 'Inicia sesión para sincronizar';
+  String get signInToSync => 'Inicia sesión para habilitar la sincronización';
 
   @override
   String get signInAndSync => 'Inicia sesión y sincroniza tus datos';
@@ -298,7 +378,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String badgeUnlocked(String emoji) {
-    return '$emoji ¡Insignia Desbloqueada!';
+    return '¡$emoji Insignia Desbloqueada!';
   }
 
   @override
@@ -313,10 +393,22 @@ class AppLocalizationsEs extends AppLocalizations {
   String get onboardingTitle1 => 'Rastrea Tus Hobbies';
 
   @override
+  String get onboardingBody1 =>
+      'Registra sesiones, establece metas y observa tu progreso crecer.';
+
+  @override
   String get onboardingTitle2 => 'Gana Insignias y Rachas';
 
   @override
+  String get onboardingBody2 =>
+      'Mantente motivado con logros, rachas e insignias de hitos.';
+
+  @override
   String get onboardingTitle3 => 'Sincroniza y Exporta';
+
+  @override
+  String get onboardingBody3 =>
+      'Respalda en la nube y exporta tus datos como CSV o PDF.';
 
   @override
   String get language => 'Idioma';

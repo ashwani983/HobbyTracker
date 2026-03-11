@@ -39,6 +39,9 @@ class AppLocalizationsDe extends AppLocalizations {
   String get dayStreak => 'Tage-Serie';
 
   @override
+  String get recentSessions => 'Letzte Sitzungen';
+
+  @override
   String get noDataYet => 'Noch keine Daten. Füge ein Hobby hinzu!';
 
   @override
@@ -51,7 +54,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get noSessionsYet => 'Noch keine Sitzungen.';
 
   @override
-  String get noSessionsLogged => 'Keine Sitzungen aufgezeichnet.';
+  String get noSessionsLogged => 'Noch keine Sitzungen erfasst.';
 
   @override
   String get noDataForPeriod => 'Keine Daten für diesen Zeitraum.';
@@ -130,6 +133,21 @@ class AppLocalizationsDe extends AppLocalizations {
   String get about => 'Über';
 
   @override
+  String get next => 'Weiter';
+
+  @override
+  String get getStarted => 'Los geht\'s';
+
+  @override
+  String get name => 'Name';
+
+  @override
+  String get description => 'Beschreibung';
+
+  @override
+  String get category => 'Kategorie';
+
+  @override
   String get color => 'Farbe';
 
   @override
@@ -154,10 +172,53 @@ class AppLocalizationsDe extends AppLocalizations {
   String get reminders => 'Erinnerungen';
 
   @override
-  String get noRemindersSet => 'Keine Erinnerungen. Tippe + zum Hinzufügen.';
+  String get noRemindersSet =>
+      'Keine Erinnerungen. Tippe auf + zum Hinzufügen.';
 
   @override
   String get selectDays => 'Tage Auswählen';
+
+  @override
+  String get nameRequired => 'Name ist erforderlich';
+
+  @override
+  String get required => 'Erforderlich';
+
+  @override
+  String get mustBePositive => 'Muss eine positive Zahl sein';
+
+  @override
+  String get hobby => 'Hobby';
+
+  @override
+  String get type => 'Typ';
+
+  @override
+  String get targetMinutes => 'Ziel (Minuten)';
+
+  @override
+  String get durationMinutesLabel => 'Dauer (Minuten)';
+
+  @override
+  String get notes => 'Notizen';
+
+  @override
+  String get selectHobby => 'Hobby Auswählen';
+
+  @override
+  String get allTime => 'Gesamte Zeit';
+
+  @override
+  String get archive => 'Archivieren';
+
+  @override
+  String get running => '⏱ Läuft';
+
+  @override
+  String get paused => '⏸ Pausiert';
+
+  @override
+  String get toggleTheme => 'Thema wechseln';
 
   @override
   String get camera => 'Kamera';
@@ -192,7 +253,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String dayStreakCount(int days) {
-    return '$days-Tage-Serie';
+    return '$days Tage Serie';
   }
 
   @override
@@ -203,6 +264,26 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String saveMinutesSession(int minutes) {
     return '$minutes Min Sitzung speichern?';
+  }
+
+  @override
+  String goalDescription(String type, int minutes) {
+    return '$type-Ziel — $minutes Min';
+  }
+
+  @override
+  String unlockedCount(int unlocked, int total) {
+    return '$unlocked / $total freigeschaltet';
+  }
+
+  @override
+  String unlockedOn(String date) {
+    return 'Freigeschaltet am $date';
+  }
+
+  @override
+  String reachToUnlock(int threshold, String type) {
+    return 'Erreiche $threshold $type zum Freischalten';
   }
 
   @override
@@ -230,7 +311,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get dailyActivity => 'Tägliche Aktivität';
 
   @override
-  String get theme => 'Design';
+  String get theme => 'Thema';
 
   @override
   String get badges => 'Abzeichen';
@@ -260,13 +341,14 @@ class AppLocalizationsDe extends AppLocalizations {
   String get syncComplete => '✓ Synchronisierung abgeschlossen';
 
   @override
-  String get autoSync => 'Auto-Sync';
+  String get autoSync => 'Automatische Synchronisierung';
 
   @override
   String get signInWithGoogle => 'Mit Google anmelden';
 
   @override
-  String get signInToSync => 'Anmelden zum Synchronisieren';
+  String get signInToSync =>
+      'Melde dich an, um die Synchronisierung zu aktivieren';
 
   @override
   String get signInAndSync => 'Anmelden und Daten synchronisieren';
@@ -313,10 +395,22 @@ class AppLocalizationsDe extends AppLocalizations {
   String get onboardingTitle1 => 'Verfolge Deine Hobbys';
 
   @override
+  String get onboardingBody1 =>
+      'Erfasse Sitzungen, setze Ziele und beobachte deinen Fortschritt.';
+
+  @override
   String get onboardingTitle2 => 'Verdiene Abzeichen und Serien';
 
   @override
+  String get onboardingBody2 =>
+      'Bleib motiviert mit Erfolgen, Serien und Meilenstein-Abzeichen.';
+
+  @override
   String get onboardingTitle3 => 'Synchronisiere und Exportiere';
+
+  @override
+  String get onboardingBody3 =>
+      'Sichere in der Cloud und exportiere deine Daten als CSV oder PDF.';
 
   @override
   String get language => 'Sprache';

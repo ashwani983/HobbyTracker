@@ -5,6 +5,7 @@ import 'package:share_plus/share_plus.dart';
 import '../../core/di/injection.dart';
 import '../../domain/usecases/export_csv.dart';
 import '../../domain/usecases/export_pdf.dart';
+import '../../l10n/app_localizations.dart';
 
 class ExportScreen extends StatefulWidget {
   const ExportScreen({super.key});
@@ -26,8 +27,9 @@ class _ExportScreenState extends State<ExportScreen> {
       await Share.shareXFiles([XFile(file.path)]);
     } catch (e) {
       if (mounted) {
+        final l = AppLocalizations.of(context)!;
         ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text('Export failed: $e')));
+            .showSnackBar(SnackBar(content: Text(l.exportFailed('$e'))));
       }
     } finally {
       if (mounted) setState(() => _busy = false);
@@ -36,10 +38,11 @@ class _ExportScreenState extends State<ExportScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(icon: const Icon(Icons.arrow_back), onPressed: () => context.go('/settings')),
-        title: const Text('Export Data'),
+        title: Text(l.exportData),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
@@ -49,7 +52,7 @@ class _ExportScreenState extends State<ExportScreen> {
             OutlinedButton.icon(
               icon: const Icon(Icons.date_range),
               label: Text(_range == null
-                  ? 'All time'
+                  ? l.allTime
                   : '${_fmt(_range!.start)} — ${_fmt(_range!.end)}'),
               onPressed: () async {
                 final picked = await showDateRangePicker(
@@ -64,13 +67,13 @@ class _ExportScreenState extends State<ExportScreen> {
             const SizedBox(height: 24),
             ElevatedButton.icon(
               icon: const Icon(Icons.table_chart),
-              label: const Text('Export CSV'),
+              label: Text(l.exportCsv),
               onPressed: _busy ? null : () => _export(false),
             ),
             const SizedBox(height: 12),
             ElevatedButton.icon(
               icon: const Icon(Icons.picture_as_pdf),
-              label: const Text('Export PDF'),
+              label: Text(l.exportPdf),
               onPressed: _busy ? null : () => _export(true),
             ),
             if (_busy) ...[

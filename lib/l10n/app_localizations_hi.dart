@@ -39,6 +39,9 @@ class AppLocalizationsHi extends AppLocalizations {
   String get dayStreak => 'दिन की लय';
 
   @override
+  String get recentSessions => 'हाल के सत्र';
+
+  @override
   String get noDataYet => 'अभी कोई डेटा नहीं। शुरू करने के लिए एक शौक जोड़ें!';
 
   @override
@@ -51,7 +54,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get noSessionsYet => 'अभी कोई सत्र नहीं।';
 
   @override
-  String get noSessionsLogged => 'कोई सत्र दर्ज नहीं।';
+  String get noSessionsLogged => 'अभी तक कोई सत्र दर्ज नहीं।';
 
   @override
   String get noDataForPeriod => 'इस अवधि के लिए कोई डेटा नहीं।';
@@ -118,7 +121,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get reset => 'रीसेट';
 
   @override
-  String get discard => 'त्यागें';
+  String get discard => 'हटाएं';
 
   @override
   String get later => 'बाद में';
@@ -128,6 +131,21 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get about => 'जानकारी';
+
+  @override
+  String get next => 'अगला';
+
+  @override
+  String get getStarted => 'शुरू करें';
+
+  @override
+  String get name => 'नाम';
+
+  @override
+  String get description => 'विवरण';
+
+  @override
+  String get category => 'श्रेणी';
 
   @override
   String get color => 'रंग';
@@ -158,6 +176,48 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get selectDays => 'दिन चुनें';
+
+  @override
+  String get nameRequired => 'नाम आवश्यक है';
+
+  @override
+  String get required => 'आवश्यक';
+
+  @override
+  String get mustBePositive => 'एक सकारात्मक संख्या होनी चाहिए';
+
+  @override
+  String get hobby => 'शौक';
+
+  @override
+  String get type => 'प्रकार';
+
+  @override
+  String get targetMinutes => 'लक्ष्य (मिनट)';
+
+  @override
+  String get durationMinutesLabel => 'अवधि (मिनट)';
+
+  @override
+  String get notes => 'नोट्स';
+
+  @override
+  String get selectHobby => 'शौक चुनें';
+
+  @override
+  String get allTime => 'सभी समय';
+
+  @override
+  String get archive => 'संग्रह';
+
+  @override
+  String get running => '⏱ चल रहा है';
+
+  @override
+  String get paused => '⏸ रुका हुआ';
+
+  @override
+  String get toggleTheme => 'थीम बदलें';
 
   @override
   String get camera => 'कैमरा';
@@ -206,10 +266,30 @@ class AppLocalizationsHi extends AppLocalizations {
   }
 
   @override
+  String goalDescription(String type, int minutes) {
+    return '$type लक्ष्य — $minutes मिनट';
+  }
+
+  @override
+  String unlockedCount(int unlocked, int total) {
+    return '$unlocked / $total अनलॉक';
+  }
+
+  @override
+  String unlockedOn(String date) {
+    return '$date को अनलॉक किया';
+  }
+
+  @override
+  String reachToUnlock(int threshold, String type) {
+    return 'अनलॉक करने के लिए $threshold $type तक पहुंचें';
+  }
+
+  @override
   String get sessionSaved => 'सत्र सहेजा गया!';
 
   @override
-  String get sessionTooShort => 'सत्र बहुत छोटा है।';
+  String get sessionTooShort => 'सत्र सहेजने के लिए बहुत छोटा।';
 
   @override
   String get notificationPermissionDenied => 'सूचना अनुमति अस्वीकृत';
@@ -220,7 +300,7 @@ class AppLocalizationsHi extends AppLocalizations {
   }
 
   @override
-  String get timePerHobby => 'शौक के अनुसार समय';
+  String get timePerHobby => 'प्रति शौक समय';
 
   @override
   String get distribution => 'वितरण';
@@ -259,13 +339,13 @@ class AppLocalizationsHi extends AppLocalizations {
   String get syncComplete => '✓ सिंक पूर्ण';
 
   @override
-  String get autoSync => 'ऑटो सिंक';
+  String get autoSync => 'स्वचालित सिंक';
 
   @override
   String get signInWithGoogle => 'Google से साइन इन करें';
 
   @override
-  String get signInToSync => 'सिंक के लिए साइन इन करें';
+  String get signInToSync => 'क्लाउड सिंक सक्षम करने के लिए साइन इन करें';
 
   @override
   String get signInAndSync => 'साइन इन करें और डेटा सिंक करें';
@@ -280,10 +360,10 @@ class AppLocalizationsHi extends AppLocalizations {
   String get termsAndConditions => 'नियम और शर्तें';
 
   @override
-  String get checkForUpdates => 'अपडेट जांचें';
+  String get checkForUpdates => 'अपडेट की जांच करें';
 
   @override
-  String get checking => 'जांच रहा है...';
+  String get checking => 'जांच हो रही है...';
 
   @override
   String updateAvailable(String version) {
@@ -312,10 +392,22 @@ class AppLocalizationsHi extends AppLocalizations {
   String get onboardingTitle1 => 'अपने शौक ट्रैक करें';
 
   @override
+  String get onboardingBody1 =>
+      'सत्र दर्ज करें, लक्ष्य निर्धारित करें और अपनी प्रगति देखें।';
+
+  @override
   String get onboardingTitle2 => 'बैज और लय अर्जित करें';
 
   @override
+  String get onboardingBody2 =>
+      'उपलब्धियों, लय और माइलस्टोन बैज से प्रेरित रहें।';
+
+  @override
   String get onboardingTitle3 => 'सिंक और निर्यात करें';
+
+  @override
+  String get onboardingBody3 =>
+      'क्लाउड में बैकअप लें और CSV या PDF में डेटा निर्यात करें।';
 
   @override
   String get language => 'भाषा';

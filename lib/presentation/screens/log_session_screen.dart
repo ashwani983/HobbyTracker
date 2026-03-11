@@ -9,6 +9,7 @@ import '../../core/di/injection.dart';
 import '../../domain/entities/session.dart';
 import '../../domain/usecases/attach_photos.dart';
 import '../../domain/usecases/log_session.dart';
+import '../../l10n/app_localizations.dart';
 import '../blocs/badge/badge_bloc.dart';
 import '../blocs/session/session_bloc.dart';
 
@@ -52,6 +53,7 @@ class _LogSessionScreenState extends State<LogSessionScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
     return BlocProvider(
       create: (_) => SessionBloc(logSession: sl<LogSession>()),
       child: BlocConsumer<SessionBloc, SessionState>(
@@ -67,7 +69,7 @@ class _LogSessionScreenState extends State<LogSessionScreen> {
         },
         builder: (context, state) {
           return Scaffold(
-            appBar: AppBar(title: const Text('Log Session')),
+            appBar: AppBar(title: Text(l.logSession)),
             body: Padding(
               padding: const EdgeInsets.all(16),
               child: Form(
@@ -75,7 +77,7 @@ class _LogSessionScreenState extends State<LogSessionScreen> {
                 child: ListView(
                   children: [
                     ListTile(
-                      title: const Text('Date'),
+                      title: Text(l.date),
                       subtitle: Text(
                         '${_date.month}/${_date.day}/${_date.year}',
                       ),
@@ -93,27 +95,23 @@ class _LogSessionScreenState extends State<LogSessionScreen> {
                     const SizedBox(height: 12),
                     TextFormField(
                       controller: _durationController,
-                      decoration: const InputDecoration(
-                        labelText: 'Duration (minutes)',
-                      ),
+                      decoration: InputDecoration(labelText: l.durationMinutesLabel),
                       keyboardType: TextInputType.number,
                       validator: (v) {
-                        if (v == null || v.isEmpty) return 'Required';
+                        if (v == null || v.isEmpty) return l.required;
                         final n = int.tryParse(v);
-                        if (n == null || n <= 0) {
-                          return 'Must be a positive number';
-                        }
+                        if (n == null || n <= 0) return l.mustBePositive;
                         return null;
                       },
                     ),
                     const SizedBox(height: 12),
                     TextFormField(
                       controller: _notesController,
-                      decoration: const InputDecoration(labelText: 'Notes'),
+                      decoration: InputDecoration(labelText: l.notes),
                       maxLines: 3,
                     ),
                     const SizedBox(height: 12),
-                    Text('Rating (optional)',
+                    Text(l.ratingOptional,
                         style: Theme.of(context).textTheme.bodySmall),
                     const SizedBox(height: 8),
                     Row(
@@ -133,8 +131,7 @@ class _LogSessionScreenState extends State<LogSessionScreen> {
                       }),
                     ),
                     const SizedBox(height: 16),
-                    // Photos section
-                    Text('Photos (${_photoPaths.length}/5)',
+                    Text(l.photosCount(_photoPaths.length),
                         style: Theme.of(context).textTheme.titleSmall),
                     const SizedBox(height: 8),
                     Row(
@@ -142,13 +139,13 @@ class _LogSessionScreenState extends State<LogSessionScreen> {
                         OutlinedButton.icon(
                           onPressed: _photoPaths.length >= 5 ? null : _pickFromGallery,
                           icon: const Icon(Icons.photo_library),
-                          label: const Text('Gallery'),
+                          label: Text(l.gallery),
                         ),
                         const SizedBox(width: 12),
                         OutlinedButton.icon(
                           onPressed: _photoPaths.length >= 5 ? null : _pickFromCamera,
                           icon: const Icon(Icons.camera_alt),
-                          label: const Text('Camera'),
+                          label: Text(l.camera),
                         ),
                       ],
                     ),
@@ -165,20 +162,16 @@ class _LogSessionScreenState extends State<LogSessionScreen> {
                                 borderRadius: BorderRadius.circular(8),
                                 child: Image.file(
                                   File(_photoPaths[i]),
-                                  width: 80,
-                                  height: 80,
-                                  fit: BoxFit.cover,
+                                  width: 80, height: 80, fit: BoxFit.cover,
                                 ),
                               ),
                               Positioned(
-                                top: 0,
-                                right: 0,
+                                top: 0, right: 0,
                                 child: GestureDetector(
                                   onTap: () => setState(() => _photoPaths.removeAt(i)),
                                   child: Container(
                                     decoration: const BoxDecoration(
-                                      color: Colors.black54,
-                                      shape: BoxShape.circle,
+                                      color: Colors.black54, shape: BoxShape.circle,
                                     ),
                                     child: const Icon(Icons.close, size: 18, color: Colors.white),
                                   ),
@@ -213,11 +206,10 @@ class _LogSessionScreenState extends State<LogSessionScreen> {
                             },
                       child: state is SessionSaving
                           ? const SizedBox(
-                              height: 20,
-                              width: 20,
+                              height: 20, width: 20,
                               child: CircularProgressIndicator(strokeWidth: 2),
                             )
-                          : const Text('Save Session'),
+                          : Text(l.saveSession),
                     ),
                   ],
                 ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../l10n/app_localizations.dart';
 import '../blocs/auth/auth_bloc.dart';
 import '../blocs/sync/sync_bloc.dart';
 
@@ -10,10 +11,11 @@ class SyncSettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(icon: const Icon(Icons.arrow_back), onPressed: () => context.go('/settings')),
-        title: const Text('Cloud Sync'),
+        title: Text(l.cloudSync),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
@@ -47,14 +49,15 @@ class SyncSettingsScreen extends StatelessWidget {
 class _SignInSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        const Text('Sign in to enable cloud sync'),
+        Text(l.signInToSync),
         const SizedBox(height: 16),
         ElevatedButton.icon(
           icon: const Icon(Icons.account_circle),
-          label: const Text('Sign in with Google'),
+          label: Text(l.signInWithGoogle),
           onPressed: () =>
               context.read<AuthBloc>().add(SignInWithGoogle()),
         ),
@@ -69,12 +72,13 @@ class _SignedInSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         ListTile(
           leading: const Icon(Icons.person),
-          title: Text(user.displayName ?? user.email ?? 'User'),
+          title: Text(user.displayName ?? user.email ?? l.user),
           subtitle: Text(user.email ?? ''),
         ),
         const Divider(),
@@ -88,7 +92,7 @@ class _SignedInSection extends StatelessWidget {
             return Column(
               children: [
                 SwitchListTile(
-                  title: const Text('Auto sync'),
+                  title: Text(l.autoSync),
                   value: enabled,
                   onChanged: (v) =>
                       ctx.read<SyncBloc>().add(ToggleSync(v)),
@@ -97,12 +101,11 @@ class _SignedInSection extends StatelessWidget {
                 ElevatedButton.icon(
                   icon: syncState is Syncing
                       ? const SizedBox(
-                          width: 16,
-                          height: 16,
+                          width: 16, height: 16,
                           child: CircularProgressIndicator(strokeWidth: 2),
                         )
                       : const Icon(Icons.sync),
-                  label: Text(syncState is Syncing ? 'Syncing...' : 'Sync Now'),
+                  label: Text(syncState is Syncing ? l.syncing : l.syncNow),
                   onPressed: syncState is Syncing
                       ? null
                       : () => ctx
@@ -110,10 +113,10 @@ class _SignedInSection extends StatelessWidget {
                           .add(SyncNow(user.uid as String)),
                 ),
                 if (syncState is SyncDone)
-                  const Padding(
-                    padding: EdgeInsets.only(top: 8),
-                    child: Text('✓ Sync complete',
-                        style: TextStyle(color: Colors.green)),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8),
+                    child: Text(l.syncComplete,
+                        style: const TextStyle(color: Colors.green)),
                   ),
                 if (syncState is SyncError)
                   Padding(
@@ -128,7 +131,7 @@ class _SignedInSection extends StatelessWidget {
         const SizedBox(height: 24),
         OutlinedButton(
           onPressed: () => context.read<AuthBloc>().add(SignOut()),
-          child: const Text('Sign Out'),
+          child: Text(l.signOut),
         ),
       ],
     );

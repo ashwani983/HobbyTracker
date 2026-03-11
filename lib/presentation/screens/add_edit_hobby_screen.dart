@@ -8,6 +8,7 @@ import '../../core/di/injection.dart';
 import '../../domain/entities/hobby.dart';
 import '../../domain/repositories/hobby_repository.dart';
 import '../../domain/usecases/update_hobby.dart';
+import '../../l10n/app_localizations.dart';
 import '../blocs/hobby_list/hobby_list_bloc.dart';
 
 class AddEditHobbyScreen extends StatefulWidget {
@@ -28,14 +29,8 @@ class _AddEditHobbyScreenState extends State<AddEditHobbyScreen> {
   Hobby? _existing;
 
   static const _colorOptions = [
-    Colors.blue,
-    Colors.red,
-    Colors.green,
-    Colors.orange,
-    Colors.purple,
-    Colors.teal,
-    Colors.pink,
-    Colors.indigo,
+    Colors.blue, Colors.red, Colors.green, Colors.orange,
+    Colors.purple, Colors.teal, Colors.pink, Colors.indigo,
   ];
 
   @override
@@ -45,8 +40,7 @@ class _AddEditHobbyScreenState extends State<AddEditHobbyScreen> {
   }
 
   Future<void> _loadHobby() async {
-    final hobby =
-        await sl<HobbyRepository>().getHobbyById(widget.hobbyId!);
+    final hobby = await sl<HobbyRepository>().getHobbyById(widget.hobbyId!);
     if (hobby != null && mounted) {
       setState(() {
         _existing = hobby;
@@ -99,9 +93,10 @@ class _AddEditHobbyScreenState extends State<AddEditHobbyScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
     final isEdit = widget.hobbyId != null;
     return Scaffold(
-      appBar: AppBar(title: Text(isEdit ? 'Edit Hobby' : 'Add Hobby')),
+      appBar: AppBar(title: Text(isEdit ? l.editHobby : l.addHobby)),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Form(
@@ -110,27 +105,27 @@ class _AddEditHobbyScreenState extends State<AddEditHobbyScreen> {
             children: [
               TextFormField(
                 controller: _nameController,
-                decoration: const InputDecoration(labelText: 'Name'),
+                decoration: InputDecoration(labelText: l.name),
                 validator: (v) =>
-                    (v == null || v.trim().isEmpty) ? 'Name is required' : null,
+                    (v == null || v.trim().isEmpty) ? l.nameRequired : null,
               ),
               const SizedBox(height: 12),
               TextFormField(
                 controller: _descController,
-                decoration: const InputDecoration(labelText: 'Description'),
+                decoration: InputDecoration(labelText: l.description),
                 maxLines: 3,
               ),
               const SizedBox(height: 12),
               DropdownButtonFormField<String>(
                 initialValue: _category,
-                decoration: const InputDecoration(labelText: 'Category'),
+                decoration: InputDecoration(labelText: l.category),
                 items: AppConstants.categories
                     .map((c) => DropdownMenuItem(value: c, child: Text(c)))
                     .toList(),
                 onChanged: (v) => setState(() => _category = v!),
               ),
               const SizedBox(height: 12),
-              Text('Color', style: Theme.of(context).textTheme.bodySmall),
+              Text(l.color, style: Theme.of(context).textTheme.bodySmall),
               const SizedBox(height: 8),
               Wrap(
                 spacing: 8,
@@ -152,11 +147,10 @@ class _AddEditHobbyScreenState extends State<AddEditHobbyScreen> {
                 onPressed: _isLoading ? null : _save,
                 child: _isLoading
                     ? const SizedBox(
-                        height: 20,
-                        width: 20,
+                        height: 20, width: 20,
                         child: CircularProgressIndicator(strokeWidth: 2),
                       )
-                    : Text(isEdit ? 'Update' : 'Create'),
+                    : Text(isEdit ? l.update : l.create),
               ),
             ],
           ),

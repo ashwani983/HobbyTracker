@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../core/di/injection.dart';
 import '../../domain/usecases/get_goal_progress.dart';
+import '../../l10n/app_localizations.dart';
 import '../blocs/goal/goal_bloc.dart';
 
 class GoalsScreen extends StatelessWidget {
@@ -11,8 +12,9 @@ class GoalsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
     return Scaffold(
-      appBar: AppBar(title: const Text('Goals')),
+      appBar: AppBar(title: Text(l.goals)),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           await context.push('/goals/add');
@@ -28,7 +30,7 @@ class GoalsScreen extends StatelessWidget {
             return const Center(child: CircularProgressIndicator());
           }
           if (state is GoalEmpty) {
-            return const Center(child: Text('No goals yet. Set one!'));
+            return Center(child: Text(l.noGoalsYet));
           }
           if (state is GoalError) {
             return Center(child: Text(state.message));
@@ -49,7 +51,7 @@ class GoalsScreen extends StatelessWidget {
                         children: [
                           Expanded(
                             child: Text(
-                              '${goal.type.name} goal — ${goal.targetDurationMinutes} min',
+                              l.goalDescription(goal.type.name, goal.targetDurationMinutes),
                               style: Theme.of(context).textTheme.titleSmall,
                             ),
                           ),
@@ -77,7 +79,7 @@ class GoalsScreen extends StatelessWidget {
                                 value: pct / 100,
                               ),
                               const SizedBox(height: 4),
-                              Text('${pct.toStringAsFixed(0)}%'),
+                              Text(l.percentComplete(pct.toStringAsFixed(0))),
                             ],
                           );
                         },

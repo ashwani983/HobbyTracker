@@ -39,6 +39,9 @@ class AppLocalizationsJa extends AppLocalizations {
   String get dayStreak => '連続日数';
 
   @override
+  String get recentSessions => '最近のセッション';
+
+  @override
   String get noDataYet => 'データがありません。趣味を追加して始めましょう！';
 
   @override
@@ -51,7 +54,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get noSessionsYet => 'セッションがありません。';
 
   @override
-  String get noSessionsLogged => '記録されたセッションがありません。';
+  String get noSessionsLogged => 'セッションが記録されていません。';
 
   @override
   String get noDataForPeriod => 'この期間のデータがありません。';
@@ -129,6 +132,21 @@ class AppLocalizationsJa extends AppLocalizations {
   String get about => 'アプリについて';
 
   @override
+  String get next => '次へ';
+
+  @override
+  String get getStarted => '始める';
+
+  @override
+  String get name => '名前';
+
+  @override
+  String get description => '説明';
+
+  @override
+  String get category => 'カテゴリ';
+
+  @override
   String get color => '色';
 
   @override
@@ -141,7 +159,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get endDate => '終了日';
 
   @override
-  String get endDateError => '終了日は開始日より後にしてください';
+  String get endDateError => '終了日は開始日より後でなければなりません';
 
   @override
   String get ratingOptional => '評価（任意）';
@@ -157,6 +175,48 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get selectDays => '曜日を選択';
+
+  @override
+  String get nameRequired => '名前は必須です';
+
+  @override
+  String get required => '必須';
+
+  @override
+  String get mustBePositive => '正の数でなければなりません';
+
+  @override
+  String get hobby => '趣味';
+
+  @override
+  String get type => 'タイプ';
+
+  @override
+  String get targetMinutes => '目標（分）';
+
+  @override
+  String get durationMinutesLabel => '時間（分）';
+
+  @override
+  String get notes => 'メモ';
+
+  @override
+  String get selectHobby => '趣味を選択';
+
+  @override
+  String get allTime => '全期間';
+
+  @override
+  String get archive => 'アーカイブ';
+
+  @override
+  String get running => '⏱ 実行中';
+
+  @override
+  String get paused => '⏸ 一時停止中';
+
+  @override
+  String get toggleTheme => 'テーマ切替';
 
   @override
   String get camera => 'カメラ';
@@ -205,10 +265,30 @@ class AppLocalizationsJa extends AppLocalizations {
   }
 
   @override
+  String goalDescription(String type, int minutes) {
+    return '$type目標 — $minutes分';
+  }
+
+  @override
+  String unlockedCount(int unlocked, int total) {
+    return '$unlocked / $total 解除済み';
+  }
+
+  @override
+  String unlockedOn(String date) {
+    return '$dateに解除';
+  }
+
+  @override
+  String reachToUnlock(int threshold, String type) {
+    return '$threshold $typeに到達して解除';
+  }
+
+  @override
   String get sessionSaved => 'セッションを保存しました！';
 
   @override
-  String get sessionTooShort => 'セッションが短すぎます。';
+  String get sessionTooShort => 'セッションが短すぎて保存できません。';
 
   @override
   String get notificationPermissionDenied => '通知の許可が拒否されました';
@@ -225,7 +305,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get distribution => '分布';
 
   @override
-  String get dailyActivity => '日々の活動';
+  String get dailyActivity => '日別アクティビティ';
 
   @override
   String get theme => 'テーマ';
@@ -264,7 +344,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get signInWithGoogle => 'Googleでサインイン';
 
   @override
-  String get signInToSync => '同期するにはサインインしてください';
+  String get signInToSync => 'サインインしてクラウド同期を有効にする';
 
   @override
   String get signInAndSync => 'サインインしてデータを同期';
@@ -296,7 +376,7 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String badgeUnlocked(String emoji) {
-    return '$emoji バッジ獲得！';
+    return '$emoji バッジ解除！';
   }
 
   @override
@@ -308,13 +388,22 @@ class AppLocalizationsJa extends AppLocalizations {
   String get awesome => 'すごい！';
 
   @override
-  String get onboardingTitle1 => '趣味を追跡しよう';
+  String get onboardingTitle1 => '趣味を追跡';
+
+  @override
+  String get onboardingBody1 => 'セッションを記録し、目標を設定し、成長を見守りましょう。';
 
   @override
   String get onboardingTitle2 => 'バッジと連続記録を獲得';
 
   @override
+  String get onboardingBody2 => '実績、連続記録、マイルストーンバッジでモチベーションを維持。';
+
+  @override
   String get onboardingTitle3 => '同期とエクスポート';
+
+  @override
+  String get onboardingBody3 => 'クラウドにバックアップし、CSVやPDFでデータをエクスポート。';
 
   @override
   String get language => '言語';
