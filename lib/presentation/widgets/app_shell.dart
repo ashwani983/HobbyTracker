@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+import '../blocs/badge/badge_bloc.dart';
 import '../blocs/dashboard/dashboard_bloc.dart';
 import '../blocs/hobby_list/hobby_list_bloc.dart';
 import '../blocs/stats/stats_bloc.dart';
@@ -32,25 +33,45 @@ class AppShell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final index = _currentIndex(context);
-    return Scaffold(
-      body: child,
-      bottomNavigationBar: NavigationBar(
-        selectedIndex: index,
-        onDestinationSelected: (i) {
-          context.go(_tabs[i].$1);
-          // Refresh data when switching tabs
-          if (i == 0) {
-            context.read<DashboardBloc>().add(LoadDashboard());
-            context.read<HobbyListBloc>().add(LoadHobbies());
-          } else if (i == 1) {
-            context.read<HobbyListBloc>().add(LoadHobbies());
-          } else if (i == 4) {
-            context.read<StatsBloc>().add(LoadStats());
+    return BlocListener<BadgeBloc, BadgeState>(
+      listener: (context, state) {
+        if (state is NewBadgeUnlocked) {
+          for (final badge in state.newBadges) {
+            showDialog(
+              context: context,
+              builder: (dialogCtx) => AlertDialog(
+                title: Text('${badge.emoji} Badge Unlocked!'),
+                content: Text('You earned "${badge.title}"!'),
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.pop(dialogCtx),
+                    child: const Text('Awesome!'),
+                  ),
+                ],
+              ),
+            );
           }
-        },
-        destinations: _tabs
-            .map((t) => NavigationDestination(icon: Icon(t.$2), label: t.$3))
-            .toList(),
+        }
+      },
+      child: Scaffold(
+        body: child,
+        bottomNavigationBar: NavigationBar(
+          selectedIndex: index,
+          onDestinationSelected: (i) {
+            context.go(_tabs[i].$1);
+            if (i == 0) {
+              context.read<DashboardBloc>().add(LoadDashboard());
+              context.read<HobbyListBloc>().add(LoadHobbies());
+            } else if (i == 1) {
+              context.read<HobbyListBloc>().add(LoadHobbies());
+            } else if (i == 4) {
+              context.read<StatsBloc>().add(LoadStats());
+            }
+          },
+          destinations: _tabs
+              .map((t) => NavigationDestination(icon: Icon(t.$2), label: t.$3))
+              .toList(),
+        ),
       ),
     );
   }

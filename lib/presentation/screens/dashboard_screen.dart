@@ -52,6 +52,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
             },
           ),
           IconButton(
+            icon: const Icon(Icons.emoji_events),
+            tooltip: 'Badges',
+            onPressed: () => context.go('/badges'),
+          ),
+          IconButton(
             icon: const Icon(Icons.description_outlined),
             tooltip: 'Terms & Conditions',
             onPressed: () => context.go('/terms'),

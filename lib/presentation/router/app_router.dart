@@ -11,6 +11,7 @@ import '../screens/log_session_screen.dart';
 import '../screens/stats_screen.dart';
 import '../screens/terms_screen.dart';
 import '../screens/timer_screen.dart';
+import '../screens/badges_screen.dart';
 import '../widgets/app_shell.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -83,6 +84,10 @@ final appRouter = GoRouter(
         GoRoute(
           path: '/terms',
           builder: (context, state) => const TermsScreen(),
+        ),
+        GoRoute(
+          path: '/badges',
+          builder: (context, state) => const BadgesScreen(),
         ),
       ],
     ),

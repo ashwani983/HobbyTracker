@@ -6,6 +6,7 @@ import 'package:uuid/uuid.dart';
 import '../../core/di/injection.dart';
 import '../../domain/entities/session.dart';
 import '../../domain/usecases/log_session.dart';
+import '../blocs/badge/badge_bloc.dart';
 import '../blocs/session/session_bloc.dart';
 
 class LogSessionScreen extends StatefulWidget {
@@ -36,7 +37,11 @@ class _LogSessionScreenState extends State<LogSessionScreen> {
       create: (_) => SessionBloc(logSession: sl<LogSession>()),
       child: BlocConsumer<SessionBloc, SessionState>(
         listener: (context, state) {
-          if (state is SessionSaved) context.pop();
+          if (state is SessionSaved) {
+            // Trigger badge check after session saved
+            context.read<BadgeBloc>().add(CheckNewBadges());
+            context.pop();
+          }
           if (state is SessionError) {
             ScaffoldMessenger.of(context)
                 .showSnackBar(SnackBar(content: Text(state.message)));

@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'core/di/injection.dart';
+import 'domain/repositories/badge_repository.dart';
 import 'domain/repositories/session_repository.dart';
 import 'domain/usecases/archive_hobby.dart';
+import 'domain/usecases/check_badges.dart';
 import 'domain/usecases/create_goal.dart';
 import 'domain/usecases/create_hobby.dart';
 import 'domain/usecases/deactivate_goal.dart';
@@ -11,6 +13,7 @@ import 'domain/usecases/get_active_goals.dart';
 import 'domain/usecases/get_active_hobbies.dart';
 import 'domain/usecases/get_recent_sessions.dart';
 import 'domain/usecases/get_stats.dart';
+import 'presentation/blocs/badge/badge_bloc.dart';
 import 'presentation/blocs/dashboard/dashboard_bloc.dart';
 import 'presentation/blocs/goal/goal_bloc.dart';
 import 'presentation/blocs/hobby_list/hobby_list_bloc.dart';
@@ -54,6 +57,12 @@ class App extends StatelessWidget {
           create: (_) => StatsBloc(getStats: sl<GetStats>())..add(LoadStats()),
         ),
         BlocProvider(create: (_) => TimerCubit()),
+        BlocProvider(
+          create: (_) => BadgeBloc(
+            badgeRepository: sl<BadgeRepository>(),
+            checkBadges: sl<CheckBadges>(),
+          )..add(LoadBadges()),
+        ),
       ],
       child: BlocBuilder<ThemeCubit, ThemeMode>(
         builder: (context, themeMode) {

@@ -2,13 +2,16 @@ import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../data/datasources/database.dart';
+import '../../data/repositories/badge_repository_impl.dart';
 import '../../data/repositories/goal_repository_impl.dart';
 import '../../data/repositories/hobby_repository_impl.dart';
 import '../../data/repositories/session_repository_impl.dart';
+import '../../domain/repositories/badge_repository.dart';
 import '../../domain/repositories/goal_repository.dart';
 import '../../domain/repositories/hobby_repository.dart';
 import '../../domain/repositories/session_repository.dart';
 import '../../domain/usecases/archive_hobby.dart';
+import '../../domain/usecases/check_badges.dart';
 import '../../domain/usecases/create_goal.dart';
 import '../../domain/usecases/create_hobby.dart';
 import '../../domain/usecases/deactivate_goal.dart';
@@ -18,6 +21,7 @@ import '../../domain/usecases/get_goal_progress.dart';
 import '../../domain/usecases/get_recent_sessions.dart';
 import '../../domain/usecases/get_sessions_by_hobby.dart';
 import '../../domain/usecases/get_stats.dart';
+import '../../domain/usecases/get_streak_count.dart';
 import '../../domain/usecases/log_session.dart';
 import '../../domain/usecases/update_hobby.dart';
 import '../../presentation/blocs/theme/theme_cubit.dart';
@@ -33,15 +37,10 @@ Future<void> configureDependencies() async {
   sl.registerLazySingleton<AppDatabase>(() => AppDatabase());
 
   // Repositories
-  sl.registerLazySingleton<HobbyRepository>(
-    () => HobbyRepositoryImpl(sl()),
-  );
-  sl.registerLazySingleton<SessionRepository>(
-    () => SessionRepositoryImpl(sl()),
-  );
-  sl.registerLazySingleton<GoalRepository>(
-    () => GoalRepositoryImpl(sl()),
-  );
+  sl.registerLazySingleton<HobbyRepository>(() => HobbyRepositoryImpl(sl()));
+  sl.registerLazySingleton<SessionRepository>(() => SessionRepositoryImpl(sl()));
+  sl.registerLazySingleton<GoalRepository>(() => GoalRepositoryImpl(sl()));
+  sl.registerLazySingleton<BadgeRepository>(() => BadgeRepositoryImpl(sl()));
 
   // Use cases
   sl.registerFactory(() => CreateHobby(sl()));
@@ -56,6 +55,8 @@ Future<void> configureDependencies() async {
   sl.registerFactory(() => DeactivateGoal(sl()));
   sl.registerFactory(() => GetGoalProgress(sl()));
   sl.registerFactory(() => GetStats(sl<SessionRepository>(), sl<HobbyRepository>()));
+  sl.registerFactory(() => GetStreakCount(sl()));
+  sl.registerFactory(() => CheckBadges(sl(), sl(), sl(), sl()));
 
   // Cubits
   sl.registerFactory(() => ThemeCubit(sl<SharedPreferences>()));
