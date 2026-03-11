@@ -80,9 +80,57 @@ Social sharing, AI suggestions, home screen widgets, and multi-language support.
 - [ ] 10. Final checkpoint
   - Ensure all tests pass, all analysis clean, ask user if questions arise.
 
+- [ ] 11. Timer meeting notes + Goal bug fixes
+  - [ ] 11.1 Add nullable `notes` column to sessions Drift table (migration)
+    - _Requirements: 21.2_
+  - [ ] 11.2 Update Session entity and log_session use case to accept notes
+    - _Requirements: 21.2_
+  - [ ] 11.3 Add optional notes TextField to timer save dialog
+    - _Requirements: 21.1_
+  - [ ] 11.4 Show hobby name on goals list (resolve hobbyId → name)
+    - _Requirements: 24.1_
+  - [ ] 11.5 Add `updateGoal` to GoalRepository and Drift DAO
+    - _Requirements: 24.4_
+  - [ ] 11.6 Convert AddGoalScreen to AddEditGoalScreen with edit mode
+    - _Requirements: 24.2, 24.3_
+
+- [ ] 12. Checkpoint — Notes & Goal fixes
+
+- [ ] 13. Dashboard redesign + Per-hobby widget
+  - [ ] 13.1 Replace recent sessions with per-hobby stat cards on dashboard
+    - _Requirements: 23.1, 23.2_
+  - [ ] 13.2 Add history icon to Hobbies tab with session history view
+    - _Requirements: 23.3_
+  - [ ] 13.3 Create per-hobby configurable home screen widget (Android)
+    - _Requirements: 22.1, 22.2, 22.3, 22.4_
+
+- [ ] 14. Checkpoint — Dashboard & Widget
+
+- [ ] 15. Interactive charts and insights
+  - [ ] 15.1 Add touch interaction to pie chart with hobby name labels
+    - _Requirements: 25.1, 25.2, 25.4_
+  - [ ] 15.2 Add touch interaction to bar chart and line chart
+    - _Requirements: 25.2_
+  - [ ] 15.3 Add "Best Day" and "Most Active Hobby" insight cards to stats
+    - _Requirements: 25.3_
+
+- [ ] 16. Checkpoint — Charts
+
+- [ ] 17. Final polish and release
+  - [ ] 17.1 Update README and CHANGELOG for v3.0.0
+  - [ ] 17.2 Run full test suite and analysis
+  - [ ] 17.3 Test on device — all new features
+
+- [ ] 18. Final checkpoint
+  - Ensure all tests pass, all analysis clean, ask user if questions arise.
+
 ## Notes
 
 - i18n should be done first since all subsequent features need localized strings
 - AI suggestions use simple heuristics, not ML models — keep it lightweight
 - Home screen widgets require native platform code (Kotlin/Swift)
 - Test sharing on real devices — screenshot package needs GPU context
+- Goal edit reuses AddGoalScreen — pass existing Goal to pre-fill fields
+- Dashboard redesign removes recent sessions — session history moves to Hobbies tab
+- Charts use fl_chart touch callbacks — no new dependencies needed
+- Session notes migration must be backward-compatible (nullable column)

@@ -129,3 +129,48 @@ output-localization-file: app_localizations.dart
 Add to SettingsScreen:
 - Language selector dropdown
 - "Share Progress" button on hobby detail
+
+### Timer Session Notes (Req 21)
+
+Add optional `notes` field to Session entity:
+
+```dart
+class Session {
+  // ... existing fields
+  final String? notes;  // NEW — optional meeting/session note
+}
+```
+
+The timer stop dialog gains an optional `TextField` for notes. The note is stored in the Drift `sessions` table (new nullable `notes` column via migration).
+
+### Per-Hobby Stats Widget (Req 22)
+
+New `HobbyWidgetProvider.kt` — a configurable Android widget that shows stats for a single hobby. Uses `home_widget` configurable widget support. The hobby ID is stored in widget-specific SharedPreferences keyed by `appWidgetId`.
+
+### Dashboard Redesign (Req 23)
+
+Replace the recent sessions list on the dashboard with per-hobby stat cards:
+
+```dart
+// Each active hobby gets a compact card showing:
+// - Emoji + name
+// - Weekly time
+// - Streak count
+```
+
+The Hobbies list screen gains a history icon (`Icons.history`) on each hobby tile that navigates to a session history view filtered by that hobby.
+
+### Goal Fixes (Req 24)
+
+1. Goals screen resolves hobby name from `hobbyId` using the hobby map (same pattern as dashboard)
+2. New `updateGoal` method in `GoalRepository` and Drift DAO
+3. `AddGoalScreen` becomes `AddEditGoalScreen` — accepts optional `Goal` for edit mode
+4. Goal list items become tappable → navigate to edit screen
+
+### Interactive Charts (Req 25)
+
+Enhance `fl_chart` usage:
+- `PieChart`: set `showingSections` with `badgeWidget` for hobby names, enable `pieTouchData` with tooltip callback
+- `BarChart`: enable `barTouchData` with tooltip showing hobby name + minutes
+- `LineChart`: enable `lineTouchData` with tooltip showing date + minutes
+- Add insight cards above charts: "Best Day" and "Most Active Hobby" computed from `StatsResult`
