@@ -13,11 +13,13 @@ import 'domain/usecases/get_active_goals.dart';
 import 'domain/usecases/get_active_hobbies.dart';
 import 'domain/usecases/get_recent_sessions.dart';
 import 'domain/usecases/get_stats.dart';
+import 'presentation/blocs/auth/auth_bloc.dart';
 import 'presentation/blocs/badge/badge_bloc.dart';
 import 'presentation/blocs/dashboard/dashboard_bloc.dart';
 import 'presentation/blocs/goal/goal_bloc.dart';
 import 'presentation/blocs/hobby_list/hobby_list_bloc.dart';
 import 'presentation/blocs/stats/stats_bloc.dart';
+import 'presentation/blocs/sync/sync_bloc.dart';
 import 'presentation/blocs/theme/theme_cubit.dart';
 import 'presentation/blocs/timer/timer_cubit.dart';
 import 'presentation/router/app_router.dart';
@@ -63,6 +65,8 @@ class App extends StatelessWidget {
             checkBadges: sl<CheckBadges>(),
           )..add(LoadBadges()),
         ),
+        BlocProvider(create: (_) => sl<AuthBloc>()..add(CheckAuth())),
+        BlocProvider(create: (_) => sl<SyncBloc>()..add(LoadSyncPref())),
       ],
       child: BlocBuilder<ThemeCubit, ThemeMode>(
         builder: (context, themeMode) {

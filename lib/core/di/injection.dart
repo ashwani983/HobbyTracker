@@ -32,7 +32,11 @@ import '../../domain/usecases/update_hobby.dart';
 import '../../domain/usecases/attach_photos.dart';
 import '../../domain/usecases/export_csv.dart';
 import '../../domain/usecases/export_pdf.dart';
+import '../../domain/usecases/sync_to_cloud.dart';
+import '../../domain/usecases/sync_from_cloud.dart';
 import '../../presentation/blocs/theme/theme_cubit.dart';
+import '../../presentation/blocs/auth/auth_bloc.dart';
+import '../../presentation/blocs/sync/sync_bloc.dart';
 
 final sl = GetIt.instance;
 
@@ -72,7 +76,15 @@ Future<void> configureDependencies() async {
   sl.registerFactory(() => AttachPhotos());
   sl.registerFactory(() => ExportCsv(sl(), sl()));
   sl.registerFactory(() => ExportPdf(sl(), sl()));
+  sl.registerFactory(() => SyncToCloud(sl(), sl(), sl()));
+  sl.registerFactory(() => SyncFromCloud(sl(), sl(), sl()));
 
-  // Cubits
+  // Cubits / BLoCs
   sl.registerFactory(() => ThemeCubit(sl<SharedPreferences>()));
+  sl.registerFactory(() => AuthBloc());
+  sl.registerFactory(() => SyncBloc(
+        toCloud: sl(),
+        fromCloud: sl(),
+        prefs: sl(),
+      ));
 }

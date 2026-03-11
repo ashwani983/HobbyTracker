@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_timezone/flutter_timezone.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
@@ -13,6 +14,11 @@ Future<void> main() async {
   final tzName = await FlutterTimezone.getLocalTimezone();
   tz.setLocalLocation(tz.getLocation(tzName));
   await NotificationService.init();
+  try {
+    await Firebase.initializeApp();
+  } catch (_) {
+    // Firebase not configured yet — sync features disabled
+  }
   await configureDependencies();
   runApp(const App());
 }

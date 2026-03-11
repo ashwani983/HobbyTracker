@@ -105,23 +105,23 @@ Builds on v1.0.0 (Clean Architecture + BLoC). Adds gamification, notifications, 
 
 - [x] 11. Checkpoint — Export
 
-- [ ] 12. Cloud sync (Firebase)
-  - [ ] 12.1 Configure Firebase project and add config files
+- [x] 12. Cloud sync (Firebase)
+  - [x] 12.1 Configure Firebase project and add config files
     - _Requirements: 14.1_
-  - [ ] 12.2 Implement AuthBloc with Google and email sign-in
+  - [x] 12.2 Implement AuthBloc with Google and email sign-in
     - _Requirements: 14.1_
-  - [ ] 12.3 Implement SyncToCloud and SyncFromCloud use cases
+  - [x] 12.3 Implement SyncToCloud and SyncFromCloud use cases
     - Last-write-wins conflict resolution on updatedAt
     - _Requirements: 14.2, 14.3_
-  - [ ] 12.4 Implement SyncBloc
+  - [x] 12.4 Implement SyncBloc
     - Auto-sync on launch and after writes when enabled
     - _Requirements: 14.2, 14.5_
-  - [ ] 12.5 Add sign-in and sync toggle to settings
+  - [x] 12.5 Add sign-in and sync toggle to settings
     - _Requirements: 14.4_
-  - [ ]* 12.6 Write tests for sync conflict resolution
+  - [x]* 12.6 Write tests for sync conflict resolution
     - _Requirements: 14.3_
 
-- [ ] 13. Checkpoint — Cloud Sync
+- [x] 13. Checkpoint — Cloud Sync
 
 - [ ] 14. Onboarding and settings
   - [ ] 14.1 Create OnboardingScreen with 3-page PageView

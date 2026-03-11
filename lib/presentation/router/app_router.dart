@@ -10,6 +10,7 @@ import '../screens/hobbies_list_screen.dart';
 import '../screens/hobby_detail_screen.dart';
 import '../screens/log_session_screen.dart';
 import '../screens/stats_screen.dart';
+import '../screens/sync_settings_screen.dart';
 import '../screens/terms_screen.dart';
 import '../screens/timer_screen.dart';
 import '../screens/badges_screen.dart';
@@ -96,6 +97,10 @@ final appRouter = GoRouter(
         GoRoute(
           path: '/export',
           builder: (context, state) => const ExportScreen(),
+        ),
+        GoRoute(
+          path: '/sync',
+          builder: (context, state) => const SyncSettingsScreen(),
         ),
       ],
     ),

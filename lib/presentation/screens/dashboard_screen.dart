@@ -62,6 +62,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
             onPressed: () => context.go('/export'),
           ),
           IconButton(
+            icon: const Icon(Icons.cloud_sync),
+            tooltip: 'Cloud Sync',
+            onPressed: () => context.go('/sync'),
+          ),
+          IconButton(
             icon: const Icon(Icons.description_outlined),
             tooltip: 'Terms & Conditions',
             onPressed: () => context.go('/terms'),
