@@ -35,6 +35,7 @@ import '../../domain/usecases/export_pdf.dart';
 import '../../domain/usecases/sync_to_cloud.dart';
 import '../../domain/usecases/sync_from_cloud.dart';
 import '../../presentation/blocs/theme/theme_cubit.dart';
+import '../../presentation/blocs/locale/locale_cubit.dart';
 import '../../presentation/blocs/auth/auth_bloc.dart';
 import '../../presentation/blocs/sync/sync_bloc.dart';
 import '../../presentation/blocs/update/update_cubit.dart';
@@ -82,6 +83,7 @@ Future<void> configureDependencies() async {
 
   // Cubits / BLoCs
   sl.registerFactory(() => ThemeCubit(sl<SharedPreferences>()));
+  sl.registerFactory(() => LocaleCubit(sl<SharedPreferences>()));
   sl.registerFactory(() => AuthBloc());
   sl.registerFactory(() => SyncBloc(
         toCloud: sl(),

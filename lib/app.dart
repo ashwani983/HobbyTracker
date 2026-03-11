@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'l10n/app_localizations.dart';
 
 import 'core/di/injection.dart';
 import 'domain/repositories/badge_repository.dart';
@@ -19,6 +20,7 @@ import 'presentation/blocs/badge/badge_bloc.dart';
 import 'presentation/blocs/dashboard/dashboard_bloc.dart';
 import 'presentation/blocs/goal/goal_bloc.dart';
 import 'presentation/blocs/hobby_list/hobby_list_bloc.dart';
+import 'presentation/blocs/locale/locale_cubit.dart';
 import 'presentation/blocs/stats/stats_bloc.dart';
 import 'presentation/blocs/sync/sync_bloc.dart';
 import 'presentation/blocs/theme/theme_cubit.dart';
@@ -36,6 +38,7 @@ class App extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => sl<ThemeCubit>()),
+        BlocProvider(create: (_) => sl<LocaleCubit>()),
         BlocProvider(
           create: (_) => HobbyListBloc(
             getActiveHobbies: sl<GetActiveHobbies>(),
@@ -75,21 +78,28 @@ class App extends StatelessWidget {
       ],
       child: BlocBuilder<ThemeCubit, ThemeMode>(
         builder: (context, themeMode) {
-          return MaterialApp.router(
-            title: 'Hobby Tracker',
-            themeMode: themeMode,
-            theme: ThemeData(
-              colorScheme: ColorScheme.fromSeed(seedColor: _seed),
-              useMaterial3: true,
-            ),
-            darkTheme: ThemeData(
-              colorScheme: ColorScheme.fromSeed(
-                seedColor: _seed,
-                brightness: Brightness.dark,
-              ),
-              useMaterial3: true,
-            ),
-            routerConfig: appRouter,
+          return BlocBuilder<LocaleCubit, Locale?>(
+            builder: (context, locale) {
+              return MaterialApp.router(
+                title: 'Hobby Tracker',
+                themeMode: themeMode,
+                locale: locale,
+                localizationsDelegates: AppLocalizations.localizationsDelegates,
+                supportedLocales: AppLocalizations.supportedLocales,
+                theme: ThemeData(
+                  colorScheme: ColorScheme.fromSeed(seedColor: _seed),
+                  useMaterial3: true,
+                ),
+                darkTheme: ThemeData(
+                  colorScheme: ColorScheme.fromSeed(
+                    seedColor: _seed,
+                    brightness: Brightness.dark,
+                  ),
+                  useMaterial3: true,
+                ),
+                routerConfig: appRouter,
+              );
+            },
           );
         },
       ),
