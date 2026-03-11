@@ -72,21 +72,21 @@ Social sharing, AI suggestions, home screen widgets, and multi-language support.
 
 - [x] 8. Checkpoint — Widgets
 
-- [ ] 9. Timer meeting notes + Goal bug fixes
-  - [ ] 9.1 Add nullable `notes` column to sessions Drift table (migration)
+- [x] 9. Timer meeting notes + Goal bug fixes
+  - [x] 9.1 Add nullable `notes` column to sessions Drift table (migration)
     - _Requirements: 21.2_
-  - [ ] 9.2 Update Session entity and log_session use case to accept notes
+  - [x] 9.2 Update Session entity and log_session use case to accept notes
     - _Requirements: 21.2_
-  - [ ] 9.3 Add optional notes TextField to timer save dialog
+  - [x] 9.3 Add optional notes TextField to timer save dialog
     - _Requirements: 21.1_
-  - [ ] 9.4 Show hobby name on goals list (resolve hobbyId → name)
+  - [x] 9.4 Show hobby name on goals list (resolve hobbyId → name)
     - _Requirements: 24.1_
-  - [ ] 9.5 Add `updateGoal` to GoalRepository and Drift DAO
+  - [x] 9.5 Add `updateGoal` to GoalRepository and Drift DAO
     - _Requirements: 24.4_
-  - [ ] 9.6 Convert AddGoalScreen to AddEditGoalScreen with edit mode
+  - [x] 9.6 Convert AddGoalScreen to AddEditGoalScreen with edit mode
     - _Requirements: 24.2, 24.3_
 
-- [ ] 10. Checkpoint — Notes & Goal fixes
+- [x] 10. Checkpoint — Notes & Goal fixes
 
 - [ ] 11. Dashboard redesign + Per-hobby widget
   - [ ] 11.1 Replace recent sessions with per-hobby stat cards on dashboard
