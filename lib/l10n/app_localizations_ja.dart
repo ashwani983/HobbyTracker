@@ -317,6 +317,22 @@ class AppLocalizationsJa extends AppLocalizations {
   String get dailyActivity => '日別アクティビティ';
 
   @override
+  String get bestDay => 'ベストデー';
+
+  @override
+  String get mostActiveHobby => '最もアクティブ';
+
+  @override
+  String minutesOnDate(Object minutes, Object date) {
+    return '$dateに$minutes分';
+  }
+
+  @override
+  String minutesTotal(Object minutes) {
+    return '合計$minutes分';
+  }
+
+  @override
   String get theme => 'テーマ';
 
   @override

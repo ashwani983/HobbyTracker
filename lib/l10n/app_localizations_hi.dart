@@ -318,6 +318,22 @@ class AppLocalizationsHi extends AppLocalizations {
   String get dailyActivity => 'दैनिक गतिविधि';
 
   @override
+  String get bestDay => 'सर्वश्रेष्ठ दिन';
+
+  @override
+  String get mostActiveHobby => 'सबसे सक्रिय';
+
+  @override
+  String minutesOnDate(Object minutes, Object date) {
+    return '$date को $minutesमि';
+  }
+
+  @override
+  String minutesTotal(Object minutes) {
+    return 'कुल $minutesमि';
+  }
+
+  @override
   String get theme => 'थीम';
 
   @override

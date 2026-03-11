@@ -98,15 +98,15 @@ Social sharing, AI suggestions, home screen widgets, and multi-language support.
 
 - [x] 12. Checkpoint — Dashboard & Widget
 
-- [ ] 13. Interactive charts and insights
-  - [ ] 13.1 Add touch interaction to pie chart with hobby name labels
+- [x] 13. Interactive charts and insights
+  - [x] 13.1 Add touch interaction to pie chart with hobby name labels
     - _Requirements: 25.1, 25.2, 25.4_
-  - [ ] 13.2 Add touch interaction to bar chart and line chart
+  - [x] 13.2 Add touch interaction to bar chart and line chart
     - _Requirements: 25.2_
-  - [ ] 13.3 Add "Best Day" and "Most Active Hobby" insight cards to stats
+  - [x] 13.3 Add "Best Day" and "Most Active Hobby" insight cards to stats
     - _Requirements: 25.3_
 
-- [ ] 14. Checkpoint — Charts
+- [x] 14. Checkpoint — Charts
 
 - [ ] 15. Polish and release
   - [ ] 15.1 Update README and CHANGELOG for v3.0.0

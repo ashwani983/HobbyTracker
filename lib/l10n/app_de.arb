@@ -104,6 +104,12 @@
   "timePerHobby": "Zeit pro Hobby",
   "distribution": "Verteilung",
   "dailyActivity": "Tägliche Aktivität",
+  "bestDay": "Bester Tag",
+  "mostActiveHobby": "Am aktivsten",
+  "minutesOnDate": "{minutes}m am {date}",
+  "@minutesOnDate": {"placeholders": {"minutes": {}, "date": {}}},
+  "minutesTotal": "{minutes}m gesamt",
+  "@minutesTotal": {"placeholders": {"minutes": {}}},
 
   "theme": "Thema",
   "badges": "Abzeichen",

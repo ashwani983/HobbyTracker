@@ -670,6 +670,30 @@ abstract class AppLocalizations {
   /// **'Daily Activity'**
   String get dailyActivity;
 
+  /// No description provided for @bestDay.
+  ///
+  /// In en, this message translates to:
+  /// **'Best Day'**
+  String get bestDay;
+
+  /// No description provided for @mostActiveHobby.
+  ///
+  /// In en, this message translates to:
+  /// **'Most Active'**
+  String get mostActiveHobby;
+
+  /// No description provided for @minutesOnDate.
+  ///
+  /// In en, this message translates to:
+  /// **'{minutes}m on {date}'**
+  String minutesOnDate(Object minutes, Object date);
+
+  /// No description provided for @minutesTotal.
+  ///
+  /// In en, this message translates to:
+  /// **'{minutes}m total'**
+  String minutesTotal(Object minutes);
+
   /// No description provided for @theme.
   ///
   /// In en, this message translates to:

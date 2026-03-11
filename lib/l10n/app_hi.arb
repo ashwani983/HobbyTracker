@@ -104,6 +104,12 @@
   "timePerHobby": "प्रति शौक समय",
   "distribution": "वितरण",
   "dailyActivity": "दैनिक गतिविधि",
+  "bestDay": "सर्वश्रेष्ठ दिन",
+  "mostActiveHobby": "सबसे सक्रिय",
+  "minutesOnDate": "{date} को {minutes}मि",
+  "@minutesOnDate": {"placeholders": {"minutes": {}, "date": {}}},
+  "minutesTotal": "कुल {minutes}मि",
+  "@minutesTotal": {"placeholders": {"minutes": {}}},
 
   "theme": "थीम",
   "badges": "बैज",

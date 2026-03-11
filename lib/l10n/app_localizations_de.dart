@@ -320,6 +320,22 @@ class AppLocalizationsDe extends AppLocalizations {
   String get dailyActivity => 'Tägliche Aktivität';
 
   @override
+  String get bestDay => 'Bester Tag';
+
+  @override
+  String get mostActiveHobby => 'Am aktivsten';
+
+  @override
+  String minutesOnDate(Object minutes, Object date) {
+    return '${minutes}m am $date';
+  }
+
+  @override
+  String minutesTotal(Object minutes) {
+    return '${minutes}m gesamt';
+  }
+
+  @override
   String get theme => 'Thema';
 
   @override

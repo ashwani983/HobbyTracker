@@ -104,6 +104,12 @@
   "timePerHobby": "趣味ごとの時間",
   "distribution": "分布",
   "dailyActivity": "日別アクティビティ",
+  "bestDay": "ベストデー",
+  "mostActiveHobby": "最もアクティブ",
+  "minutesOnDate": "{date}に{minutes}分",
+  "@minutesOnDate": {"placeholders": {"minutes": {}, "date": {}}},
+  "minutesTotal": "合計{minutes}分",
+  "@minutesTotal": {"placeholders": {"minutes": {}}},
 
   "theme": "テーマ",
   "badges": "バッジ",
