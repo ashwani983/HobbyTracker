@@ -118,3 +118,14 @@ Version 2.0.0 builds on the MVP with gamification, notifications, media attachme
 5. THE App SHALL compare versions using semantic versioning (major.minor.patch)
 6. THE App SHALL handle network errors gracefully — if the check fails, it SHALL silently skip without disrupting the user experience
 7. THE App SHALL show the current app version and a "Check for updates" button on the Settings screen
+
+
+### Requirement 18: Back Button Navigation
+
+**User Story:** As a user, I want to navigate back to the previous screen using the on-screen back button, so that I can move through the app without getting lost.
+
+#### Acceptance Criteria
+
+1. WHEN a user is on a sub-page accessed from Settings (Cloud Sync, Export, Badges, Terms), THE App SHALL display a back arrow in the AppBar that navigates back to the Settings screen
+2. WHEN a user is on the Settings screen, THE App SHALL display a back arrow in the AppBar that navigates back to the Dashboard
+3. THE App SHALL show the back arrow as the leading widget in the AppBar on all sub-pages that are not bottom navigation tabs

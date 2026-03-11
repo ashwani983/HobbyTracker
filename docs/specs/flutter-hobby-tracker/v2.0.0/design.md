@@ -197,3 +197,20 @@ class GitHubRelease {
 - "Dismiss for 24h" persisted via `SharedPreferences` key `last_update_dismiss`
 - Settings screen shows current version + "Check for updates" button
 - On launch, auto-check runs only if last dismiss was >24h ago
+
+
+### Back Button Navigation
+
+Sub-pages inside the `ShellRoute` (Settings, Export, Sync, Badges, Terms) do not show an automatic back button because `go_router` uses `context.go()` which replaces the route rather than pushing onto the stack. The Android system back button on Android 14+ uses predictive back gestures that bypass Flutter's `PopScope` mechanism.
+
+**Solution:** Add explicit `leading: IconButton(icon: Icon(Icons.arrow_back), onPressed: ...)` to each sub-page's `AppBar`:
+
+| Screen | Back Destination |
+|--------|-----------------|
+| `SettingsScreen` | `/` (Dashboard) |
+| `ExportScreen` | `/settings` |
+| `SyncSettingsScreen` | `/settings` |
+| `BadgesScreen` | `/settings` |
+| `TermsScreen` | `/settings` |
+
+Also added `android:enableOnBackInvokedCallback="true"` to `AndroidManifest.xml` activity for Android 14+ predictive back API compatibility.

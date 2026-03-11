@@ -162,6 +162,21 @@ Builds on v1.0.0 (Clean Architecture + BLoC). Adds gamification, notifications, 
 - [x] 18. Final checkpoint
   - Ensure all tests pass, all analysis clean, ask user if questions arise.
 
+- [x] 19. Back Button Navigation (Req 18)
+  - [x] 19.1 Add AppBar leading back button to SettingsScreen → navigates to `/`
+    - _Requirements: 18.2, 18.3_
+  - [x] 19.2 Add AppBar leading back button to ExportScreen → navigates to `/settings`
+    - _Requirements: 18.1, 18.3_
+  - [x] 19.3 Add AppBar leading back button to SyncSettingsScreen → navigates to `/settings`
+    - _Requirements: 18.1, 18.3_
+  - [x] 19.4 Add AppBar leading back button to BadgesScreen → navigates to `/settings`
+    - _Requirements: 18.1, 18.3_
+  - [x] 19.5 Add AppBar leading back button to TermsScreen → navigates to `/settings`
+    - _Requirements: 18.1, 18.3_
+  - [x] 19.6 Add `enableOnBackInvokedCallback` to AndroidManifest for Android 14+ support
+
+- [x] 20. Final checkpoint — v2.0.0 complete
+
 ## Notes
 
 - Tasks marked with `*` are optional test tasks
