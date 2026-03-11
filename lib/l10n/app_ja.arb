@@ -172,5 +172,11 @@
   "badgeMasterOfTime": "時の達人",
   "badgeExplorer": "探検家",
   "badgeAdventurer": "冒険家",
-  "badgeRenaissance": "ルネサンス"
+  "badgeRenaissance": "ルネサンス",
+  "streak": "連続",
+  "totalTime": "合計時間",
+  "shareProgress": "進捗を共有",
+  "shareBadge": "バッジを共有",
+  "shareHobbyText": "Hobby Trackerでの{hobbyName}の進捗をチェック！🎯",
+  "shareBadgeText": "Hobby Trackerで{badgeTitle}バッジを獲得しました！{emoji}"
 }

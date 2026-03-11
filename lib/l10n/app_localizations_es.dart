@@ -517,4 +517,26 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get badgeRenaissance => 'Renacimiento';
+
+  @override
+  String get streak => 'Racha';
+
+  @override
+  String get totalTime => 'Tiempo total';
+
+  @override
+  String get shareProgress => 'Compartir progreso';
+
+  @override
+  String get shareBadge => 'Compartir insignia';
+
+  @override
+  String shareHobbyText(Object hobbyName) {
+    return '¡Mira mi progreso en $hobbyName en Hobby Tracker! 🎯';
+  }
+
+  @override
+  String shareBadgeText(Object badgeTitle, Object emoji) {
+    return '¡Acabo de ganar la insignia $badgeTitle en Hobby Tracker! $emoji';
+  }
 }

@@ -4,8 +4,11 @@ import 'package:go_router/go_router.dart';
 
 import '../../domain/entities/badge.dart' as app;
 import '../../core/l10n_helpers.dart';
+import '../../domain/entities/share_progress_card.dart';
+import '../../domain/usecases/share_card_service.dart';
 import '../../l10n/app_localizations.dart';
 import '../blocs/badge/badge_bloc.dart';
+import '../widgets/share_card_widget.dart';
 
 class BadgesScreen extends StatelessWidget {
   const BadgesScreen({super.key});
@@ -104,18 +107,51 @@ class _BadgeTile extends StatelessWidget {
   void _showDetail(BuildContext context) {
     final l = AppLocalizations.of(context)!;
     final title = localizedBadgeTitles(l)[badge.id] ?? badge.title;
+    final cardKey = GlobalKey();
     showDialog(
       context: context,
       builder: (dialogContext) => AlertDialog(
         title: Text('${badge.emoji} $title'),
-        content: Text(badge.isUnlocked
-            ? l.unlockedOn('${badge.unlockedAt!.month}/${badge.unlockedAt!.day}/${badge.unlockedAt!.year}')
-            : l.reachToUnlock(badge.threshold, badge.type.name)),
+        content: badge.isUnlocked
+            ? Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(l.unlockedOn('${badge.unlockedAt!.month}/${badge.unlockedAt!.day}/${badge.unlockedAt!.year}')),
+                  const SizedBox(height: 16),
+                  RepaintBoundary(
+                    key: cardKey,
+                    child: ShareCardWidget(
+                      card: ShareProgressCard(
+                        hobbyName: '',
+                        category: '',
+                        totalSessions: 0,
+                        totalMinutes: 0,
+                        streakDays: 0,
+                        badgeEmoji: badge.emoji,
+                        badgeTitle: title,
+                      ),
+                    ),
+                  ),
+                ],
+              )
+            : Text(l.reachToUnlock(badge.threshold, badge.type.name)),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(dialogContext),
             child: Text(l.ok),
           ),
+          if (badge.isUnlocked)
+            FilledButton.icon(
+              icon: const Icon(Icons.share),
+              label: Text(l.shareBadge),
+              onPressed: () {
+                Navigator.pop(dialogContext);
+                ShareCardService.shareWidget(
+                  cardKey,
+                  l.shareBadgeText(title, badge.emoji),
+                );
+              },
+            ),
         ],
       ),
     );

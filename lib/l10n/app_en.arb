@@ -190,5 +190,11 @@
   "badgeMasterOfTime": "Master of Time",
   "badgeExplorer": "Explorer",
   "badgeAdventurer": "Adventurer",
-  "badgeRenaissance": "Renaissance"
+  "badgeRenaissance": "Renaissance",
+  "streak": "Streak",
+  "totalTime": "Total Time",
+  "shareProgress": "Share Progress",
+  "shareBadge": "Share Badge",
+  "shareHobbyText": "Check out my {hobbyName} progress on Hobby Tracker! 🎯",
+  "shareBadgeText": "I just earned the {badgeTitle} badge on Hobby Tracker! {emoji}"
 }

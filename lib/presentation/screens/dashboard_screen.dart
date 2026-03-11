@@ -5,9 +5,12 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../core/constants/app_constants.dart';
 import '../../domain/entities/hobby.dart';
+import '../../domain/entities/suggestion.dart';
+import '../../domain/usecases/suggestion_engine.dart';
 import '../../l10n/app_localizations.dart';
 import '../blocs/dashboard/dashboard_bloc.dart';
 import '../blocs/hobby_list/hobby_list_bloc.dart';
+import '../blocs/suggestion/suggestion_cubit.dart';
 import '../blocs/theme/theme_cubit.dart';
 import '../blocs/update/update_cubit.dart';
 
@@ -62,7 +65,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
           ),
         ],
       ),
-      body: Column(
+      body: BlocProvider(
+        create: (_) => SuggestionCubit(SuggestionEngine()),
+        child: Column(
         children: [
           BlocBuilder<UpdateCubit, UpdateState>(
             builder: (ctx, uState) {
@@ -97,6 +102,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 return Center(child: Text(state.message));
               }
               final s = state as DashboardLoaded;
+              // Refresh suggestions
+              final hobbyList = hobbyState is HobbyListLoaded
+                  ? hobbyState.hobbies
+                  : <Hobby>[];
+              context.read<SuggestionCubit>().refresh(
+                    hobbies: hobbyList,
+                    recentSessions: s.recentSessions,
+                    streakDays: s.streakDays,
+                  );
               return ListView(
                 padding: const EdgeInsets.all(16),
                 children: [
@@ -105,6 +119,24 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     weeklyMinutes: s.weeklyTotalMinutes,
                     streakDays: s.streakDays,
                     recentBadge: s.recentBadgeName,
+                  ),
+                  const SizedBox(height: 16),
+                  BlocBuilder<SuggestionCubit, List<Suggestion>>(
+                    builder: (context, suggestions) {
+                      if (suggestions.isEmpty) return const SizedBox();
+                      return Column(
+                        children: suggestions
+                            .map((s) => Card(
+                                  child: ListTile(
+                                    leading: Text(s.emoji,
+                                        style: const TextStyle(fontSize: 24)),
+                                    title: Text(s.title),
+                                    subtitle: Text(s.subtitle),
+                                  ),
+                                ))
+                            .toList(),
+                      );
+                    },
                   ),
                   const SizedBox(height: 16),
                   Text(
@@ -140,6 +172,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         },
       )),
         ],
+      ),
       ),
     );
   }

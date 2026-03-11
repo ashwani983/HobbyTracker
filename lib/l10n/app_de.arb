@@ -172,5 +172,11 @@
   "badgeMasterOfTime": "Meister der Zeit",
   "badgeExplorer": "Entdecker",
   "badgeAdventurer": "Abenteurer",
-  "badgeRenaissance": "Renaissance"
+  "badgeRenaissance": "Renaissance",
+  "streak": "Serie",
+  "totalTime": "Gesamtzeit",
+  "shareProgress": "Fortschritt teilen",
+  "shareBadge": "Abzeichen teilen",
+  "shareHobbyText": "Schau dir meinen {hobbyName}-Fortschritt auf Hobby Tracker an! 🎯",
+  "shareBadgeText": "Ich habe gerade das Abzeichen {badgeTitle} auf Hobby Tracker verdient! {emoji}"
 }

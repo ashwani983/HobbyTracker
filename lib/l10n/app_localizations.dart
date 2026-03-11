@@ -1047,6 +1047,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Renaissance'**
   String get badgeRenaissance;
+
+  /// No description provided for @streak.
+  ///
+  /// In en, this message translates to:
+  /// **'Streak'**
+  String get streak;
+
+  /// No description provided for @totalTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Time'**
+  String get totalTime;
+
+  /// No description provided for @shareProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Share Progress'**
+  String get shareProgress;
+
+  /// No description provided for @shareBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'Share Badge'**
+  String get shareBadge;
+
+  /// No description provided for @shareHobbyText.
+  ///
+  /// In en, this message translates to:
+  /// **'Check out my {hobbyName} progress on Hobby Tracker! 🎯'**
+  String shareHobbyText(Object hobbyName);
+
+  /// No description provided for @shareBadgeText.
+  ///
+  /// In en, this message translates to:
+  /// **'I just earned the {badgeTitle} badge on Hobby Tracker! {emoji}'**
+  String shareBadgeText(Object badgeTitle, Object emoji);
 }
 
 class _AppLocalizationsDelegate

@@ -10,15 +10,18 @@ import '../../core/l10n_helpers.dart';
 import '../../core/services/notification_service.dart';
 import '../../domain/entities/reminder.dart';
 import '../../domain/entities/session.dart';
+import '../../domain/entities/share_progress_card.dart';
 import '../../domain/repositories/hobby_repository.dart';
 import '../../domain/repositories/reminder_repository.dart';
 import '../../domain/usecases/cancel_reminder.dart';
 import '../../domain/usecases/get_sessions_by_hobby.dart';
 import '../../domain/usecases/schedule_reminder.dart';
+import '../../domain/usecases/share_card_service.dart';
 import '../../domain/usecases/update_reminder.dart';
 import '../../l10n/app_localizations.dart';
 import '../blocs/hobby_detail/hobby_detail_bloc.dart';
 import '../blocs/reminder/reminder_bloc.dart';
+import '../widgets/share_card_widget.dart';
 
 class HobbyDetailScreen extends StatelessWidget {
   final String hobbyId;
@@ -49,6 +52,15 @@ class HobbyDetailScreen extends StatelessWidget {
         appBar: AppBar(
           title: Text(l.hobbyDetail),
           actions: [
+            BlocBuilder<HobbyDetailBloc, HobbyDetailState>(
+              builder: (context, state) {
+                if (state is! HobbyDetailLoaded) return const SizedBox();
+                return IconButton(
+                  icon: const Icon(Icons.share),
+                  onPressed: () => _showShareCard(context, state),
+                );
+              },
+            ),
             IconButton(
               icon: const Icon(Icons.edit),
               onPressed: () async {
@@ -164,6 +176,45 @@ class HobbyDetailScreen extends StatelessWidget {
           },
         ),
       ),
+      ),
+    );
+  }
+
+  void _showShareCard(BuildContext context, HobbyDetailLoaded state) {
+    final l = AppLocalizations.of(context)!;
+    final cardKey = GlobalKey();
+    final card = ShareProgressCard(
+      hobbyName: state.hobby.name,
+      category: state.hobby.category,
+      totalSessions: state.sessions.length,
+      totalMinutes: state.sessions.fold(0, (sum, s) => sum + s.durationMinutes),
+      streakDays: _streak(state.sessions),
+    );
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        contentPadding: const EdgeInsets.all(16),
+        content: RepaintBoundary(
+          key: cardKey,
+          child: ShareCardWidget(card: card),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx),
+            child: Text(l.cancel),
+          ),
+          FilledButton.icon(
+            icon: const Icon(Icons.share),
+            label: Text(l.shareProgress),
+            onPressed: () {
+              Navigator.pop(ctx);
+              ShareCardService.shareWidget(
+                cardKey,
+                l.shareHobbyText(state.hobby.name),
+              );
+            },
+          ),
+        ],
       ),
     );
   }
