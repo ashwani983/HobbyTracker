@@ -153,9 +153,7 @@ class _StatsScreenState extends State<StatsScreen> {
                           (e.value.value * 100).toStringAsFixed(0);
                       return PieChartSectionData(
                         value: e.value.value * 100,
-                        title: isTouched
-                            ? '${e.value.key}\n$pct%'
-                            : '${e.value.key}\n$pct%',
+                        title: '${e.value.key}\n$pct%',
                         color: Colors
                             .primaries[e.key % Colors.primaries.length],
                         radius: isTouched ? 75 : 60,
@@ -165,6 +163,11 @@ class _StatsScreenState extends State<StatsScreen> {
                           fontWeight:
                               isTouched ? FontWeight.bold : FontWeight.normal,
                         ),
+                        badgeWidget: Text(
+                          ['●', '■', '▲', '◆', '★', '◉', '▼', '◗'][e.key % 8],
+                          style: const TextStyle(fontSize: 14),
+                        ),
+                        badgePositionPercentageOffset: 1.3,
                       );
                     }).toList(),
                   ),

@@ -193,15 +193,25 @@ class _TimerScreenState extends State<TimerScreen> {
     final remaining = (state is TimerRunning) ? state.remaining : null;
     final pauseRemaining = (state is TimerPaused) ? state.remaining : null;
     final showRemaining = remaining ?? pauseRemaining;
+    final scaleFactor = MediaQuery.textScalerOf(context).scale(1.0);
+    final displayStyle = scaleFactor > 1.5
+        ? theme.headlineLarge
+        : theme.displayLarge;
 
     return Column(
       children: [
         // Main time
-        Text(
-          showRemaining != null
-              ? _formatDuration(showRemaining)
-              : _formatDuration(state.elapsed),
-          style: theme.displayLarge,
+        Semantics(
+          label: showRemaining != null
+              ? 'Remaining time: ${_formatDuration(showRemaining)}'
+              : 'Elapsed time: ${_formatDuration(state.elapsed)}',
+          liveRegion: true,
+          child: Text(
+            showRemaining != null
+                ? _formatDuration(showRemaining)
+                : _formatDuration(state.elapsed),
+            style: displayStyle,
+          ),
         ),
         // Pomodoro info
         if (state is TimerRunning &&

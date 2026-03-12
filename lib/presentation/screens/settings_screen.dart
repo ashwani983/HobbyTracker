@@ -7,6 +7,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../blocs/locale/locale_cubit.dart';
 import '../blocs/theme/theme_cubit.dart';
+import '../blocs/theme/high_contrast_cubit.dart';
 import '../blocs/update/update_cubit.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -46,6 +47,16 @@ class SettingsScreen extends StatelessWidget {
                 selected: {mode},
                 onSelectionChanged: (s) => ctx.read<ThemeCubit>().setTheme(s.first),
               ),
+            ),
+          ),
+
+          // High Contrast
+          BlocBuilder<HighContrastCubit, bool>(
+            builder: (ctx, hc) => SwitchListTile(
+              secondary: const Icon(Icons.contrast),
+              title: const Text('High Contrast'),
+              value: hc,
+              onChanged: (_) => ctx.read<HighContrastCubit>().toggle(),
             ),
           ),
 

@@ -58,7 +58,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
           ),
         ],
       ),
-      body: BlocProvider(
+      body: FocusTraversalGroup(
+        child: BlocProvider(
         create: (_) => SuggestionCubit(SuggestionEngine()),
         child: Column(
         children: [
@@ -162,6 +163,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         ],
       ),
       ),
+      ),
     );
   }
 
@@ -188,7 +190,9 @@ class _SummaryCard extends StatelessWidget {
     final l = AppLocalizations.of(context)!;
     final hours = weeklyMinutes ~/ 60;
     final mins = weeklyMinutes % 60;
-    return Card(
+    return Semantics(
+      label: '$hobbyCount active hobbies, $weeklyMinutes minutes this week, $streakDays day streak',
+      child: Card(
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -235,6 +239,7 @@ class _SummaryCard extends StatelessWidget {
             ),
           ],
         ),
+      ),
       ),
     );
   }

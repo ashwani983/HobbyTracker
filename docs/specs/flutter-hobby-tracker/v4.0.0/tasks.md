@@ -34,23 +34,23 @@ Builds on v1–v3 (Clean Architecture + BLoC + Drift). Adds routines, advanced t
 
 - [x] 4. Checkpoint — Deep Linking
 
-- [ ] 5. Accessibility Foundation (Req 27)
-  - [ ] 5.1 Audit all screens and add `Semantics` labels to interactive elements
+- [x] 5. Accessibility Foundation (Req 27)
+  - [x] 5.1 Audit all screens and add `Semantics` labels to interactive elements
     - _Requirements: 27.1_
-  - [ ] 5.2 Add `MediaQuery.textScaleFactor` guards to prevent layout overflow at 200% scaling
+  - [x] 5.2 Add `MediaQuery.textScaleFactor` guards to prevent layout overflow at 200% scaling
     - _Requirements: 27.2_
-  - [ ] 5.3 Add non-color indicators (patterns/icons/labels) to charts, heatmap, and badges
+  - [x] 5.3 Add non-color indicators (patterns/icons/labels) to charts, heatmap, and badges
     - _Requirements: 27.3_
-  - [ ] 5.4 Verify WCAG 2.1 AA contrast ratios in both themes
+  - [x] 5.4 Verify WCAG 2.1 AA contrast ratios in both themes
     - _Requirements: 27.4_
-  - [ ] 5.5 Implement `FocusTraversalGroup` for keyboard/switch navigation
+  - [x] 5.5 Implement `FocusTraversalGroup` for keyboard/switch navigation
     - _Requirements: 27.5_
-  - [ ] 5.6 Add screen reader announcements to timer at configurable intervals
+  - [x] 5.6 Add screen reader announcements to timer at configurable intervals
     - _Requirements: 27.6_
-  - [ ] 5.7 Add high-contrast mode toggle in settings
+  - [x] 5.7 Add high-contrast mode toggle in settings
     - _Requirements: 27.7_
 
-- [ ] 6. Checkpoint — Accessibility
+- [x] 6. Checkpoint — Accessibility
 
 ## Sprint 2: Routines & Calendar
 

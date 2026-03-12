@@ -26,6 +26,7 @@ import 'presentation/blocs/locale/locale_cubit.dart';
 import 'presentation/blocs/stats/stats_bloc.dart';
 import 'presentation/blocs/sync/sync_bloc.dart';
 import 'presentation/blocs/theme/theme_cubit.dart';
+import 'presentation/blocs/theme/high_contrast_cubit.dart';
 import 'presentation/blocs/update/update_cubit.dart';
 import 'presentation/blocs/timer/timer_cubit.dart';
 import 'presentation/router/app_router.dart';
@@ -40,6 +41,7 @@ class App extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => sl<ThemeCubit>()),
+        BlocProvider(create: (_) => sl<HighContrastCubit>()),
         BlocProvider(create: (_) => sl<LocaleCubit>()),
         BlocProvider(
           create: (_) => HobbyListBloc(
@@ -83,24 +85,42 @@ class App extends StatelessWidget {
         builder: (context, themeMode) {
           return BlocBuilder<LocaleCubit, Locale?>(
             builder: (context, locale) {
-              return MaterialApp.router(
-                title: 'Hobby Tracker',
-                themeMode: themeMode,
-                locale: locale,
-                localizationsDelegates: AppLocalizations.localizationsDelegates,
-                supportedLocales: AppLocalizations.supportedLocales,
-                theme: ThemeData(
-                  colorScheme: ColorScheme.fromSeed(seedColor: _seed),
-                  useMaterial3: true,
-                ),
-                darkTheme: ThemeData(
-                  colorScheme: ColorScheme.fromSeed(
-                    seedColor: _seed,
-                    brightness: Brightness.dark,
-                  ),
-                  useMaterial3: true,
-                ),
-                routerConfig: appRouter,
+              return BlocBuilder<HighContrastCubit, bool>(
+                builder: (context, highContrast) {
+                  return MaterialApp.router(
+                    title: 'Hobby Tracker',
+                    themeMode: themeMode,
+                    locale: locale,
+                    localizationsDelegates: AppLocalizations.localizationsDelegates,
+                    supportedLocales: AppLocalizations.supportedLocales,
+                    theme: ThemeData(
+                      colorScheme: highContrast
+                          ? const ColorScheme.light(
+                              primary: Color(0xFF000000),
+                              onPrimary: Color(0xFFFFFFFF),
+                              surface: Color(0xFFFFFFFF),
+                              onSurface: Color(0xFF000000),
+                            )
+                          : ColorScheme.fromSeed(seedColor: _seed),
+                      useMaterial3: true,
+                    ),
+                    darkTheme: ThemeData(
+                      colorScheme: highContrast
+                          ? const ColorScheme.dark(
+                              primary: Color(0xFFFFFF00),
+                              onPrimary: Color(0xFF000000),
+                              surface: Color(0xFF000000),
+                              onSurface: Color(0xFFFFFFFF),
+                            )
+                          : ColorScheme.fromSeed(
+                              seedColor: _seed,
+                              brightness: Brightness.dark,
+                            ),
+                      useMaterial3: true,
+                    ),
+                    routerConfig: appRouter,
+                  );
+                },
               );
             },
           );
