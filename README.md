@@ -98,6 +98,16 @@ flutter run
 flutter test
 ```
 
+## Deep Links
+
+The app supports the `hobbytracker://` URL scheme:
+
+| Link | Destination |
+|------|-------------|
+| `hobbytracker://dashboard` | Dashboard |
+| `hobbytracker://hobby/{id}` | Hobby detail |
+| `hobbytracker://timer/{hobbyId}` | Timer with hobby pre-selected |
+
 ## Architecture
 
 ```
