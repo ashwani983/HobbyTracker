@@ -59,13 +59,32 @@ flutter pub get
 dart run build_runner build --delete-conflicting-outputs
 ```
 
-### Firebase (optional)
+### Firebase (optional — required for Cloud Sync)
 
-Cloud sync requires Firebase. Run:
-```bash
-flutterfire configure --project=YOUR_PROJECT_ID
-```
-Then enable Google Sign-In in Firebase Console → Authentication → Sign-in method, and add your SHA-1 fingerprint.
+Cloud sync requires a Firebase project. The config files are gitignored, so you need to set up your own:
+
+1. Create a Firebase project at [console.firebase.google.com](https://console.firebase.google.com)
+2. Install the FlutterFire CLI:
+   ```bash
+   dart pub global activate flutterfire_cli
+   ```
+3. Configure Firebase for the project:
+   ```bash
+   flutterfire configure --project=YOUR_PROJECT_ID
+   ```
+   This generates:
+   - `lib/firebase_options.dart`
+   - `android/app/google-services.json`
+   - `ios/Runner/GoogleService-Info.plist`
+
+4. In Firebase Console → **Authentication** → **Sign-in method**, enable **Google** provider
+5. Add your Android debug SHA-1 fingerprint:
+   ```bash
+   cd android && ./gradlew signingReport
+   ```
+   Copy the SHA-1 from the `debug` variant and add it in Firebase Console → **Project Settings** → **Your apps** → **Android app** → **SHA certificate fingerprints**
+
+6. Enable **Cloud Firestore** in Firebase Console → **Firestore Database** → Create database (start in test mode or configure security rules)
 
 ### Run
 
