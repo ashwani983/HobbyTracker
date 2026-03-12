@@ -19,6 +19,8 @@ import '../screens/sync_settings_screen.dart';
 import '../screens/terms_screen.dart';
 import '../screens/timer_screen.dart';
 import '../screens/badges_screen.dart';
+import '../screens/routine_list_screen.dart';
+import '../screens/routine_runner_screen.dart';
 import '../widgets/app_shell.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -38,6 +40,12 @@ final appRouter = GoRouter(
     GoRoute(
       path: '/onboarding',
       builder: (context, state) => const OnboardingScreen(),
+    ),
+    GoRoute(
+      path: '/routines/:id/run',
+      builder: (context, state) => RoutineRunnerScreen(
+        routineId: state.pathParameters['id']!,
+      ),
     ),
     ShellRoute(
       navigatorKey: _shellNavigatorKey,
@@ -128,6 +136,10 @@ final appRouter = GoRouter(
         GoRoute(
           path: '/settings',
           builder: (context, state) => const SettingsScreen(),
+        ),
+        GoRoute(
+          path: '/routines',
+          builder: (context, state) => const RoutineListScreen(),
         ),
       ],
     ),

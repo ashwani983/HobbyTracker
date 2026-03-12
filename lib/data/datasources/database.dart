@@ -75,14 +75,32 @@ class ReminderTable extends Table {
   Set<Column> get primaryKey => {id};
 }
 
+class RoutineTable extends Table {
+  IntColumn get id => integer().autoIncrement()();
+  TextColumn get uid => text().unique()();
+  TextColumn get name => text().withLength(min: 1, max: 100)();
+  TextColumn get hobbySequence => text()(); // JSON: [{"hobbyId":"...","targetMinutes":N}]
+  BoolColumn get isActive => boolean().withDefault(const Constant(true))();
+  DateTimeColumn get createdAt => dateTime()();
+  DateTimeColumn get updatedAt => dateTime()();
+}
+
+class RoutineScheduleTable extends Table {
+  IntColumn get id => integer().autoIncrement()();
+  TextColumn get routineUid => text()();
+  IntColumn get dayOfWeek => integer()(); // 1=Mon, 7=Sun
+  IntColumn get hour => integer()();
+  IntColumn get minute => integer()();
+}
+
 @DriftDatabase(
-    tables: [HobbyTable, SessionTable, GoalTable, UserBadgeTable, ReminderTable])
+    tables: [HobbyTable, SessionTable, GoalTable, UserBadgeTable, ReminderTable, RoutineTable, RoutineScheduleTable])
 class AppDatabase extends _$AppDatabase {
   AppDatabase() : super(_openConnection());
   AppDatabase.forTesting(super.e);
 
   @override
-  int get schemaVersion => 2;
+  int get schemaVersion => 3;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -97,6 +115,10 @@ class AppDatabase extends _$AppDatabase {
             // Create new tables
             await m.createTable(userBadgeTable);
             await m.createTable(reminderTable);
+          }
+          if (from < 3) {
+            await m.createTable(routineTable);
+            await m.createTable(routineScheduleTable);
           }
         },
       );
@@ -224,6 +246,35 @@ class AppDatabase extends _$AppDatabase {
 
   Future<void> deleteReminder(String id) =>
       (delete(reminderTable)..where((t) => t.id.equals(id))).go();
+
+  // -- Routine queries --
+
+  Future<List<RoutineTableData>> getActiveRoutines() =>
+      (select(routineTable)..where((t) => t.isActive.equals(true))).get();
+
+  Future<RoutineTableData?> getRoutineByUid(String uid) =>
+      (select(routineTable)..where((t) => t.uid.equals(uid)))
+          .getSingleOrNull();
+
+  Future<void> insertRoutine(RoutineTableCompanion r) =>
+      into(routineTable).insert(r);
+
+  Future<void> updateRoutineByUid(String uid, RoutineTableCompanion r) =>
+      (update(routineTable)..where((t) => t.uid.equals(uid))).write(r);
+
+  Future<void> deleteRoutine(String uid) =>
+      (delete(routineTable)..where((t) => t.uid.equals(uid))).go();
+
+  Future<List<RoutineScheduleTableData>> getSchedulesForRoutine(String uid) =>
+      (select(routineScheduleTable)..where((t) => t.routineUid.equals(uid)))
+          .get();
+
+  Future<void> insertSchedule(RoutineScheduleTableCompanion s) =>
+      into(routineScheduleTable).insert(s);
+
+  Future<void> deleteSchedulesForRoutine(String uid) =>
+      (delete(routineScheduleTable)..where((t) => t.routineUid.equals(uid)))
+          .go();
 }
 
 LazyDatabase _openConnection() {

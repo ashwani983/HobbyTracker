@@ -29,6 +29,9 @@ import 'presentation/blocs/theme/theme_cubit.dart';
 import 'presentation/blocs/theme/high_contrast_cubit.dart';
 import 'presentation/blocs/update/update_cubit.dart';
 import 'presentation/blocs/timer/timer_cubit.dart';
+import 'presentation/blocs/routine/routine_bloc.dart';
+import 'domain/repositories/routine_repository.dart';
+import 'domain/usecases/log_session.dart' as log_session_uc;
 import 'presentation/router/app_router.dart';
 
 class App extends StatelessWidget {
@@ -80,6 +83,7 @@ class App extends StatelessWidget {
         BlocProvider(create: (_) => sl<AuthBloc>()..add(CheckAuth())),
         BlocProvider(create: (_) => sl<SyncBloc>()..add(LoadSyncPref())),
         BlocProvider(create: (_) => sl<UpdateCubit>()..check()),
+        BlocProvider(create: (_) => RoutineBloc(sl<RoutineRepository>(), sl<log_session_uc.LogSession>())..add(LoadRoutines())),
       ],
       child: BlocBuilder<ThemeCubit, ThemeMode>(
         builder: (context, themeMode) {

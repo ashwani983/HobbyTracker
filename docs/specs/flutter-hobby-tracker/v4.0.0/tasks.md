@@ -54,23 +54,23 @@ Builds on v1–v3 (Clean Architecture + BLoC + Drift). Adds routines, advanced t
 
 ## Sprint 2: Routines & Calendar
 
-- [ ] 7. Routines & Habit Chaining (Req 21)
-  - [ ] 7.1 Add `Routines` and `RoutineSchedules` Drift tables, run `build_runner`
+- [x] 7. Routines & Habit Chaining (Req 21)
+  - [x] 7.1 Add `Routines` and `RoutineSchedules` Drift tables, run `build_runner`
     - _Requirements: 21.8_
-  - [ ] 7.2 Create `Routine`, `RoutineStep`, `RoutineSchedule` entities
-  - [ ] 7.3 Implement `RoutineRepository` with CRUD operations
-  - [ ] 7.4 Implement `CreateRoutine`, `StartRoutine`, `ScheduleRoutine` use cases
+  - [x] 7.2 Create `Routine`, `RoutineStep`, `RoutineSchedule` entities
+  - [x] 7.3 Implement `RoutineRepository` with CRUD operations
+  - [x] 7.4 Implement `CreateRoutine`, `StartRoutine`, `ScheduleRoutine` use cases
     - _Requirements: 21.1, 21.7_
-  - [ ] 7.5 Create `RoutineBloc` with states: Initial, Loaded, Running, Paused, Completed
+  - [x] 7.5 Create `RoutineBloc` with states: Initial, Loaded, Running, Paused, Completed
     - _Requirements: 21.2, 21.5, 21.6_
-  - [ ] 7.6 Build `RoutineListScreen` (create/edit/delete routines, schedule picker)
+  - [x] 7.6 Build `RoutineListScreen` (create/edit/delete routines, schedule picker)
     - _Requirements: 21.1, 21.7_
-  - [ ] 7.7 Build `RoutineRunnerScreen` (sequential timer, transition overlay, progress indicator)
+  - [x] 7.7 Build `RoutineRunnerScreen` (sequential timer, transition overlay, progress indicator)
     - _Requirements: 21.2, 21.3, 21.4, 21.5, 21.6_
-  - [ ] 7.8 Add `/routines` and `/routines/:id/run` routes to GoRouter
-  - [ ] 7.9 Add Routines to bottom nav or settings menu
+  - [x] 7.8 Add `/routines` and `/routines/:id/run` routes to GoRouter
+  - [x] 7.9 Add Routines to bottom nav or settings menu
 
-- [ ] 8. Checkpoint — Routines
+- [x] 8. Checkpoint — Routines
 
 - [ ] 9. Calendar Integration (Req 23)
   - [ ] 9.1 Add `table_calendar`, `device_calendar`, `flutter_heatmap_calendar` dependencies
