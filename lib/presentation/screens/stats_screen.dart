@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../domain/usecases/get_stats.dart';
+import '../../domain/usecases/share_card_service.dart';
 import '../../l10n/app_localizations.dart';
 import '../blocs/stats/stats_bloc.dart';
 
@@ -15,6 +16,7 @@ class StatsScreen extends StatefulWidget {
 }
 
 class _StatsScreenState extends State<StatsScreen> {
+  final _repaintKey = GlobalKey();
   int _touchedPieIndex = -1;
   int _touchedBarIndex = -1;
 
@@ -25,8 +27,16 @@ class _StatsScreenState extends State<StatsScreen> {
       appBar: AppBar(
         leading: IconButton(icon: const Icon(Icons.arrow_back), onPressed: () => context.go('/more')),
         title: Text(l.stats),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.share),
+            onPressed: () => ShareCardService.shareWidget(_repaintKey, 'My Stats — Hobby Tracker'),
+          ),
+        ],
       ),
-      body: BlocBuilder<StatsBloc, StatsState>(
+      body: RepaintBoundary(
+        key: _repaintKey,
+        child: BlocBuilder<StatsBloc, StatsState>(
         builder: (context, state) {
           if (state is StatsLoading) {
             return const Center(child: CircularProgressIndicator());
@@ -264,6 +274,7 @@ class _StatsScreenState extends State<StatsScreen> {
             ],
           );
         },
+      ),
       ),
     );
   }

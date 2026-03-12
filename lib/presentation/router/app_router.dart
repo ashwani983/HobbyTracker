@@ -126,7 +126,7 @@ final appRouter = GoRouter(
         ),
         GoRoute(
           path: '/badges',
-          builder: (context, state) => const BadgesScreen(),
+          builder: (context, state) => BadgesScreen(),
         ),
         GoRoute(
           path: '/export',

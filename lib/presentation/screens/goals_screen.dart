@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../core/di/injection.dart';
+import '../../domain/usecases/share_card_service.dart';
 import '../../domain/entities/hobby.dart';
 import '../../domain/usecases/get_active_hobbies.dart';
 import '../../domain/usecases/get_goal_progress.dart';
@@ -17,6 +18,7 @@ class GoalsScreen extends StatefulWidget {
 }
 
 class _GoalsScreenState extends State<GoalsScreen> {
+  final _repaintKey = GlobalKey();
   Map<String, Hobby> _hobbyMap = {};
 
   @override
@@ -41,6 +43,12 @@ class _GoalsScreenState extends State<GoalsScreen> {
       appBar: AppBar(
         leading: IconButton(icon: const Icon(Icons.arrow_back), onPressed: () => context.go('/more')),
         title: Text(l.goals),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.share),
+            onPressed: () => ShareCardService.shareWidget(_repaintKey, 'My Goals — Hobby Tracker'),
+          ),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
@@ -51,7 +59,9 @@ class _GoalsScreenState extends State<GoalsScreen> {
         },
         child: const Icon(Icons.add),
       ),
-      body: BlocBuilder<GoalBloc, GoalState>(
+      body: RepaintBoundary(
+        key: _repaintKey,
+        child: BlocBuilder<GoalBloc, GoalState>(
         builder: (context, state) {
           if (state is GoalLoading) {
             return const Center(child: CircularProgressIndicator());
@@ -126,6 +136,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
             },
           );
         },
+      ),
       ),
     );
   }

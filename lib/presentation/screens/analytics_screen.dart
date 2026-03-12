@@ -6,6 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../core/di/injection.dart';
 import '../../domain/entities/hobby.dart';
 import '../../domain/usecases/get_active_hobbies.dart';
+import '../../domain/usecases/share_card_service.dart';
 import '../blocs/analytics/analytics_bloc.dart';
 
 class AnalyticsScreen extends StatefulWidget {
@@ -15,6 +16,7 @@ class AnalyticsScreen extends StatefulWidget {
 }
 
 class _AnalyticsScreenState extends State<AnalyticsScreen> {
+  final _repaintKey = GlobalKey();
   Map<String, Hobby> _hobbies = {};
 
   @override
@@ -39,8 +41,16 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
       appBar: AppBar(
         leading: IconButton(icon: const Icon(Icons.arrow_back), onPressed: () => context.go('/more')),
         title: const Text('Analytics'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.share),
+            onPressed: () => ShareCardService.shareWidget(_repaintKey, 'My Analytics — Hobby Tracker'),
+          ),
+        ],
       ),
-      body: BlocBuilder<AnalyticsBloc, AnalyticsState>(
+      body: RepaintBoundary(
+        key: _repaintKey,
+        child: BlocBuilder<AnalyticsBloc, AnalyticsState>(
         builder: (context, state) {
           if (state is AnalyticsLoading) return const Center(child: CircularProgressIndicator());
           if (state is! AnalyticsLoaded) return const Center(child: Text('Tap to load'));
@@ -99,6 +109,7 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
             ],
           );
         },
+      ),
       ),
     );
   }

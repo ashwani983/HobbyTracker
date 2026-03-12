@@ -11,7 +11,9 @@ import '../blocs/badge/badge_bloc.dart';
 import '../widgets/share_card_widget.dart';
 
 class BadgesScreen extends StatelessWidget {
-  const BadgesScreen({super.key});
+  BadgesScreen({super.key});
+
+  final _repaintKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -20,8 +22,16 @@ class BadgesScreen extends StatelessWidget {
       appBar: AppBar(
         leading: IconButton(icon: const Icon(Icons.arrow_back), onPressed: () => context.go('/settings')),
         title: Text(l.badges),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.share),
+            onPressed: () => ShareCardService.shareWidget(_repaintKey, 'My Badges — Hobby Tracker'),
+          ),
+        ],
       ),
-      body: BlocBuilder<BadgeBloc, BadgeState>(
+      body: RepaintBoundary(
+        key: _repaintKey,
+        child: BlocBuilder<BadgeBloc, BadgeState>(
         builder: (context, state) {
           if (state is BadgeLoading) {
             return const Center(child: CircularProgressIndicator());
@@ -59,6 +69,7 @@ class BadgesScreen extends StatelessWidget {
             ],
           );
         },
+      ),
       ),
     );
   }
