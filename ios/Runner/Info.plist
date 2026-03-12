@@ -79,5 +79,7 @@
 	<string>Hobby Tracker syncs your sessions to your calendar.</string>
 	<key>NSCalendarsFullAccessUsageDescription</key>
 	<string>Hobby Tracker syncs your sessions to your calendar.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Hobby Tracker records voice memos for your sessions.</string>
 </dict>
 </plist>

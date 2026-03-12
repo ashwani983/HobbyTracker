@@ -13,9 +13,12 @@ import '../../domain/usecases/attach_photos.dart';
 import '../../domain/usecases/log_session.dart';
 import '../../l10n/app_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../blocs/audio/audio_note_cubit.dart';
 import '../blocs/badge/badge_bloc.dart';
 import '../blocs/dashboard/dashboard_bloc.dart';
 import '../blocs/session/session_bloc.dart';
+import '../widgets/audio_note_widget.dart';
+import '../../domain/repositories/audio_note_repository.dart';
 
 class LogSessionScreen extends StatefulWidget {
   final String hobbyId;
@@ -66,6 +69,8 @@ class _LogSessionScreenState extends State<LogSessionScreen> {
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context)!;
     return BlocProvider(
+      create: (_) => AudioNoteCubit(sl<AudioNoteRepository>()),
+      child: BlocProvider(
       create: (_) => SessionBloc(logSession: sl<LogSession>()),
       child: BlocConsumer<SessionBloc, SessionState>(
         listener: (context, state) async {
@@ -213,6 +218,8 @@ class _LogSessionScreenState extends State<LogSessionScreen> {
                         ),
                       ),
                     const SizedBox(height: 24),
+                    const AudioNoteWidget(),
+                    const SizedBox(height: 12),
                     SwitchListTile(
                       secondary: const Icon(Icons.calendar_month),
                       title: const Text('Add to Calendar'),
@@ -256,6 +263,7 @@ class _LogSessionScreenState extends State<LogSessionScreen> {
           );
         },
       ),
+    ),
     );
   }
 }

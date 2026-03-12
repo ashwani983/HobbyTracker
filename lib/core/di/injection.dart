@@ -45,6 +45,8 @@ import '../../domain/repositories/routine_repository.dart';
 import '../../data/repositories/routine_repository_impl.dart';
 import '../../domain/repositories/calendar_repository.dart';
 import '../../data/repositories/calendar_repository_impl.dart';
+import '../../domain/repositories/audio_note_repository.dart';
+import '../../data/repositories/audio_note_repository_impl.dart';
 import '../../domain/usecases/analytics_service.dart';
 
 final sl = GetIt.instance;
@@ -65,6 +67,7 @@ Future<void> configureDependencies() async {
   sl.registerLazySingleton<ReminderRepository>(() => ReminderRepositoryImpl(sl()));
   sl.registerLazySingleton<RoutineRepository>(() => RoutineRepositoryImpl(sl()));
   sl.registerLazySingleton<CalendarRepository>(() => CalendarRepositoryImpl());
+  sl.registerLazySingleton<AudioNoteRepository>(() => AudioNoteRepositoryImpl(sl()));
 
   // Use cases
   sl.registerFactory(() => CreateHobby(sl()));

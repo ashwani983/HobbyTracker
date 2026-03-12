@@ -93,14 +93,25 @@ class RoutineScheduleTable extends Table {
   IntColumn get minute => integer()();
 }
 
+class AudioNoteTable extends Table {
+  TextColumn get id => text()();
+  TextColumn get sessionId => text()();
+  TextColumn get filePath => text()();
+  IntColumn get durationSeconds => integer()();
+  DateTimeColumn get createdAt => dateTime()();
+
+  @override
+  Set<Column> get primaryKey => {id};
+}
+
 @DriftDatabase(
-    tables: [HobbyTable, SessionTable, GoalTable, UserBadgeTable, ReminderTable, RoutineTable, RoutineScheduleTable])
+    tables: [HobbyTable, SessionTable, GoalTable, UserBadgeTable, ReminderTable, RoutineTable, RoutineScheduleTable, AudioNoteTable])
 class AppDatabase extends _$AppDatabase {
   AppDatabase() : super(_openConnection());
   AppDatabase.forTesting(super.e);
 
   @override
-  int get schemaVersion => 3;
+  int get schemaVersion => 4;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -119,6 +130,9 @@ class AppDatabase extends _$AppDatabase {
           if (from < 3) {
             await m.createTable(routineTable);
             await m.createTable(routineScheduleTable);
+          }
+          if (from < 4) {
+            await m.createTable(audioNoteTable);
           }
         },
       );
@@ -275,6 +289,21 @@ class AppDatabase extends _$AppDatabase {
   Future<void> deleteSchedulesForRoutine(String uid) =>
       (delete(routineScheduleTable)..where((t) => t.routineUid.equals(uid)))
           .go();
+
+  // -- Audio Note queries --
+
+  Future<AudioNoteTableData?> getAudioNoteBySessionId(String sessionId) =>
+      (select(audioNoteTable)..where((t) => t.sessionId.equals(sessionId)))
+          .getSingleOrNull();
+
+  Future<void> insertAudioNote(AudioNoteTableCompanion note) =>
+      into(audioNoteTable).insert(note);
+
+  Future<void> deleteAudioNote(String id) =>
+      (delete(audioNoteTable)..where((t) => t.id.equals(id))).go();
+
+  Future<void> deleteAudioNoteBySessionId(String sessionId) =>
+      (delete(audioNoteTable)..where((t) => t.sessionId.equals(sessionId))).go();
 }
 
 LazyDatabase _openConnection() {

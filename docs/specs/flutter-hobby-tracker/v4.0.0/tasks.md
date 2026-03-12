@@ -116,23 +116,23 @@ Builds on v1–v3 (Clean Architecture + BLoC + Drift). Adds routines, advanced t
 
 - [x] 12. Checkpoint — Analytics
 
-- [ ] 13. Audio Notes (Req 29)
-  - [ ] 13.1 Add `record`, `just_audio`, `audio_waveforms` dependencies
-  - [ ] 13.2 Add `AudioNotes` Drift table, run `build_runner`
-  - [ ] 13.3 Create `AudioNote` entity and `AudioNoteRepository`
-  - [ ] 13.4 Implement `RecordAudio`, `PlayAudio`, `DeleteAudio` use cases
+- [x] 13. Audio Notes (Req 29)
+  - [x] 13.1 Add `record`, `just_audio`, `audio_waveforms` dependencies
+  - [x] 13.2 Add `AudioNotes` Drift table, run `build_runner`
+  - [x] 13.3 Create `AudioNote` entity and `AudioNoteRepository`
+  - [x] 13.4 Implement `RecordAudio`, `PlayAudio`, `DeleteAudio` use cases
     - _Requirements: 29.1, 29.6_
-  - [ ] 13.5 Create `AudioNoteCubit` with recording/playback states
-  - [ ] 13.6 Add waveform recorder widget to session log/edit screen
+  - [x] 13.5 Create `AudioNoteCubit` with recording/playback states
+  - [x] 13.6 Add waveform recorder widget to session log/edit screen
     - _Requirements: 29.1, 29.2_
-  - [ ] 13.7 Add playback widget with play/pause/seek controls
+  - [x] 13.7 Add playback widget with play/pause/seek controls
     - _Requirements: 29.3_
-  - [ ] 13.8 Delete audio file when session is deleted
+  - [x] 13.8 Delete audio file when session is deleted
     - _Requirements: 29.4_
-  - [ ] 13.9 Sync audio files to Firebase Storage when cloud sync enabled
+  - [x] 13.9 Sync audio files to Firebase Storage when cloud sync enabled
     - _Requirements: 29.5_
 
-- [ ] 14. Checkpoint — Audio Notes
+- [x] 14. Checkpoint — Audio Notes
 
 ## Sprint 4: Community Features
 

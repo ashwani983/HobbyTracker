@@ -70,6 +70,8 @@ dependencies:
   audioplayers: ^6.6.0
   app_links: ^7.0.0
   table_calendar: ^3.2.0
+  record: ^6.2.0
+  just_audio: ^0.10.5
 
 dev_dependencies:
   flutter_test:
