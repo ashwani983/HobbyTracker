@@ -1,11 +1,17 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:uuid/uuid.dart';
 
+import '../../core/constants/app_constants.dart';
 import '../../core/di/injection.dart';
+import '../../domain/entities/challenge.dart';
 import '../../domain/entities/hobby.dart';
 import '../../domain/entities/session.dart';
 import '../../domain/entities/timer_config.dart';
+import '../../domain/repositories/challenge_repository.dart';
+import '../../domain/repositories/hobby_repository.dart';
+import '../../domain/repositories/session_repository.dart';
 import '../../domain/usecases/get_active_hobbies.dart';
 import '../../domain/usecases/log_session.dart';
 import '../../l10n/app_localizations.dart';
@@ -21,20 +27,27 @@ class TimerScreen extends StatefulWidget {
 
 class _TimerScreenState extends State<TimerScreen> {
   List<Hobby> _hobbies = [];
+  List<Challenge> _challenges = [];
   String? _selectedHobbyId;
+  String? _selectedChallengeId;
   TimerMode _selectedMode = TimerMode.stopwatch;
 
   @override
   void initState() {
     super.initState();
-    _loadHobbies();
+    _loadData();
   }
 
-  Future<void> _loadHobbies() async {
+  Future<void> _loadData() async {
     final hobbies = await sl<GetActiveHobbies>()();
+    final challenges = await sl<ChallengeRepository>().getActiveChallenges();
+    final now = DateTime.now();
+    final active = challenges.where((c) =>
+        c.isActive && now.isAfter(c.startDate) && now.isBefore(c.endDate)).toList();
     if (mounted) {
       setState(() {
         _hobbies = hobbies;
+        _challenges = active;
         if (hobbies.isNotEmpty && _selectedHobbyId == null) {
           _selectedHobbyId = widget.initialHobbyId ?? hobbies.first.id;
         }
@@ -105,6 +118,26 @@ class _TimerScreenState extends State<TimerScreen> {
       );
       try {
         await sl<LogSession>()(session);
+        // Update challenge progress
+        if (_selectedChallengeId != null) {
+          final uid = FirebaseAuth.instance.currentUser?.uid;
+          if (uid != null) {
+            final allSessions = await sl<SessionRepository>().getRecentSessions(9999);
+            final allHobbies = await sl<HobbyRepository>().getActiveHobbies();
+            final ch = _challenges.firstWhere((c) => c.id == _selectedChallengeId);
+            final catIds = allHobbies
+                .where((h) => h.category.toLowerCase() == ch.category.toLowerCase())
+                .map((h) => h.id)
+                .toSet();
+            final totalMins = allSessions
+                .where((s) =>
+                    catIds.contains(s.hobbyId) &&
+                    !s.date.isBefore(ch.startDate) &&
+                    !s.date.isAfter(ch.endDate))
+                .fold<int>(0, (sum, s) => sum + s.durationMinutes) + minutes;
+            await sl<ChallengeRepository>().updateProgress(ch.id, uid, totalMins);
+          }
+        }
         if (context.mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text(l.sessionSaved)),
@@ -145,15 +178,46 @@ class _TimerScreenState extends State<TimerScreen> {
                   Text(l.addHobbyFirstTimer)
                 else
                   DropdownButtonFormField<String>(
-                    initialValue: _selectedHobbyId,
-                    decoration: InputDecoration(labelText: l.selectHobby),
-                    items: _hobbies
-                        .map((h) => DropdownMenuItem(
-                            value: h.id, child: Text(h.name)))
-                        .toList(),
+                    initialValue: _selectedHobbyId != null ? 'hobby:$_selectedHobbyId' : null,
+                    decoration: const InputDecoration(labelText: 'Activity'),
+                    items: [
+                      const DropdownMenuItem(
+                        enabled: false,
+                        value: '_h_header',
+                        child: Text('── Hobbies ──', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.grey)),
+                      ),
+                      ..._hobbies.map((h) => DropdownMenuItem(
+                          value: 'hobby:${h.id}',
+                          child: Text(h.name))),
+                      if (_challenges.isNotEmpty) ...[
+                        const DropdownMenuItem(
+                          enabled: false,
+                          value: '_c_header',
+                          child: Text('── Challenges ──', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.grey)),
+                        ),
+                        ..._challenges.map((c) => DropdownMenuItem(
+                            value: 'challenge:${c.id}',
+                            child: Text('${AppConstants.emojiForCategory(c.category)} ${c.name}'))),
+                      ],
+                    ],
                     onChanged: isRunningOrPaused
                         ? null
-                        : (v) => setState(() => _selectedHobbyId = v),
+                        : (v) {
+                            if (v == null || v.startsWith('_')) return;
+                            setState(() {
+                              if (v.startsWith('hobby:')) {
+                                _selectedHobbyId = v.substring(6);
+                                _selectedChallengeId = null;
+                              } else if (v.startsWith('challenge:')) {
+                                _selectedChallengeId = v.substring(10);
+                                // Pick first hobby in that category
+                                final ch = _challenges.firstWhere((c) => c.id == _selectedChallengeId);
+                                final match = _hobbies.where((h) =>
+                                    h.category.toLowerCase() == ch.category.toLowerCase());
+                                _selectedHobbyId = match.isNotEmpty ? match.first.id : _hobbies.first.id;
+                              }
+                            });
+                          },
                   ),
                 const SizedBox(height: 16),
                 // Mode selector — only when idle

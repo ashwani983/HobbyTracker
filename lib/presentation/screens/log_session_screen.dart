@@ -19,6 +19,8 @@ import '../blocs/dashboard/dashboard_bloc.dart';
 import '../blocs/session/session_bloc.dart';
 import '../widgets/audio_note_widget.dart';
 import '../../domain/repositories/audio_note_repository.dart';
+import '../../domain/repositories/challenge_repository.dart';
+import '../../domain/repositories/session_repository.dart';
 
 class LogSessionScreen extends StatefulWidget {
   final String hobbyId;
@@ -72,7 +74,12 @@ class _LogSessionScreenState extends State<LogSessionScreen> {
     return BlocProvider(
       create: (_) => AudioNoteCubit(sl<AudioNoteRepository>())..loadForSession(_sessionId),
       child: BlocProvider(
-      create: (_) => SessionBloc(logSession: sl<LogSession>()),
+      create: (_) => SessionBloc(
+        logSession: sl<LogSession>(),
+        hobbyRepo: sl<HobbyRepository>(),
+        sessionRepo: sl<SessionRepository>(),
+        challengeRepo: sl<ChallengeRepository>(),
+      ),
       child: BlocConsumer<SessionBloc, SessionState>(
         listener: (context, state) async {
           if (state is SessionSaved) {

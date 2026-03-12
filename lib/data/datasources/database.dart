@@ -104,14 +104,30 @@ class AudioNoteTable extends Table {
   Set<Column> get primaryKey => {id};
 }
 
+class ChallengeTable extends Table {
+  TextColumn get id => text()();
+  TextColumn get name => text()();
+  TextColumn get category => text()();
+  IntColumn get targetMinutes => integer()();
+  DateTimeColumn get startDate => dateTime()();
+  DateTimeColumn get endDate => dateTime()();
+  TextColumn get inviteCode => text().unique()();
+  IntColumn get participantLimit => integer()();
+  TextColumn get creatorUid => text()();
+  BoolColumn get isActive => boolean().withDefault(const Constant(true))();
+
+  @override
+  Set<Column> get primaryKey => {id};
+}
+
 @DriftDatabase(
-    tables: [HobbyTable, SessionTable, GoalTable, UserBadgeTable, ReminderTable, RoutineTable, RoutineScheduleTable, AudioNoteTable])
+    tables: [HobbyTable, SessionTable, GoalTable, UserBadgeTable, ReminderTable, RoutineTable, RoutineScheduleTable, AudioNoteTable, ChallengeTable])
 class AppDatabase extends _$AppDatabase {
   AppDatabase() : super(_openConnection());
   AppDatabase.forTesting(super.e);
 
   @override
-  int get schemaVersion => 4;
+  int get schemaVersion => 5;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -133,6 +149,9 @@ class AppDatabase extends _$AppDatabase {
           }
           if (from < 4) {
             await m.createTable(audioNoteTable);
+          }
+          if (from < 5) {
+            await m.createTable(challengeTable);
           }
         },
       );
@@ -304,6 +323,26 @@ class AppDatabase extends _$AppDatabase {
 
   Future<void> deleteAudioNoteBySessionId(String sessionId) =>
       (delete(audioNoteTable)..where((t) => t.sessionId.equals(sessionId))).go();
+
+  // -- Challenge queries --
+
+  Future<List<ChallengeTableData>> getActiveChallenges() =>
+      (select(challengeTable)..where((t) => t.isActive.equals(true))).get();
+
+  Future<ChallengeTableData?> getChallengeById(String id) =>
+      (select(challengeTable)..where((t) => t.id.equals(id))).getSingleOrNull();
+
+  Future<ChallengeTableData?> getChallengeByInviteCode(String code) =>
+      (select(challengeTable)..where((t) => t.inviteCode.equals(code))).getSingleOrNull();
+
+  Future<void> insertChallenge(ChallengeTableCompanion c, {InsertMode mode = InsertMode.insert}) =>
+      into(challengeTable).insert(c, mode: mode);
+
+  Future<void> updateChallenge(ChallengeTableCompanion c) =>
+      (update(challengeTable)..where((t) => t.id.equals(c.id.value))).write(c);
+
+  Future<void> deleteChallenge(String id) =>
+      (delete(challengeTable)..where((t) => t.id.equals(id))).go();
 }
 
 LazyDatabase _openConnection() {

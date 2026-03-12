@@ -24,6 +24,8 @@ import '../screens/routine_runner_screen.dart';
 import '../screens/calendar_screen.dart';
 import '../screens/more_screen.dart';
 import '../screens/analytics_screen.dart';
+import '../screens/challenge_list_screen.dart';
+import '../screens/challenge_detail_screen.dart';
 import '../widgets/app_shell.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -155,6 +157,16 @@ final appRouter = GoRouter(
         GoRoute(
           path: '/analytics',
           builder: (context, state) => const AnalyticsScreen(),
+        ),
+        GoRoute(
+          path: '/challenges',
+          builder: (context, state) => const ChallengeListScreen(),
+        ),
+        GoRoute(
+          path: '/challenges/:id',
+          builder: (context, state) => ChallengeDetailScreen(
+            challengeId: state.pathParameters['id']!,
+          ),
         ),
       ],
     ),
