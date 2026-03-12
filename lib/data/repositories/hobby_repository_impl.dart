@@ -31,6 +31,16 @@ class HobbyRepositoryImpl implements HobbyRepository {
   }
 
   @override
+  Future<Hobby?> getHobbyByName(String name) async {
+    try {
+      final row = await _db.getHobbyByName(name);
+      return row == null ? null : _toEntity(row);
+    } catch (e) {
+      throw DatabaseFailure(e.toString());
+    }
+  }
+
+  @override
   Future<void> createHobby(Hobby hobby) async {
     try {
       await _db.insertHobby(_toCompanion(hobby));

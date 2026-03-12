@@ -1,24 +1,40 @@
+import '../../domain/repositories/hobby_repository.dart';
+
 /// Maps deep link URIs to GoRouter paths.
 /// Supported routes:
 ///   hobbytracker://dashboard       → /
-///   hobbytracker://hobby/{id}      → /hobbies/{id}
-///   hobbytracker://timer/{hobbyId} → /timer?hobbyId={hobbyId}
+///   hobbytracker://hobby/{name}    → /hobbies/{id} (looks up by name)
+///   hobbytracker://timer/{name}    → /timer?hobbyId={id} (looks up by name)
 ///   hobbytracker://challenge/{code}→ /challenges/join?code={code}
 class HandleDeepLink {
-  String? call(Uri uri) {
+  final HobbyRepository _hobbyRepo;
+  HandleDeepLink(this._hobbyRepo);
+
+  Future<String?> call(Uri uri) async {
     if (uri.scheme != 'hobbytracker') return null;
     final segments = uri.pathSegments;
-    if (segments.isEmpty || uri.host == 'dashboard') return '/';
     final host = uri.host;
+    if (segments.isEmpty || host == 'dashboard') return '/';
+
     switch (host) {
       case 'hobby' when segments.isNotEmpty:
-        return '/hobbies/${segments.first}';
+        final id = await _resolveHobbyId(segments.first);
+        return id != null ? '/hobbies/$id' : '/';
       case 'timer' when segments.isNotEmpty:
-        return '/timer?hobbyId=${segments.first}';
+        final id = await _resolveHobbyId(segments.first);
+        return id != null ? '/timer?hobbyId=$id' : '/timer';
       case 'challenge' when segments.isNotEmpty:
         return '/challenges/join?code=${segments.first}';
       default:
-        return '/'; // invalid route → dashboard
+        return '/';
     }
+  }
+
+  /// Try as UUID first, then as hobby name (case-insensitive).
+  Future<String?> _resolveHobbyId(String value) async {
+    final byId = await _hobbyRepo.getHobbyById(value);
+    if (byId != null) return byId.id;
+    final byName = await _hobbyRepo.getHobbyByName(Uri.decodeComponent(value));
+    return byName?.id;
   }
 }

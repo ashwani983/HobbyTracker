@@ -113,6 +113,10 @@ class AppDatabase extends _$AppDatabase {
       (select(hobbyTable)..where((t) => t.id.equals(id)))
           .getSingleOrNull();
 
+  Future<HobbyTableData?> getHobbyByName(String name) =>
+      (select(hobbyTable)..where((t) => t.name.lower().equals(name.toLowerCase())))
+          .getSingleOrNull();
+
   Future<void> insertHobby(HobbyTableCompanion hobby) =>
       into(hobbyTable).insert(hobby);
 
