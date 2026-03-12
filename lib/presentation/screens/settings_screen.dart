@@ -3,8 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../core/di/injection.dart';
+import '../../domain/repositories/calendar_repository.dart';
 import '../blocs/locale/locale_cubit.dart';
 import '../blocs/theme/theme_cubit.dart';
 import '../blocs/theme/high_contrast_cubit.dart';
@@ -28,7 +31,7 @@ class SettingsScreen extends StatelessWidget {
     final l = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(icon: const Icon(Icons.arrow_back), onPressed: () => context.go('/')),
+        leading: IconButton(icon: const Icon(Icons.arrow_back), onPressed: () => context.go('/more')),
         title: Text(l.settings),
       ),
       body: ListView(
@@ -58,6 +61,29 @@ class SettingsScreen extends StatelessWidget {
               value: hc,
               onChanged: (_) => ctx.read<HighContrastCubit>().toggle(),
             ),
+          ),
+
+          // Calendar Sync
+          StatefulBuilder(
+            builder: (ctx, setSt) {
+              final prefs = sl<SharedPreferences>();
+              final enabled = prefs.getBool('calendar_sync') ?? false;
+              return SwitchListTile(
+                secondary: const Icon(Icons.calendar_month),
+                title: const Text('Calendar Sync'),
+                subtitle: const Text('Sync sessions to device calendar'),
+                value: enabled,
+                onChanged: (v) async {
+                  if (v) {
+                    final repo = sl<CalendarRepository>();
+                    final ok = await repo.requestPermission();
+                    if (!ok) return;
+                  }
+                  await prefs.setBool('calendar_sync', v);
+                  setSt(() {});
+                },
+              );
+            },
           ),
 
           // Language

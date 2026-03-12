@@ -34,7 +34,10 @@ class _RoutineListScreenState extends State<RoutineListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Routines')),
+      appBar: AppBar(
+        leading: IconButton(icon: const Icon(Icons.arrow_back), onPressed: () => context.go('/more')),
+        title: const Text('Routines'),
+      ),
       body: BlocBuilder<RoutineBloc, RoutineState>(
         builder: (context, state) {
           if (state is RoutinesLoaded) {

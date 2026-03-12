@@ -7,9 +7,12 @@ import 'package:uuid/uuid.dart';
 
 import '../../core/di/injection.dart';
 import '../../domain/entities/session.dart';
+import '../../domain/repositories/calendar_repository.dart';
+import '../../domain/repositories/hobby_repository.dart';
 import '../../domain/usecases/attach_photos.dart';
 import '../../domain/usecases/log_session.dart';
 import '../../l10n/app_localizations.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../blocs/badge/badge_bloc.dart';
 import '../blocs/dashboard/dashboard_bloc.dart';
 import '../blocs/session/session_bloc.dart';
@@ -30,6 +33,13 @@ class _LogSessionScreenState extends State<LogSessionScreen> {
   final _photoPaths = <String>[];
   int? _rating;
   DateTime _date = DateTime.now();
+  late bool _syncToCalendar;
+
+  @override
+  void initState() {
+    super.initState();
+    _syncToCalendar = sl<SharedPreferences>().getBool('calendar_sync') ?? false;
+  }
 
   @override
   void dispose() {
@@ -58,13 +68,32 @@ class _LogSessionScreenState extends State<LogSessionScreen> {
     return BlocProvider(
       create: (_) => SessionBloc(logSession: sl<LogSession>()),
       child: BlocConsumer<SessionBloc, SessionState>(
-        listener: (context, state) {
+        listener: (context, state) async {
           if (state is SessionSaved) {
-            context.read<BadgeBloc>().add(CheckNewBadges());
-            context.read<DashboardBloc>().add(LoadDashboard());
-            context.pop();
+            final badgeBloc = context.read<BadgeBloc>();
+            final dashBloc = context.read<DashboardBloc>();
+            final nav = GoRouter.of(context);
+            if (_syncToCalendar) {
+              final hobby = await sl<HobbyRepository>().getHobbyById(widget.hobbyId);
+              if (hobby != null) {
+                await sl<CalendarRepository>().syncSessionToCalendar(
+                  Session(
+                    id: '',
+                    hobbyId: widget.hobbyId,
+                    date: _date,
+                    durationMinutes: int.tryParse(_durationController.text) ?? 0,
+                    createdAt: DateTime.now(),
+                  ),
+                  hobby.name,
+                );
+              }
+            }
+            badgeBloc.add(CheckNewBadges());
+            dashBloc.add(LoadDashboard());
+            nav.pop();
           }
           if (state is SessionError) {
+            // ignore: use_build_context_synchronously
             ScaffoldMessenger.of(context)
                 .showSnackBar(SnackBar(content: Text(state.message)));
           }
@@ -184,6 +213,13 @@ class _LogSessionScreenState extends State<LogSessionScreen> {
                         ),
                       ),
                     const SizedBox(height: 24),
+                    SwitchListTile(
+                      secondary: const Icon(Icons.calendar_month),
+                      title: const Text('Add to Calendar'),
+                      value: _syncToCalendar,
+                      onChanged: (v) => setState(() => _syncToCalendar = v),
+                    ),
+                    const SizedBox(height: 12),
                     FilledButton(
                       onPressed: state is SessionSaving
                           ? null

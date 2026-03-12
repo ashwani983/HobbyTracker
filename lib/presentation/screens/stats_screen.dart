@@ -1,6 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../domain/usecases/get_stats.dart';
 import '../../l10n/app_localizations.dart';
@@ -21,7 +22,10 @@ class _StatsScreenState extends State<StatsScreen> {
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context)!;
     return Scaffold(
-      appBar: AppBar(title: Text(l.stats)),
+      appBar: AppBar(
+        leading: IconButton(icon: const Icon(Icons.arrow_back), onPressed: () => context.go('/more')),
+        title: Text(l.stats),
+      ),
       body: BlocBuilder<StatsBloc, StatsState>(
         builder: (context, state) {
           if (state is StatsLoading) {

@@ -72,21 +72,28 @@ Builds on v1–v3 (Clean Architecture + BLoC + Drift). Adds routines, advanced t
 
 - [x] 8. Checkpoint — Routines
 
-- [ ] 9. Calendar Integration (Req 23)
-  - [ ] 9.1 Add `table_calendar`, `device_calendar`, `flutter_heatmap_calendar` dependencies
-  - [ ] 9.2 Implement `CalendarRepository` for device calendar read/write
+- [x] 9. Calendar Integration (Req 23)
+  - [x] 9.1 Add `table_calendar`, `device_calendar`, `flutter_heatmap_calendar` dependencies
+  - [x] 9.2 Implement `CalendarRepository` for device calendar read/write
     - _Requirements: 23.3, 23.4_
-  - [ ] 9.3 Implement `GetCalendarSessions`, `SyncToCalendar`, `GetHeatmapData` use cases
-  - [ ] 9.4 Create `CalendarBloc` with month loading and heatmap data
-  - [ ] 9.5 Build `CalendarScreen` with monthly view (colored dots per hobby) and day detail
+  - [x] 9.3 Implement `GetCalendarSessions`, `SyncToCalendar`, `GetHeatmapData` use cases
+  - [x] 9.4 Create `CalendarBloc` with month loading and heatmap data
+  - [x] 9.5 Build `CalendarScreen` with monthly view (colored dots per hobby) and day detail
     - _Requirements: 23.1, 23.2_
-  - [ ] 9.6 Add heatmap view toggle (12-month activity intensity grid)
+  - [x] 9.6 Add heatmap view toggle (12-month activity intensity grid)
     - _Requirements: 23.5, 23.6, 23.7_
-  - [ ] 9.7 Add "Calendar Sync" toggle in settings
+  - [x] 9.7 Add "Calendar Sync" toggle in settings
     - _Requirements: 23.3_
-  - [ ] 9.8 Add `/calendar` route to GoRouter
+  - [x] 9.8 Add `/calendar` route to GoRouter
 
-- [ ] 10. Checkpoint — Calendar
+- [x] 10. Checkpoint — Calendar
+
+- [x] 10a. Navigation Hub — "More" Screen (Req 31)
+  - [x] 10a.1 Create `MoreScreen` with navigation to Routines, Goals, Stats, Settings
+  - [x] 10a.2 Restructure bottom nav to 5 tabs: Dashboard, Hobbies, Timer, Calendar, More
+  - [x] 10a.3 Add back buttons to all More sub-pages (Routines, Goals, Stats, Settings)
+  - [x] 10a.4 Map More sub-paths to tab index 4 in `AppShell._currentIndex`
+  - [x] 10a.5 Add `/more` route to GoRouter
 
 ## Sprint 3: Analytics & Audio Notes
 

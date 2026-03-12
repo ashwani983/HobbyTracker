@@ -43,6 +43,8 @@ import '../../presentation/blocs/sync/sync_bloc.dart';
 import '../../presentation/blocs/update/update_cubit.dart';
 import '../../domain/repositories/routine_repository.dart';
 import '../../data/repositories/routine_repository_impl.dart';
+import '../../domain/repositories/calendar_repository.dart';
+import '../../data/repositories/calendar_repository_impl.dart';
 
 final sl = GetIt.instance;
 
@@ -61,6 +63,7 @@ Future<void> configureDependencies() async {
   sl.registerLazySingleton<BadgeRepository>(() => BadgeRepositoryImpl(sl()));
   sl.registerLazySingleton<ReminderRepository>(() => ReminderRepositoryImpl(sl()));
   sl.registerLazySingleton<RoutineRepository>(() => RoutineRepositoryImpl(sl()));
+  sl.registerLazySingleton<CalendarRepository>(() => CalendarRepositoryImpl());
 
   // Use cases
   sl.registerFactory(() => CreateHobby(sl()));

@@ -21,6 +21,8 @@ import '../screens/timer_screen.dart';
 import '../screens/badges_screen.dart';
 import '../screens/routine_list_screen.dart';
 import '../screens/routine_runner_screen.dart';
+import '../screens/calendar_screen.dart';
+import '../screens/more_screen.dart';
 import '../widgets/app_shell.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -140,6 +142,14 @@ final appRouter = GoRouter(
         GoRoute(
           path: '/routines',
           builder: (context, state) => const RoutineListScreen(),
+        ),
+        GoRoute(
+          path: '/calendar',
+          builder: (context, state) => const CalendarScreen(),
+        ),
+        GoRoute(
+          path: '/more',
+          builder: (context, state) => const MoreScreen(),
         ),
       ],
     ),

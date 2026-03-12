@@ -203,3 +203,34 @@ hobbytracker://challenge/{code}→ /challenges/join?code=X
 - `GoRouter` redirect handles deep link → internal route mapping
 - Cold start: `getInitialLink()` → navigate after app init
 - Warm start: `onLink` stream → navigate immediately
+
+### Navigation Hub Architecture
+
+```
+Bottom Nav (5 tabs):
+  Dashboard  →  /
+  Hobbies    →  /hobbies
+  Timer      →  /timer
+  Calendar   →  /calendar
+  More       →  /more
+
+More Screen (hub):
+  Routines   →  /routines    ← back → /more
+  Goals      →  /goals       ← back → /more
+  Stats      →  /stats       ← back → /more
+  Settings   →  /settings    ← back → /more
+    Export   →  /export      ← back → /settings
+    Sync     →  /sync        ← back → /settings
+    Badges   →  /badges      ← back → /settings
+    Terms    →  /terms       ← back → /settings
+
+Future (added to More, no nav changes):
+  Analytics  →  /analytics
+  Challenges →  /challenges
+  Partners   →  /partners
+```
+
+- `MoreScreen` is a simple `ListView` of `ListTile` navigation items
+- `AppShell._currentIndex` maps sub-paths to the More tab (index 4)
+- All More sub-pages have explicit `leading` back button in `AppBar`
+- Keeps bottom nav at 5 tabs regardless of feature count

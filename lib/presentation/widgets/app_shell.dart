@@ -8,7 +8,6 @@ import '../../core/services/notification_service.dart';
 import '../blocs/badge/badge_bloc.dart';
 import '../blocs/dashboard/dashboard_bloc.dart';
 import '../blocs/hobby_list/hobby_list_bloc.dart';
-import '../blocs/stats/stats_bloc.dart';
 
 class AppShell extends StatefulWidget {
   final Widget child;
@@ -30,18 +29,29 @@ class _AppShellState extends State<AppShell> {
     });
   }
 
-  static const _tabPaths = ['/', '/hobbies', '/timer', '/routines', '/goals', '/stats'];
+  static const _tabPaths = ['/', '/hobbies', '/timer', '/calendar', '/more'];
   static const _tabIcons = [
     Icons.dashboard,
     Icons.interests,
     Icons.timer,
-    Icons.repeat,
-    Icons.flag,
-    Icons.bar_chart,
+    Icons.calendar_month,
+    Icons.menu,
   ];
 
   int _currentIndex(BuildContext context) {
     final location = GoRouterState.of(context).uri.toString();
+    // "More" sub-pages
+    if (location.startsWith('/routines') ||
+        location.startsWith('/goals') ||
+        location.startsWith('/stats') ||
+        location.startsWith('/settings') ||
+        location.startsWith('/badges') ||
+        location.startsWith('/export') ||
+        location.startsWith('/sync') ||
+        location.startsWith('/terms') ||
+        location == '/more') {
+      return 4;
+    }
     for (var i = _tabPaths.length - 1; i >= 0; i--) {
       if (location.startsWith(_tabPaths[i]) &&
           (_tabPaths[i] == '/' ? location == '/' : true)) {
@@ -55,7 +65,7 @@ class _AppShellState extends State<AppShell> {
   Widget build(BuildContext context) {
     final index = _currentIndex(context);
     final l = AppLocalizations.of(context)!;
-    final tabLabels = [l.dashboard, l.hobbies, l.timer, 'Routines', l.goals, l.stats];
+    final tabLabels = [l.dashboard, l.hobbies, l.timer, 'Calendar', 'More'];
 
     return BlocListener<BadgeBloc, BadgeState>(
       listener: (context, state) {
@@ -88,8 +98,6 @@ class _AppShellState extends State<AppShell> {
               context.read<HobbyListBloc>().add(LoadHobbies());
             } else if (i == 1) {
               context.read<HobbyListBloc>().add(LoadHobbies());
-            } else if (i == 5) {
-              context.read<StatsBloc>().add(LoadStats());
             }
           },
           destinations: List.generate(

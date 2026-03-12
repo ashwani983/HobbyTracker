@@ -38,7 +38,10 @@ class _GoalsScreenState extends State<GoalsScreen> {
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context)!;
     return Scaffold(
-      appBar: AppBar(title: Text(l.goals)),
+      appBar: AppBar(
+        leading: IconButton(icon: const Icon(Icons.arrow_back), onPressed: () => context.go('/more')),
+        title: Text(l.goals),
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           await context.push('/goals/add');

@@ -179,3 +179,16 @@ Version 4.0.0 focuses on community, advanced routines, wearable/health integrati
 4. WHEN a deep link is received while the app is open, THE App SHALL navigate to the target screen without restarting
 5. THE App SHALL validate deep link parameters and navigate to the dashboard if the route is invalid
 6. THE App SHALL support Firebase Dynamic Links for challenge invitations that work across app install states
+
+### Requirement 31: Navigation Hub ("More" Screen)
+
+**User Story:** As a user, I want a clean bottom navigation with a "More" hub for secondary features, so that the app stays uncluttered as features grow.
+
+#### Acceptance Criteria
+
+1. THE App SHALL display exactly 5 bottom navigation tabs: Dashboard, Hobbies, Timer, Calendar, More
+2. THE "More" screen SHALL provide navigation to: Routines, Goals, Stats, and Settings
+3. WHEN a user navigates to a sub-page from "More", THE App SHALL display a back button returning to the More screen
+4. WHEN a user navigates to a sub-page from Settings (Export, Sync, Badges, Terms), THE App SHALL display a back button returning to Settings
+5. THE bottom navigation "More" tab SHALL remain highlighted when viewing any sub-page accessed from it
+6. THE "More" screen SHALL be extensible to accommodate future features (Analytics, Challenges, Partners) without modifying bottom navigation
