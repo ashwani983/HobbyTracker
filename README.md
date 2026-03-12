@@ -108,6 +108,11 @@ The app supports the `hobbytracker://` URL scheme:
 | `hobbytracker://hobby/{id}` | Hobby detail |
 | `hobbytracker://timer/{hobbyId}` | Timer with hobby pre-selected |
 
+Test via adb:
+```bash
+adb shell am start -a android.intent.action.VIEW -d "hobbytracker://dashboard" com.hobbytracker.app
+```
+
 ## Architecture
 
 ```
