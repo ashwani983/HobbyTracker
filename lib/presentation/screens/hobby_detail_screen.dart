@@ -3,11 +3,13 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../core/di/injection.dart';
 import '../../core/l10n_helpers.dart';
 import '../../core/services/notification_service.dart';
+import '../../domain/entities/audio_note.dart';
 import '../../domain/entities/reminder.dart';
 import '../../domain/entities/session.dart';
 import '../../domain/entities/share_progress_card.dart';
@@ -503,25 +505,56 @@ class _AudioPlayButton extends StatefulWidget {
 }
 
 class _AudioPlayButtonState extends State<_AudioPlayButton> {
-  bool _hasAudio = false;
+  AudioNote? _note;
+  final _player = AudioPlayer();
+  bool _playing = false;
 
   @override
   void initState() {
     super.initState();
-    _check();
+    _load();
+    _player.playerStateStream.listen((s) {
+      if (s.processingState == ProcessingState.completed) {
+        if (mounted) setState(() => _playing = false);
+      }
+    });
   }
 
-  Future<void> _check() async {
+  Future<void> _load() async {
     final note = await sl<AudioNoteRepository>().getBySessionId(widget.sessionId);
-    if (mounted) setState(() => _hasAudio = note != null);
+    if (mounted) setState(() => _note = note);
+  }
+
+  Future<void> _toggle() async {
+    if (_playing) {
+      await _player.stop();
+      setState(() => _playing = false);
+    } else if (_note != null) {
+      await _player.setFilePath(_note!.filePath);
+      _player.play();
+      setState(() => _playing = true);
+    }
+  }
+
+  @override
+  void dispose() {
+    _player.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    if (!_hasAudio) return const SizedBox.shrink();
-    return const Padding(
-      padding: EdgeInsets.only(left: 8),
-      child: Icon(Icons.mic, size: 22, color: Colors.deepPurple),
+    if (_note == null) return const SizedBox.shrink();
+    return GestureDetector(
+      onTap: _toggle,
+      child: Padding(
+        padding: const EdgeInsets.only(left: 8),
+        child: Icon(
+          _playing ? Icons.stop_circle : Icons.play_circle,
+          size: 28,
+          color: Colors.deepPurple,
+        ),
+      ),
     );
   }
 }
