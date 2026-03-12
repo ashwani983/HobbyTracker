@@ -34,6 +34,7 @@ class _LogSessionScreenState extends State<LogSessionScreen> {
   final _notesController = TextEditingController();
   final _attachPhotos = AttachPhotos();
   final _photoPaths = <String>[];
+  final _sessionId = const Uuid().v4();
   int? _rating;
   DateTime _date = DateTime.now();
   late bool _syncToCalendar;
@@ -69,7 +70,7 @@ class _LogSessionScreenState extends State<LogSessionScreen> {
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context)!;
     return BlocProvider(
-      create: (_) => AudioNoteCubit(sl<AudioNoteRepository>()),
+      create: (_) => AudioNoteCubit(sl<AudioNoteRepository>())..loadForSession(_sessionId),
       child: BlocProvider(
       create: (_) => SessionBloc(logSession: sl<LogSession>()),
       child: BlocConsumer<SessionBloc, SessionState>(
@@ -233,7 +234,7 @@ class _LogSessionScreenState extends State<LogSessionScreen> {
                           : () {
                               if (!_formKey.currentState!.validate()) return;
                               final session = Session(
-                                id: const Uuid().v4(),
+                                id: _sessionId,
                                 hobbyId: widget.hobbyId,
                                 date: _date,
                                 durationMinutes:

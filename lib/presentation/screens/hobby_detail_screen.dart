@@ -13,6 +13,7 @@ import '../../domain/entities/session.dart';
 import '../../domain/entities/share_progress_card.dart';
 import '../../domain/repositories/hobby_repository.dart';
 import '../../domain/repositories/reminder_repository.dart';
+import '../../domain/repositories/audio_note_repository.dart';
 import '../../domain/usecases/cancel_reminder.dart';
 import '../../domain/usecases/get_sessions_by_hobby.dart';
 import '../../domain/usecases/schedule_reminder.dart';
@@ -132,9 +133,14 @@ class HobbyDetailScreen extends StatelessWidget {
                           subtitle: Text(
                             '${session.date.month}/${session.date.day}/${session.date.year}',
                           ),
-                          trailing: session.rating != null
-                              ? Text(l.ratingStars(session.rating!))
-                              : null,
+                          trailing: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              if (session.rating != null)
+                                Text(l.ratingStars(session.rating!)),
+                              _AudioPlayButton(sessionId: session.id),
+                            ],
+                          ),
                         ),
                         if (session.photoPaths.isNotEmpty)
                           SizedBox(
@@ -485,6 +491,37 @@ class _RollingAverages extends StatelessWidget {
         const SizedBox(width: 16),
         Text('30d: ${avg30.toStringAsFixed(1)} min/day'),
       ],
+    );
+  }
+}
+
+class _AudioPlayButton extends StatefulWidget {
+  final String sessionId;
+  const _AudioPlayButton({required this.sessionId});
+  @override
+  State<_AudioPlayButton> createState() => _AudioPlayButtonState();
+}
+
+class _AudioPlayButtonState extends State<_AudioPlayButton> {
+  bool _hasAudio = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _check();
+  }
+
+  Future<void> _check() async {
+    final note = await sl<AudioNoteRepository>().getBySessionId(widget.sessionId);
+    if (mounted) setState(() => _hasAudio = note != null);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (!_hasAudio) return const SizedBox.shrink();
+    return const Padding(
+      padding: EdgeInsets.only(left: 8),
+      child: Icon(Icons.mic, size: 22, color: Colors.deepPurple),
     );
   }
 }
