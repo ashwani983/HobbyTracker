@@ -31,6 +31,8 @@ import 'presentation/blocs/update/update_cubit.dart';
 import 'presentation/blocs/timer/timer_cubit.dart';
 import 'presentation/blocs/routine/routine_bloc.dart';
 import 'presentation/blocs/calendar/calendar_bloc.dart';
+import 'presentation/blocs/analytics/analytics_bloc.dart';
+import 'domain/usecases/analytics_service.dart';
 import 'domain/repositories/routine_repository.dart';
 import 'domain/usecases/log_session.dart' as log_session_uc;
 import 'presentation/router/app_router.dart';
@@ -86,6 +88,7 @@ class App extends StatelessWidget {
         BlocProvider(create: (_) => sl<UpdateCubit>()..check()),
         BlocProvider(create: (_) => RoutineBloc(sl<RoutineRepository>(), sl<log_session_uc.LogSession>())..add(LoadRoutines())),
         BlocProvider(create: (_) => CalendarBloc(sl<SessionRepository>())),
+        BlocProvider(create: (_) => AnalyticsBloc(sl<AnalyticsService>())),
       ],
       child: BlocBuilder<ThemeCubit, ThemeMode>(
         builder: (context, themeMode) {

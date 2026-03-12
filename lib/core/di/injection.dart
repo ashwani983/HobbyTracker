@@ -45,6 +45,7 @@ import '../../domain/repositories/routine_repository.dart';
 import '../../data/repositories/routine_repository_impl.dart';
 import '../../domain/repositories/calendar_repository.dart';
 import '../../data/repositories/calendar_repository_impl.dart';
+import '../../domain/usecases/analytics_service.dart';
 
 final sl = GetIt.instance;
 
@@ -101,4 +102,5 @@ Future<void> configureDependencies() async {
         prefs: sl(),
       ));
   sl.registerFactory(() => UpdateCubit(sl()));
+  sl.registerFactory(() => AnalyticsService(sl(), sl(), sl(), sl()));
 }

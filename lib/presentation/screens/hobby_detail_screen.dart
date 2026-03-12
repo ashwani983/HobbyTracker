@@ -111,6 +111,8 @@ class HobbyDetailScreen extends StatelessWidget {
                           style: Theme.of(context).textTheme.bodyLarge),
                     ],
                   ),
+                  const SizedBox(height: 8),
+                  _RollingAverages(sessions: s.sessions),
                 ],
                 const Divider(height: 32),
                 _RemindersSection(hobbyId: hobbyId, hobbyName: s.hobby.name),
@@ -460,6 +462,29 @@ class _FullScreenImage extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class _RollingAverages extends StatelessWidget {
+  final List<Session> sessions;
+  const _RollingAverages({required this.sessions});
+
+  @override
+  Widget build(BuildContext context) {
+    final now = DateTime.now();
+    final s7 = sessions.where((s) => s.date.isAfter(now.subtract(const Duration(days: 7)))).toList();
+    final s30 = sessions.where((s) => s.date.isAfter(now.subtract(const Duration(days: 30)))).toList();
+    final avg7 = s7.isEmpty ? 0.0 : s7.fold<int>(0, (a, s) => a + s.durationMinutes) / 7;
+    final avg30 = s30.isEmpty ? 0.0 : s30.fold<int>(0, (a, s) => a + s.durationMinutes) / 30;
+    return Row(
+      children: [
+        const Icon(Icons.trending_up, size: 18),
+        const SizedBox(width: 6),
+        Text('7d: ${avg7.toStringAsFixed(1)} min/day'),
+        const SizedBox(width: 16),
+        Text('30d: ${avg30.toStringAsFixed(1)} min/day'),
+      ],
     );
   }
 }

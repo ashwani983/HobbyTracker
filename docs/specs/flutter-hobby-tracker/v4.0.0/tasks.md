@@ -97,24 +97,24 @@ Builds on v1–v3 (Clean Architecture + BLoC + Drift). Adds routines, advanced t
 
 ## Sprint 3: Analytics & Audio Notes
 
-- [ ] 11. Advanced Analytics & Insights (Req 28)
-  - [ ] 11.1 Implement correlation matrix calculation (hobbies practiced on same day)
+- [x] 11. Advanced Analytics & Insights (Req 28)
+  - [x] 11.1 Implement correlation matrix calculation (hobbies practiced on same day)
     - _Requirements: 28.1_
-  - [ ] 11.2 Implement most productive day/time calculation
+  - [x] 11.2 Implement most productive day/time calculation
     - _Requirements: 28.2_
-  - [ ] 11.3 Implement consistency score (0–100) per hobby over 30 days
+  - [x] 11.3 Implement consistency score (0–100) per hobby over 30 days
     - _Requirements: 28.3_
-  - [ ] 11.4 Add rolling averages (7-day, 30-day) to hobby detail screen
+  - [x] 11.4 Add rolling averages (7-day, 30-day) to hobby detail screen
     - _Requirements: 28.4_
-  - [ ] 11.5 Build monthly summary report view
+  - [x] 11.5 Build monthly summary report view
     - _Requirements: 28.5_
-  - [ ] 11.6 Build `AnalyticsScreen` with all metrics, calculated from local data
+  - [x] 11.6 Build `AnalyticsScreen` with all metrics, calculated from local data
     - _Requirements: 28.6_
-  - [ ] 11.7 Implement pinnable dashboard metrics (up to 3)
+  - [x] 11.7 Implement pinnable dashboard metrics (up to 3)
     - _Requirements: 28.7_
-  - [ ] 11.8 Add `/analytics` route to GoRouter
+  - [x] 11.8 Add `/analytics` route to GoRouter
 
-- [ ] 12. Checkpoint — Analytics
+- [x] 12. Checkpoint — Analytics
 
 - [ ] 13. Audio Notes (Req 29)
   - [ ] 13.1 Add `record`, `just_audio`, `audio_waveforms` dependencies
