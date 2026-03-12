@@ -100,17 +100,17 @@ flutter test
 
 ## Deep Links
 
-The app supports the `hobbytracker://` URL scheme:
+The app supports the `hobbytracker://` URL scheme. Hobby can be referenced by name (case-insensitive) or UUID:
 
 | Link | Destination |
 |------|-------------|
 | `hobbytracker://dashboard` | Dashboard |
-| `hobbytracker://hobby/{id}` | Hobby detail |
-| `hobbytracker://timer/{hobbyId}` | Timer with hobby pre-selected |
+| `hobbytracker://hobby/{name}` | Hobby detail (e.g. `hobbytracker://hobby/Guitar`) |
+| `hobbytracker://timer/{name}` | Timer with hobby pre-selected |
 
 Test via adb:
 ```bash
-adb shell am start -a android.intent.action.VIEW -d "hobbytracker://dashboard" com.hobbytracker.app
+adb shell am start -a android.intent.action.VIEW -d "hobbytracker://hobby/Guitar" com.hobbytracker.app
 ```
 
 ## Architecture
