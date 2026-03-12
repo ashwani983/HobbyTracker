@@ -20,19 +20,19 @@ Builds on v1–v3 (Clean Architecture + BLoC + Drift). Adds routines, advanced t
 
 - [x] 2. Checkpoint — Timer Modes
 
-- [ ] 3. Deep Linking & URL Scheme (Req 30)
-  - [ ] 3.1 Add `app_links` dependency
-  - [ ] 3.2 Configure Android App Links and iOS Universal Links in manifests
-  - [ ] 3.3 Register `hobbytracker://` custom URL scheme
+- [x] 3. Deep Linking & URL Scheme (Req 30)
+  - [x] 3.1 Add `app_links` dependency
+  - [x] 3.2 Configure Android App Links and iOS Universal Links in manifests
+  - [x] 3.3 Register `hobbytracker://` custom URL scheme
     - _Requirements: 30.1_
-  - [ ] 3.4 Implement `HandleDeepLink` use case mapping deep link routes to GoRouter paths
+  - [x] 3.4 Implement `HandleDeepLink` use case mapping deep link routes to GoRouter paths
     - _Requirements: 30.2, 30.5_
-  - [ ] 3.5 Handle cold start (`getInitialLink`) and warm start (`onLink` stream) in `main.dart`
+  - [x] 3.5 Handle cold start (`getInitialLink`) and warm start (`onLink` stream) in `main.dart`
     - _Requirements: 30.3, 30.4_
-  - [ ] 3.6 Add `firebase_dynamic_links` for challenge invitations
+  - [x] 3.6 Add `firebase_dynamic_links` for challenge invitations
     - _Requirements: 30.6_
 
-- [ ] 4. Checkpoint — Deep Linking
+- [x] 4. Checkpoint — Deep Linking
 
 - [ ] 5. Accessibility Foundation (Req 27)
   - [ ] 5.1 Audit all screens and add `Semantics` labels to interactive elements
