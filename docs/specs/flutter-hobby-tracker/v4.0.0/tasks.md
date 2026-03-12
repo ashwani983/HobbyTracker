@@ -6,19 +6,19 @@ Builds on v1–v3 (Clean Architecture + BLoC + Drift). Adds routines, advanced t
 
 ## Sprint 1: Timer Modes, Deep Linking, Accessibility Foundation
 
-- [ ] 1. Advanced Timer Modes (Req 22)
-  - [ ] 1.1 Add `audioplayers` dependency
-  - [ ] 1.2 Create `TimerMode` enum (stopwatch, countdown, pomodoro) and `PomodoroConfig` entity
-  - [ ] 1.3 Extend `TimerCubit` with mode selection, countdown logic, and pomodoro cycle tracking
+- [x] 1. Advanced Timer Modes (Req 22)
+  - [x] 1.1 Add `audioplayers` dependency
+  - [x] 1.2 Create `TimerMode` enum (stopwatch, countdown, pomodoro) and `PomodoroConfig` entity
+  - [x] 1.3 Extend `TimerCubit` with mode selection, countdown logic, and pomodoro cycle tracking
     - _Requirements: 22.1, 22.2, 22.3, 22.4, 22.5, 22.6_
-  - [ ] 1.4 Update timer screen UI with mode selector, remaining time display, interval counter
+  - [x] 1.4 Update timer screen UI with mode selector, remaining time display, interval counter
     - _Requirements: 22.6_
-  - [ ] 1.5 Persist pomodoro preferences in SharedPreferences
+  - [x] 1.5 Persist pomodoro preferences in SharedPreferences
     - _Requirements: 22.7_
-  - [ ] 1.6 Ensure background tracking works for all modes
+  - [x] 1.6 Ensure background tracking works for all modes
     - _Requirements: 22.8_
 
-- [ ] 2. Checkpoint — Timer Modes
+- [x] 2. Checkpoint — Timer Modes
 
 - [ ] 3. Deep Linking & URL Scheme (Req 30)
   - [ ] 3.1 Add `app_links` dependency

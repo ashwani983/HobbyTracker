@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'l10n/app_localizations.dart';
 
 import 'core/di/injection.dart';
@@ -67,7 +68,7 @@ class App extends StatelessWidget {
         BlocProvider(
           create: (_) => StatsBloc(getStats: sl<GetStats>())..add(LoadStats()),
         ),
-        BlocProvider(create: (_) => TimerCubit()),
+        BlocProvider(create: (_) => TimerCubit(sl<SharedPreferences>())),
         BlocProvider(
           create: (_) => BadgeBloc(
             badgeRepository: sl<BadgeRepository>(),

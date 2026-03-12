@@ -5,6 +5,7 @@ import 'package:uuid/uuid.dart';
 import '../../core/di/injection.dart';
 import '../../domain/entities/hobby.dart';
 import '../../domain/entities/session.dart';
+import '../../domain/entities/timer_config.dart';
 import '../../domain/usecases/get_active_hobbies.dart';
 import '../../domain/usecases/log_session.dart';
 import '../../l10n/app_localizations.dart';
@@ -21,6 +22,7 @@ class TimerScreen extends StatefulWidget {
 class _TimerScreenState extends State<TimerScreen> {
   List<Hobby> _hobbies = [];
   String? _selectedHobbyId;
+  TimerMode _selectedMode = TimerMode.stopwatch;
 
   @override
   void initState() {
@@ -122,9 +124,17 @@ class _TimerScreenState extends State<TimerScreen> {
     final l = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(title: Text(l.timer)),
-      body: BlocBuilder<TimerCubit, TimerState>(
+      body: BlocConsumer<TimerCubit, TimerState>(
+        listener: (context, state) {
+          if (state is PomodoroBreakPrompt) {
+            _showBreakPrompt(context, state);
+          } else if (state is TimerStopped) {
+            _onStop(context, state.elapsed);
+          }
+        },
         builder: (context, state) {
           final cubit = context.read<TimerCubit>();
+          final isIdle = state is TimerInitial;
           final isRunningOrPaused =
               state is TimerRunning || state is TimerPaused;
           return Padding(
@@ -145,85 +155,220 @@ class _TimerScreenState extends State<TimerScreen> {
                         ? null
                         : (v) => setState(() => _selectedHobbyId = v),
                   ),
-                const Spacer(),
-                Text(
-                  _formatDuration(state.elapsed),
-                  style: Theme.of(context).textTheme.displayLarge,
-                ),
-                if (isRunningOrPaused)
-                  Padding(
-                    padding: const EdgeInsets.only(top: 8),
-                    child: Text(
-                      state is TimerRunning ? l.running : l.paused,
-                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                            color: state is TimerRunning
-                                ? Colors.green
-                                : Colors.orange,
-                          ),
-                    ),
+                const SizedBox(height: 16),
+                // Mode selector — only when idle
+                if (isIdle)
+                  SegmentedButton<TimerMode>(
+                    segments: const [
+                      ButtonSegment(value: TimerMode.stopwatch, label: Text('Stopwatch')),
+                      ButtonSegment(value: TimerMode.countdown, label: Text('Countdown')),
+                      ButtonSegment(value: TimerMode.pomodoro, label: Text('Pomodoro')),
+                    ],
+                    selected: {_selectedMode},
+                    onSelectionChanged: (s) {
+                      setState(() => _selectedMode = s.first);
+                      cubit.setMode(s.first);
+                    },
                   ),
+                // Countdown duration picker
+                if (isIdle && _selectedMode == TimerMode.countdown)
+                  _CountdownPicker(cubit: cubit),
                 const Spacer(),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    if (state is TimerInitial)
-                      FilledButton.icon(
-                        onPressed:
-                            _selectedHobbyId == null ? null : cubit.start,
-                        icon: const Icon(Icons.play_arrow),
-                        label: Text(l.start),
-                      ),
-                    if (state is TimerRunning) ...[
-                      FilledButton.icon(
-                        onPressed: cubit.pause,
-                        icon: const Icon(Icons.pause),
-                        label: Text(l.pause),
-                      ),
-                      const SizedBox(width: 12),
-                      OutlinedButton.icon(
-                        onPressed: () {
-                          cubit.stop();
-                          _onStop(context, state.elapsed);
-                        },
-                        icon: const Icon(Icons.stop),
-                        label: Text(l.stop),
-                      ),
-                    ],
-                    if (state is TimerPaused) ...[
-                      FilledButton.icon(
-                        onPressed: cubit.resume,
-                        icon: const Icon(Icons.play_arrow),
-                        label: Text(l.resume),
-                      ),
-                      const SizedBox(width: 12),
-                      OutlinedButton.icon(
-                        onPressed: () {
-                          cubit.stop();
-                          _onStop(context, state.elapsed);
-                        },
-                        icon: const Icon(Icons.stop),
-                        label: Text(l.stop),
-                      ),
-                      const SizedBox(width: 12),
-                      TextButton.icon(
-                        onPressed: cubit.discard,
-                        icon: const Icon(Icons.delete_outline),
-                        label: Text(l.discard),
-                      ),
-                    ],
-                    if (state is TimerStopped)
-                      FilledButton.icon(
-                        onPressed: cubit.discard,
-                        icon: const Icon(Icons.refresh),
-                        label: Text(l.reset),
-                      ),
-                  ],
-                ),
+                // Display
+                _buildDisplay(context, state),
+                const Spacer(),
+                // Controls
+                _buildControls(context, state, cubit),
                 const SizedBox(height: 32),
               ],
             ),
           );
         },
+      ),
+    );
+  }
+
+  Widget _buildDisplay(BuildContext context, TimerState state) {
+    final theme = Theme.of(context).textTheme;
+    final remaining = (state is TimerRunning) ? state.remaining : null;
+    final pauseRemaining = (state is TimerPaused) ? state.remaining : null;
+    final showRemaining = remaining ?? pauseRemaining;
+
+    return Column(
+      children: [
+        // Main time
+        Text(
+          showRemaining != null
+              ? _formatDuration(showRemaining)
+              : _formatDuration(state.elapsed),
+          style: theme.displayLarge,
+        ),
+        // Pomodoro info
+        if (state is TimerRunning &&
+            state.mode == TimerMode.pomodoro) ...[
+          const SizedBox(height: 8),
+          Text(
+            state.isBreak == true
+                ? '☕ Break'
+                : '🎯 Focus ${state.pomodoroInterval}',
+            style: theme.titleMedium,
+          ),
+        ],
+        if (state is TimerPaused &&
+            state.mode == TimerMode.pomodoro) ...[
+          const SizedBox(height: 8),
+          Text(
+            state.isBreak == true
+                ? '☕ Break (paused)'
+                : '🎯 Focus ${state.pomodoroInterval} (paused)',
+            style: theme.titleMedium,
+          ),
+        ],
+        // Status label
+        if (state is TimerRunning && state.mode != TimerMode.pomodoro)
+          Padding(
+            padding: const EdgeInsets.only(top: 8),
+            child: Text(
+              AppLocalizations.of(context)!.running,
+              style: theme.bodyLarge?.copyWith(color: Colors.green),
+            ),
+          ),
+        if (state is TimerPaused && state.mode != TimerMode.pomodoro)
+          Padding(
+            padding: const EdgeInsets.only(top: 8),
+            child: Text(
+              AppLocalizations.of(context)!.paused,
+              style: theme.bodyLarge?.copyWith(color: Colors.orange),
+            ),
+          ),
+      ],
+    );
+  }
+
+  Widget _buildControls(
+      BuildContext context, TimerState state, TimerCubit cubit) {
+    final l = AppLocalizations.of(context)!;
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        if (state is TimerInitial)
+          FilledButton.icon(
+            onPressed: _selectedHobbyId == null ? null : cubit.start,
+            icon: const Icon(Icons.play_arrow),
+            label: Text(l.start),
+          ),
+        if (state is TimerRunning) ...[
+          FilledButton.icon(
+            onPressed: cubit.pause,
+            icon: const Icon(Icons.pause),
+            label: Text(l.pause),
+          ),
+          const SizedBox(width: 12),
+          OutlinedButton.icon(
+            onPressed: () {
+              cubit.stop();
+            },
+            icon: const Icon(Icons.stop),
+            label: Text(l.stop),
+          ),
+        ],
+        if (state is TimerPaused) ...[
+          FilledButton.icon(
+            onPressed: cubit.resume,
+            icon: const Icon(Icons.play_arrow),
+            label: Text(l.resume),
+          ),
+          const SizedBox(width: 12),
+          OutlinedButton.icon(
+            onPressed: () {
+              cubit.stop();
+            },
+            icon: const Icon(Icons.stop),
+            label: Text(l.stop),
+          ),
+          const SizedBox(width: 12),
+          TextButton.icon(
+            onPressed: cubit.discard,
+            icon: const Icon(Icons.delete_outline),
+            label: Text(l.discard),
+          ),
+        ],
+        if (state is TimerStopped)
+          FilledButton.icon(
+            onPressed: cubit.discard,
+            icon: const Icon(Icons.refresh),
+            label: Text(l.reset),
+          ),
+      ],
+    );
+  }
+
+  void _showBreakPrompt(BuildContext context, PomodoroBreakPrompt state) {
+    final cubit = context.read<TimerCubit>();
+    final breakType = state.isLongBreak ? 'Long break' : 'Short break';
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (ctx) => AlertDialog(
+        title: const Text('🍅 Focus complete!'),
+        content: Text(
+            'Interval ${state.completedIntervals} done.\n$breakType recommended.'),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pop(ctx);
+              cubit.skipBreak();
+            },
+            child: const Text('Skip break'),
+          ),
+          FilledButton(
+            onPressed: () {
+              Navigator.pop(ctx);
+              cubit.startBreak();
+            },
+            child: Text('Start $breakType'),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _CountdownPicker extends StatefulWidget {
+  final TimerCubit cubit;
+  const _CountdownPicker({required this.cubit});
+
+  @override
+  State<_CountdownPicker> createState() => _CountdownPickerState();
+}
+
+class _CountdownPickerState extends State<_CountdownPicker> {
+  @override
+  Widget build(BuildContext context) {
+    final mins = widget.cubit.countdownTarget.inMinutes;
+    return Padding(
+      padding: const EdgeInsets.only(top: 16),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          IconButton(
+            onPressed: mins > 1
+                ? () {
+                    widget.cubit.setCountdownDuration(Duration(minutes: mins - 1));
+                    setState(() {});
+                  }
+                : null,
+            icon: const Icon(Icons.remove),
+          ),
+          Text('$mins min', style: Theme.of(context).textTheme.titleLarge),
+          IconButton(
+            onPressed: () {
+              widget.cubit.setCountdownDuration(Duration(minutes: mins + 1));
+              setState(() {});
+            },
+            icon: const Icon(Icons.add),
+          ),
+        ],
       ),
     );
   }
