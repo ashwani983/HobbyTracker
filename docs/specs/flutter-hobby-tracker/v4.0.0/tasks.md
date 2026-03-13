@@ -188,8 +188,8 @@ Builds on v1–v3 (Clean Architecture + BLoC + Drift). Adds routines, advanced t
 
 - [x] 20. Checkpoint — Wearable
 
-- [ ] 21. Final checkpoint — v4.0.0
-  - [ ] 21.1 Run full test suite, fix regressions
-  - [ ] 21.2 Update README and CHANGELOG for v4.0.0
-  - [ ] 21.3 Build release APK
-  - [ ] 21.4 Create GitHub release with tag `v4.0.0`
+- [x] 21. Final checkpoint — v4.0.0
+  - [x] 21.1 Run full test suite, fix regressions
+  - [x] 21.2 Update README and CHANGELOG for v4.0.0
+  - [x] 21.3 Build release APK
+  - [x] 21.4 Create GitHub release with tag `v4.0.0`
