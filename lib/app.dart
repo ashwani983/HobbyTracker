@@ -6,6 +6,7 @@ import 'l10n/app_localizations.dart';
 import 'core/di/injection.dart';
 import 'domain/repositories/badge_repository.dart';
 import 'domain/repositories/session_repository.dart';
+import 'domain/repositories/goal_repository.dart';
 import 'domain/usecases/archive_hobby.dart';
 import 'domain/usecases/check_badges.dart';
 import 'domain/usecases/create_goal.dart';
@@ -94,7 +95,11 @@ class App extends StatelessWidget {
         BlocProvider(create: (_) => CalendarBloc(sl<SessionRepository>())),
         BlocProvider(create: (_) => AnalyticsBloc(sl<AnalyticsService>())),
         BlocProvider(create: (_) => ChallengeBloc(sl<ChallengeRepository>(), sl<SharedPreferences>())..add(LoadChallenges())),
-        BlocProvider(create: (_) => PartnerBloc(repo: sl<PartnerRepository>())),
+        BlocProvider(create: (_) => PartnerBloc(
+          repo: sl<PartnerRepository>(),
+          sessionRepo: sl<SessionRepository>(),
+          goalRepo: sl<GoalRepository>(),
+        )),
       ],
       child: BlocBuilder<ThemeCubit, ThemeMode>(
         builder: (context, themeMode) {
