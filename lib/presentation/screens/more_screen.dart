@@ -16,6 +16,7 @@ class MoreScreen extends StatelessWidget {
           _tile(context, Icons.insights, 'Analytics', '/analytics'),
           _tile(context, Icons.emoji_events, 'Challenges', '/challenges'),
           _tile(context, Icons.people, 'Partners', '/partners'),
+          _tile(context, Icons.watch, 'Wearable', '/wearable'),
           const Divider(),
           _tile(context, Icons.settings, 'Settings', '/settings'),
         ],

@@ -57,6 +57,20 @@ class MainActivity : FlutterActivity() {
                     syncDataItem(PATH_DAILY_STATS, call.arguments as String)
                     result.success(null)
                 }
+                "getConnectedNodes" -> {
+                    Wearable.getNodeClient(this).connectedNodes
+                        .addOnSuccessListener { nodes ->
+                            val arr = org.json.JSONArray()
+                            for (node in nodes) {
+                                val obj = org.json.JSONObject()
+                                obj.put("id", node.id)
+                                obj.put("name", node.displayName)
+                                arr.put(obj)
+                            }
+                            result.success(arr.toString())
+                        }
+                        .addOnFailureListener { result.success("[]") }
+                }
                 else -> result.notImplemented()
             }
         }

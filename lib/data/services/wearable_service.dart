@@ -60,6 +60,17 @@ class WearableService {
     } on PlatformException catch (_) {}
   }
 
+  /// Get connected watch nodes
+  Future<List<Map<String, dynamic>>> getConnectedNodes() async {
+    try {
+      final result = await _channel.invokeMethod<String>('getConnectedNodes');
+      if (result != null && result.isNotEmpty) {
+        return (jsonDecode(result) as List).cast<Map<String, dynamic>>();
+      }
+    } on PlatformException catch (_) {}
+    return [];
+  }
+
   void dispose() {
     _timerStoppedController.close();
   }

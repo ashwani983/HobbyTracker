@@ -27,6 +27,7 @@ import '../screens/analytics_screen.dart';
 import '../screens/challenge_list_screen.dart';
 import '../screens/challenge_detail_screen.dart';
 import '../screens/partner_screen.dart';
+import '../screens/wearable_screen.dart';
 import '../widgets/app_shell.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -172,6 +173,10 @@ final appRouter = GoRouter(
         GoRoute(
           path: '/partners',
           builder: (context, state) => const PartnerScreen(),
+        ),
+        GoRoute(
+          path: '/wearable',
+          builder: (context, state) => const WearableScreen(),
         ),
       ],
     ),
