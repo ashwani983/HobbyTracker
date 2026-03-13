@@ -39,6 +39,20 @@ A Flutter app to track, manage, and visualize your hobbies. Built with Clean Arc
 - 🏠 **Dashboard Redesign** — Per-hobby stat cards replace recent sessions list
 - 🕐 **Session History** — History icon on hobbies list for quick access
 
+### v4.0.0
+- ⏱️ **Timer Modes** — Stopwatch, countdown, and Pomodoro with configurable work/break intervals
+- 🔗 **Deep Linking** — `hobbytracker://` URL scheme for dashboard, hobby, and timer
+- ♿ **Accessibility** — Semantic labels, large-text support, high-contrast mode
+- 🔁 **Routines** — Multi-hobby routines with drag-to-reorder, sequential timer, schedule (daily/weekly/custom)
+- 📅 **Calendar View** — Monthly calendar with session dots, day detail sheet, quick-log from any date
+- 🧭 **Navigation Hub** — Spotlight search, recent screens, pinned shortcuts
+- 📈 **Advanced Analytics** — Heatmap, trend lines, hobby correlations, exportable reports
+- 🎙️ **Audio Notes** — Record/play voice memos on sessions, waveform visualization
+- 🏆 **Community Challenges** — Create/join challenges, leaderboards, Firestore sync
+- 🤝 **Accountability Partners** — Invite via code, shared stats (streak/weekly/goals), 5-partner limit
+- ⌚ **Wearable Integration** — Wear OS companion app with hobby list, timer, daily stats, offline support
+- 📱 **Wearable Screen** — Connection status, feature overview, manual sync from phone
+
 ## Screenshots
 
 _Coming soon_
@@ -144,6 +158,7 @@ The app follows **Clean Architecture** with three layers:
 - **Notifications**: flutter_local_notifications
 - **Export**: csv, pdf, share_plus
 - **Widgets**: home_widget (Android home screen widgets)
+- **Wearable**: Wearable Data Layer API (Wear OS companion)
 - **i18n**: flutter_localizations, intl
 - **Testing**: flutter_test, bloc_test, mocktail, glados (property-based)
 

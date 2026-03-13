@@ -5,6 +5,36 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.0.0] - 2026-03-13
+
+### Added
+
+- **Timer Modes**: Stopwatch, countdown, and Pomodoro with configurable work/break intervals and auto-start next round
+- **Deep Linking**: `hobbytracker://` URL scheme — dashboard, hobby detail by name/UUID, timer with hobby pre-selected
+- **Accessibility**: Semantic labels on all interactive elements, large-text support, high-contrast mode toggle
+- **Routines**: Multi-hobby routines with drag-to-reorder, sequential timer that auto-advances, schedule (daily/weekly/custom days)
+- **Calendar View**: Monthly calendar with session dots per day, day detail bottom sheet, quick-log from any date
+- **Navigation Hub**: Spotlight search across hobbies/routines/goals, recent screens list, pinned shortcuts
+- **Advanced Analytics**: Activity heatmap, trend lines, hobby correlations, exportable analytics reports
+- **Audio Notes**: Record and play voice memos on sessions with waveform visualization
+- **Community Challenges**: Create/join challenges with duration and target, leaderboard with Firestore sync, share/leave/delete
+- **Accountability Partners**: Invite via 8-char code (48h expiry), bidirectional Firestore link, shared stats (streak/weekly minutes/goal completion), 5-partner limit
+- **Wearable Integration**: Wear OS companion app — hobby list, start/stop timer, daily stats (streak + minutes), offline timer storage
+- **Wearable Screen**: Phone-side UI showing watch connection status, feature overview, manual sync button
+
+### Changed
+
+- Database schema v5 (ChallengeTable) and v6 (PartnerTable) with migrations
+- Timer dropdown renamed to "Activity" with section headers for Hobbies and Challenges
+- Firestore rules expanded for challenges, partner_requests, shared_stats
+
+### Fixed
+
+- Firestore rules missing `allow delete` for challenges
+- Partner invite code popup persisting after navigation
+- Partner stats not publishing (streak/weekly/goal calculation from local data)
+- MethodChannel conflict between WearableScreen and WearableService singleton
+
 ## [3.0.0] - 2026-03-12
 
 ### Added
