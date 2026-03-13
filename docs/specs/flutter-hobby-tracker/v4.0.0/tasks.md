@@ -173,20 +173,20 @@ Builds on v1–v3 (Clean Architecture + BLoC + Drift). Adds routines, advanced t
 
 ## Sprint 5: Wearable Integration & Final
 
-- [ ] 19. Wearable Integration (Req 26)
-  - [ ] 19.1 Add `wear_plus` and `watch_connectivity` dependencies
-  - [ ] 19.2 Create Wear OS companion module with hobby list and timer UI
+- [x] 19. Wearable Integration (Req 26)
+  - [x] 19.1 Add `wear_plus` and `watch_connectivity` dependencies
+  - [x] 19.2 Create Wear OS companion module with hobby list and timer UI
     - _Requirements: 26.1, 26.2, 26.3_
-  - [ ] 19.3 Implement phone ↔ watch data sync layer
+  - [x] 19.3 Implement phone ↔ watch data sync layer
     - _Requirements: 26.2, 26.5_
-  - [ ] 19.4 Add complication/tile showing today's time and streak
+  - [x] 19.4 Add complication/tile showing today's time and streak
     - _Requirements: 26.4_
-  - [ ] 19.5 Implement offline watch storage with reconnect sync
+  - [x] 19.5 Implement offline watch storage with reconnect sync
     - _Requirements: 26.6_
-  - [ ] 19.6 Create watchOS companion with equivalent features
+  - [x] 19.6 Create watchOS companion with equivalent features
     - _Requirements: 26.7_
 
-- [ ] 20. Checkpoint — Wearable
+- [x] 20. Checkpoint — Wearable
 
 - [ ] 21. Final checkpoint — v4.0.0
   - [ ] 21.1 Run full test suite, fix regressions
