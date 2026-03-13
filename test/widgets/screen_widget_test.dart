@@ -10,7 +10,6 @@ import 'package:hobby_tracker/l10n/app_localizations.dart';
 import 'package:hobby_tracker/presentation/blocs/hobby_list/hobby_list_bloc.dart';
 import 'package:hobby_tracker/presentation/blocs/dashboard/dashboard_bloc.dart';
 import 'package:hobby_tracker/presentation/blocs/theme/theme_cubit.dart';
-import 'package:hobby_tracker/presentation/blocs/update/update_cubit.dart';
 import 'package:hobby_tracker/presentation/screens/hobbies_list_screen.dart';
 import 'package:hobby_tracker/presentation/screens/dashboard_screen.dart';
 
@@ -22,8 +21,6 @@ class MockDashboardBloc extends MockBloc<DashboardEvent, DashboardState>
     implements DashboardBloc {}
 
 class MockThemeCubit extends MockCubit<ThemeMode> implements ThemeCubit {}
-
-class MockUpdateCubit extends MockCubit<UpdateState> implements UpdateCubit {}
 
 void main() {
   final testHobby = Hobby(
@@ -110,15 +107,12 @@ void main() {
     late MockDashboardBloc dashBloc;
     late MockHobbyListBloc hobbyBloc;
     late MockThemeCubit themeCubit;
-    late MockUpdateCubit updateCubit;
 
     setUp(() {
       dashBloc = MockDashboardBloc();
       hobbyBloc = MockHobbyListBloc();
       themeCubit = MockThemeCubit();
-      updateCubit = MockUpdateCubit();
       when(() => themeCubit.state).thenReturn(ThemeMode.light);
-      when(() => updateCubit.state).thenReturn(UpdateInitial());
     });
 
     Widget buildSubject() => MaterialApp(
@@ -129,7 +123,6 @@ void main() {
               BlocProvider<DashboardBloc>.value(value: dashBloc),
               BlocProvider<HobbyListBloc>.value(value: hobbyBloc),
               BlocProvider<ThemeCubit>.value(value: themeCubit),
-              BlocProvider<UpdateCubit>.value(value: updateCubit),
             ],
             child: const DashboardScreen(),
           ),

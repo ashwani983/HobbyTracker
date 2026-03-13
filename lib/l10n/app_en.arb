@@ -142,12 +142,6 @@
   "signOut": "Sign Out",
   "user": "User",
   "termsAndConditions": "Terms & Conditions",
-  "checkForUpdates": "Check for Updates",
-  "checking": "Checking...",
-  "updateAvailable": "Update {version} available",
-  "@updateAvailable": { "placeholders": { "version": { "type": "String" } } },
-  "versionAvailable": "{version} available",
-  "@versionAvailable": { "placeholders": { "version": { "type": "String" } } },
 
   "badgeUnlocked": "{emoji} Badge Unlocked!",
   "@badgeUnlocked": { "placeholders": { "emoji": { "type": "String" } } },

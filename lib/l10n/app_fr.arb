@@ -128,10 +128,6 @@
   "signOut": "Se Déconnecter",
   "user": "Utilisateur",
   "termsAndConditions": "Conditions Générales",
-  "checkForUpdates": "Vérifier les Mises à Jour",
-  "checking": "Vérification...",
-  "updateAvailable": "Mise à jour {version} disponible",
-  "versionAvailable": "{version} disponible",
 
   "badgeUnlocked": "{emoji} Badge Débloqué !",
   "youEarnedBadge": "Vous avez gagné \"{title}\" !",

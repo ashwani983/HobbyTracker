@@ -384,22 +384,6 @@ class AppLocalizationsJa extends AppLocalizations {
   String get termsAndConditions => '利用規約';
 
   @override
-  String get checkForUpdates => 'アップデートを確認';
-
-  @override
-  String get checking => '確認中...';
-
-  @override
-  String updateAvailable(String version) {
-    return 'アップデート $version が利用可能';
-  }
-
-  @override
-  String versionAvailable(String version) {
-    return '$version が利用可能';
-  }
-
-  @override
   String badgeUnlocked(String emoji) {
     return '$emoji バッジ解除！';
   }

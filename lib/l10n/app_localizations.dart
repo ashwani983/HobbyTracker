@@ -796,30 +796,6 @@ abstract class AppLocalizations {
   /// **'Terms & Conditions'**
   String get termsAndConditions;
 
-  /// No description provided for @checkForUpdates.
-  ///
-  /// In en, this message translates to:
-  /// **'Check for Updates'**
-  String get checkForUpdates;
-
-  /// No description provided for @checking.
-  ///
-  /// In en, this message translates to:
-  /// **'Checking...'**
-  String get checking;
-
-  /// No description provided for @updateAvailable.
-  ///
-  /// In en, this message translates to:
-  /// **'Update {version} available'**
-  String updateAvailable(String version);
-
-  /// No description provided for @versionAvailable.
-  ///
-  /// In en, this message translates to:
-  /// **'{version} available'**
-  String versionAvailable(String version);
-
   /// No description provided for @badgeUnlocked.
   ///
   /// In en, this message translates to:

@@ -128,10 +128,6 @@
   "signOut": "サインアウト",
   "user": "ユーザー",
   "termsAndConditions": "利用規約",
-  "checkForUpdates": "アップデートを確認",
-  "checking": "確認中...",
-  "updateAvailable": "アップデート {version} が利用可能",
-  "versionAvailable": "{version} が利用可能",
 
   "badgeUnlocked": "{emoji} バッジ解除！",
   "youEarnedBadge": "「{title}」を獲得しました！",

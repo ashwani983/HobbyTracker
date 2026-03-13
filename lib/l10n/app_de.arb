@@ -128,10 +128,6 @@
   "signOut": "Abmelden",
   "user": "Benutzer",
   "termsAndConditions": "Nutzungsbedingungen",
-  "checkForUpdates": "Nach Updates suchen",
-  "checking": "Prüfe...",
-  "updateAvailable": "Update {version} verfügbar",
-  "versionAvailable": "{version} verfügbar",
 
   "badgeUnlocked": "{emoji} Abzeichen Freigeschaltet!",
   "youEarnedBadge": "Du hast \"{title}\" verdient!",

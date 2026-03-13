@@ -385,22 +385,6 @@ class AppLocalizationsHi extends AppLocalizations {
   String get termsAndConditions => 'नियम और शर्तें';
 
   @override
-  String get checkForUpdates => 'अपडेट की जांच करें';
-
-  @override
-  String get checking => 'जांच हो रही है...';
-
-  @override
-  String updateAvailable(String version) {
-    return 'अपडेट $version उपलब्ध';
-  }
-
-  @override
-  String versionAvailable(String version) {
-    return '$version उपलब्ध';
-  }
-
-  @override
   String badgeUnlocked(String emoji) {
     return '$emoji बैज अनलॉक!';
   }

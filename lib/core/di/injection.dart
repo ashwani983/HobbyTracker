@@ -40,7 +40,6 @@ import '../../presentation/blocs/theme/high_contrast_cubit.dart';
 import '../../presentation/blocs/locale/locale_cubit.dart';
 import '../../presentation/blocs/auth/auth_bloc.dart';
 import '../../presentation/blocs/sync/sync_bloc.dart';
-import '../../presentation/blocs/update/update_cubit.dart';
 import '../../domain/repositories/routine_repository.dart';
 import '../../data/repositories/routine_repository_impl.dart';
 import '../../domain/repositories/calendar_repository.dart';
@@ -110,6 +109,5 @@ Future<void> configureDependencies() async {
         fromCloud: sl(),
         prefs: sl(),
       ));
-  sl.registerFactory(() => UpdateCubit(sl()));
   sl.registerFactory(() => AnalyticsService(sl(), sl(), sl(), sl()));
 }

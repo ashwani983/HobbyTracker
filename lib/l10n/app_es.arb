@@ -128,10 +128,6 @@
   "signOut": "Cerrar Sesión",
   "user": "Usuario",
   "termsAndConditions": "Términos y Condiciones",
-  "checkForUpdates": "Buscar Actualizaciones",
-  "checking": "Verificando...",
-  "updateAvailable": "Actualización {version} disponible",
-  "versionAvailable": "{version} disponible",
 
   "badgeUnlocked": "¡{emoji} Insignia Desbloqueada!",
   "youEarnedBadge": "¡Ganaste \"{title}\"!",

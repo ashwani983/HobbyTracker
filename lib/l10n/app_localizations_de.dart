@@ -388,22 +388,6 @@ class AppLocalizationsDe extends AppLocalizations {
   String get termsAndConditions => 'Nutzungsbedingungen';
 
   @override
-  String get checkForUpdates => 'Nach Updates suchen';
-
-  @override
-  String get checking => 'Prüfe...';
-
-  @override
-  String updateAvailable(String version) {
-    return 'Update $version verfügbar';
-  }
-
-  @override
-  String versionAvailable(String version) {
-    return '$version verfügbar';
-  }
-
-  @override
   String badgeUnlocked(String emoji) {
     return '$emoji Abzeichen Freigeschaltet!';
   }

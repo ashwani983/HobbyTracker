@@ -386,22 +386,6 @@ class AppLocalizationsEs extends AppLocalizations {
   String get termsAndConditions => 'Términos y Condiciones';
 
   @override
-  String get checkForUpdates => 'Buscar Actualizaciones';
-
-  @override
-  String get checking => 'Verificando...';
-
-  @override
-  String updateAvailable(String version) {
-    return 'Actualización $version disponible';
-  }
-
-  @override
-  String versionAvailable(String version) {
-    return '$version disponible';
-  }
-
-  @override
   String badgeUnlocked(String emoji) {
     return '¡$emoji Insignia Desbloqueada!';
   }

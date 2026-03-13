@@ -128,10 +128,6 @@
   "signOut": "साइन आउट",
   "user": "उपयोगकर्ता",
   "termsAndConditions": "नियम और शर्तें",
-  "checkForUpdates": "अपडेट की जांच करें",
-  "checking": "जांच हो रही है...",
-  "updateAvailable": "अपडेट {version} उपलब्ध",
-  "versionAvailable": "{version} उपलब्ध",
 
   "badgeUnlocked": "{emoji} बैज अनलॉक!",
   "youEarnedBadge": "आपने \"{title}\" अर्जित किया!",
