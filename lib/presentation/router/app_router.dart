@@ -26,6 +26,7 @@ import '../screens/more_screen.dart';
 import '../screens/analytics_screen.dart';
 import '../screens/challenge_list_screen.dart';
 import '../screens/challenge_detail_screen.dart';
+import '../screens/partner_screen.dart';
 import '../widgets/app_shell.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -167,6 +168,10 @@ final appRouter = GoRouter(
           builder: (context, state) => ChallengeDetailScreen(
             challengeId: state.pathParameters['id']!,
           ),
+        ),
+        GoRoute(
+          path: '/partners',
+          builder: (context, state) => const PartnerScreen(),
         ),
       ],
     ),

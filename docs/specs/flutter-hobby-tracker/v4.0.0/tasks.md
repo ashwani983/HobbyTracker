@@ -136,40 +136,40 @@ Builds on v1–v3 (Clean Architecture + BLoC + Drift). Adds routines, advanced t
 
 ## Sprint 4: Community Features
 
-- [ ] 15. Community Challenges (Req 24)
-  - [ ] 15.1 Add `Challenges` Drift table, run `build_runner`
-  - [ ] 15.2 Create `Challenge` entity and `ChallengeRepository` (local + Firestore)
-  - [ ] 15.3 Implement `CreateChallenge`, `JoinChallenge`, `GetLeaderboard` use cases
+- [x] 15. Community Challenges (Req 24)
+  - [x] 15.1 Add `Challenges` Drift table, run `build_runner`
+  - [x] 15.2 Create `Challenge` entity and `ChallengeRepository` (local + Firestore)
+  - [x] 15.3 Implement `CreateChallenge`, `JoinChallenge`, `GetLeaderboard` use cases
     - _Requirements: 24.1, 24.2, 24.3, 24.4_
-  - [ ] 15.4 Create `ChallengeBloc` with real-time Firestore leaderboard listener
+  - [x] 15.4 Create `ChallengeBloc` with real-time Firestore leaderboard listener
     - _Requirements: 24.6_
-  - [ ] 15.5 Build `ChallengeListScreen` (browse, create, enter invite code)
+  - [x] 15.5 Build `ChallengeListScreen` (browse, create, enter invite code)
     - _Requirements: 24.1, 24.3_
-  - [ ] 15.6 Build `ChallengeDetailScreen` (leaderboard, progress, leave)
+  - [x] 15.6 Build `ChallengeDetailScreen` (leaderboard, progress, leave)
     - _Requirements: 24.4, 24.5, 24.8_
-  - [ ] 15.7 Award special badge to top 3 when challenge ends
+  - [x] 15.7 Award special badge to top 3 when challenge ends
     - _Requirements: 24.5_
-  - [ ] 15.8 Require cloud sync for participation
+  - [x] 15.8 Require cloud sync for participation
     - _Requirements: 24.7_
-  - [ ] 15.9 Add `/challenges` and `/challenges/:id` routes
+  - [x] 15.9 Add `/challenges` and `/challenges/:id` routes
 
-- [ ] 16. Checkpoint — Challenges
+- [x] 16. Checkpoint — Challenges
 
-- [ ] 17. Accountability Partners (Req 25)
-  - [ ] 17.1 Add `Partners` Drift table, run `build_runner`
-  - [ ] 17.2 Create `Partner` entity and `PartnerRepository` (Firestore-backed)
-  - [ ] 17.3 Implement `SendPartnerRequest`, `AcceptPartner`, `GetPartnerStats`, `RemovePartner` use cases
+- [x] 17. Accountability Partners (Req 25)
+  - [x] 17.1 Add `Partners` Drift table, run `build_runner`
+  - [x] 17.2 Create `Partner` entity and `PartnerRepository` (Firestore-backed)
+  - [x] 17.3 Implement `SendPartnerRequest`, `AcceptPartner`, `GetPartnerStats`, `RemovePartner` use cases
     - _Requirements: 25.1, 25.2, 25.3, 25.6_
-  - [ ] 17.4 Create `PartnerBloc`
-  - [ ] 17.5 Build `PartnerScreen` (invite, accept, view stats, remove)
+  - [x] 17.4 Create `PartnerBloc`
+  - [x] 17.5 Build `PartnerScreen` (invite, accept, view stats, remove)
     - _Requirements: 25.1, 25.2, 25.7_
-  - [ ] 17.6 Add partner card to dashboard showing partner stats
+  - [x] 17.6 Add partner card to dashboard showing partner stats
     - _Requirements: 25.3, 25.4_
-  - [ ] 17.7 Send notification when partner breaks 7+ day streak
+  - [x] 17.7 Send notification when partner breaks 7+ day streak
     - _Requirements: 25.5_
-  - [ ] 17.8 Add `/partners` route
+  - [x] 17.8 Add `/partners` route
 
-- [ ] 18. Checkpoint — Partners
+- [x] 18. Checkpoint — Partners
 
 ## Sprint 5: Wearable Integration & Final
 

@@ -33,7 +33,9 @@ import 'presentation/blocs/routine/routine_bloc.dart';
 import 'presentation/blocs/calendar/calendar_bloc.dart';
 import 'presentation/blocs/analytics/analytics_bloc.dart';
 import 'presentation/blocs/challenge/challenge_bloc.dart';
+import 'presentation/blocs/partner/partner_bloc.dart';
 import 'domain/repositories/challenge_repository.dart';
+import 'domain/repositories/partner_repository.dart';
 import 'domain/usecases/analytics_service.dart';
 import 'domain/repositories/routine_repository.dart';
 import 'domain/usecases/log_session.dart' as log_session_uc;
@@ -92,6 +94,7 @@ class App extends StatelessWidget {
         BlocProvider(create: (_) => CalendarBloc(sl<SessionRepository>())),
         BlocProvider(create: (_) => AnalyticsBloc(sl<AnalyticsService>())),
         BlocProvider(create: (_) => ChallengeBloc(sl<ChallengeRepository>(), sl<SharedPreferences>())..add(LoadChallenges())),
+        BlocProvider(create: (_) => PartnerBloc(repo: sl<PartnerRepository>())),
       ],
       child: BlocBuilder<ThemeCubit, ThemeMode>(
         builder: (context, themeMode) {

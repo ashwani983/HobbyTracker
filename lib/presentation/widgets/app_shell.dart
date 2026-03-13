@@ -46,6 +46,7 @@ class _AppShellState extends State<AppShell> {
         location.startsWith('/stats') ||
         location.startsWith('/analytics') ||
         location.startsWith('/challenges') ||
+        location.startsWith('/partners') ||
         location.startsWith('/settings') ||
         location.startsWith('/badges') ||
         location.startsWith('/export') ||

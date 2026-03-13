@@ -120,14 +120,25 @@ class ChallengeTable extends Table {
   Set<Column> get primaryKey => {id};
 }
 
+class PartnerTable extends Table {
+  TextColumn get id => text()();
+  TextColumn get partnerUid => text()();
+  TextColumn get partnerDisplayName => text()();
+  DateTimeColumn get linkedAt => dateTime()();
+  BoolColumn get isActive => boolean().withDefault(const Constant(true))();
+
+  @override
+  Set<Column> get primaryKey => {id};
+}
+
 @DriftDatabase(
-    tables: [HobbyTable, SessionTable, GoalTable, UserBadgeTable, ReminderTable, RoutineTable, RoutineScheduleTable, AudioNoteTable, ChallengeTable])
+    tables: [HobbyTable, SessionTable, GoalTable, UserBadgeTable, ReminderTable, RoutineTable, RoutineScheduleTable, AudioNoteTable, ChallengeTable, PartnerTable])
 class AppDatabase extends _$AppDatabase {
   AppDatabase() : super(_openConnection());
   AppDatabase.forTesting(super.e);
 
   @override
-  int get schemaVersion => 5;
+  int get schemaVersion => 6;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -152,6 +163,9 @@ class AppDatabase extends _$AppDatabase {
           }
           if (from < 5) {
             await m.createTable(challengeTable);
+          }
+          if (from < 6) {
+            await m.createTable(partnerTable);
           }
         },
       );
@@ -343,6 +357,20 @@ class AppDatabase extends _$AppDatabase {
 
   Future<void> deleteChallenge(String id) =>
       (delete(challengeTable)..where((t) => t.id.equals(id))).go();
+
+  // -- Partner queries --
+
+  Future<List<PartnerTableData>> getActivePartners() =>
+      (select(partnerTable)..where((t) => t.isActive.equals(true))).get();
+
+  Future<PartnerTableData?> getPartnerByUid(String uid) =>
+      (select(partnerTable)..where((t) => t.partnerUid.equals(uid))).getSingleOrNull();
+
+  Future<void> insertPartner(PartnerTableCompanion p, {InsertMode mode = InsertMode.insert}) =>
+      into(partnerTable).insert(p, mode: mode);
+
+  Future<void> deletePartner(String id) =>
+      (delete(partnerTable)..where((t) => t.id.equals(id))).go();
 }
 
 LazyDatabase _openConnection() {
