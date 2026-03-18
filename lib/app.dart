@@ -22,7 +22,6 @@ import 'presentation/blocs/hobby_list/hobby_list_bloc.dart';
 import 'presentation/blocs/stats/stats_bloc.dart';
 import 'presentation/blocs/sync/sync_bloc.dart';
 import 'presentation/blocs/theme/theme_cubit.dart';
-import 'presentation/blocs/update/update_cubit.dart';
 import 'presentation/blocs/timer/timer_cubit.dart';
 import 'presentation/router/app_router.dart';
 
@@ -71,7 +70,6 @@ class App extends StatelessWidget {
         ),
         BlocProvider(create: (_) => sl<AuthBloc>()..add(CheckAuth())),
         BlocProvider(create: (_) => sl<SyncBloc>()..add(LoadSyncPref())),
-        BlocProvider(create: (_) => sl<UpdateCubit>()..check()),
       ],
       child: BlocBuilder<ThemeCubit, ThemeMode>(
         builder: (context, themeMode) {
