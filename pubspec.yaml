@@ -1,7 +1,7 @@
 name: hobby_tracker
 description: "A Flutter app to track, manage, and visualize hobbies."
 publish_to: 'none'
-version: 2.0.0+2
+version: 3.0.0+3
 
 environment:
   sdk: ^3.11.1
@@ -60,10 +60,7 @@ dependencies:
   cloud_firestore: ^5.6.1
   google_sign_in: ^6.2.2
 
-  # Update checker
-  http: ^1.2.0
   package_info_plus: ^8.0.0
-  url_launcher: ^6.2.0
 
   # Home Screen Widget
   home_widget: ^0.9.0
